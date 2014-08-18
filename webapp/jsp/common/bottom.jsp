@@ -1,0 +1,1 @@
+<%@ page contentType="text/html;charset=UTF-8" %><%@ page import="cn.xdf.common.Property" %><div class="floor">本产品由 <%=Property.COMP_NAME%> 提供</div>

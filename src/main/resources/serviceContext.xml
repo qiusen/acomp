@@ -1,61 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
-	<bean id="tableService" class="cn.xdf.service.impl.TableServiceImpl" />
-
-	<bean id="columnService" class="cn.xdf.service.impl.ColumnServiceImpl" />
-
-	<!-- 日志 service -->
-	<bean id="logsService" class="cn.xdf.service.impl.LogsServiceImpl" />
-
-	<!-- 字典 service -->
-	<bean id="dictService" class="cn.xdf.service.impl.DictServiceImpl" />
-
-	<!-- 省 service -->
-	<bean id="provinceService" class="cn.xdf.service.impl.ProvinceServiceImpl" />
-
-	<!-- 市 service -->
-	<bean id="cityService" class="cn.xdf.service.impl.CityServiceImpl" />
-
-	<!-- 区 service -->
-	<bean id="areaService" class="cn.xdf.service.impl.AreaServiceImpl" />
-
-	<!-- 磁盘文件 service -->
-	<bean id="diskFileService" class="cn.xdf.service.impl.DiskFileServiceImpl" />
-
-	<!-- 资源 service -->
-	<bean id="resourcesService" class="cn.xdf.service.impl.ResourcesServiceImpl" />
-
-	<!-- 资源动作 service -->
-	<bean id="resourceActionService" class="cn.xdf.service.impl.ResourceActionServiceImpl" />
-
-	<!-- 块管理 service -->
-	<bean id="blocksService" class="cn.xdf.service.impl.BlocksServiceImpl" />
-
-	<!-- 模板管理 service -->
-	<bean id="templatesService" class="cn.xdf.service.impl.TemplatesServiceImpl" />
-
-	<!-- 栏目管理 service -->
-	<bean id="catalogsService" class="cn.xdf.service.impl.CatalogsServiceImpl" />
-
-	<!-- 角色 service -->
-	<bean id="rolesService" class="cn.xdf.service.impl.RolesServiceImpl" />
-
-	<!-- 角色资源 service -->
-	<bean id="roleResourceService" class="cn.xdf.service.impl.RoleResourceServiceImpl" />
-
-	<!-- 管理员 service -->
-	<bean id="managersService" class="cn.xdf.service.impl.ManagersServiceImpl" />
-
-	<!-- 模板标签 service -->
-	<bean id="templateMarkService" class="cn.xdf.service.impl.TemplateMarkServiceImpl" />
-
-	<!-- 乐语管理 service -->
-	<bean id="leyuService" class="cn.xdf.service.impl.LeyuServiceImpl" />
-
-	<!-- 栏目管理员关联 service -->
-	<bean id="managerCatalogService" class="cn.xdf.service.impl.ManagerCatalogServiceImpl" />
-
-	<!-- pc文章 service -->
-	<bean id="articleService" class="cn.xdf.service.impl.ArticleServiceImpl" />
+	<!-- 管理员 service -->	
+	<bean id="managerService" class="com.dihaitech.acomp.service.impl.ManagerServiceImpl"/>
+	
 </beans>
