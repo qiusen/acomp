@@ -1,4 +1,4 @@
-package com.dihaitech.acomp.base.util;
+package com.dihaitech.acomp.util;
 
 import java.nio.charset.Charset;
 import java.security.SecureRandom;

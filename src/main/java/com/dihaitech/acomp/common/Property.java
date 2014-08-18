@@ -1,4 +1,4 @@
-package com.dihaitech.acomp.base.common;
+package com.dihaitech.acomp.common;
 
 /**
  * 系统公用属性类，属性对应product.properties中系统部分的属性

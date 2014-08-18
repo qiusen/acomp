@@ -1,4 +1,4 @@
-package com.dihaitech.acomp.base.util;
+package com.dihaitech.acomp.util;
 
 /**
  * 分页工具类

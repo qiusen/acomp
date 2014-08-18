@@ -1,4 +1,4 @@
-package com.dihaitech.acomp.base.util;
+package com.dihaitech.acomp.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

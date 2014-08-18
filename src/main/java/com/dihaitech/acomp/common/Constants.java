@@ -1,4 +1,4 @@
-package com.dihaitech.acomp.base.common;
+package com.dihaitech.acomp.common;
 
 
 /**
