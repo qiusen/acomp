@@ -4,13 +4,6 @@
 	<package name="struts-interceptor" extends="struts-default">
 		<!-- 把所有的拦截器写在一起 -->
 		<interceptors>
-			<interceptor name="permission"
-				class="cn.xdf.controller.interceptor.PermissionInterceptor" />
-			<!-- 带权限的拦截器 -->
-			<interceptor-stack name="cms-admin">
-				<interceptor-ref name="permission" />
-				<interceptor-ref name="basicStack" />
-			</interceptor-stack>
 			<!-- 参数的拦截器堆栈 -->
 			<interceptor-stack name="common-params">
 				<interceptor-ref name="basicStack" />

@@ -49,7 +49,7 @@
 				<param name="namespace">/admin/manager</param>
 			</result>
 			
-			<interceptor-ref name="cms-admin"/>
+			<interceptor-ref name="common-params"/>
         </action>
     </package> 
     <!-- 管理员Action End -->

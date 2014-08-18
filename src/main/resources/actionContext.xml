@@ -3,13 +3,17 @@
 <beans default-autowire="byName">
 
 	<!-- 登录登出的Action -->
+	<!-- 
 	<bean id="login" class="cn.xdf.controller.action.common.LoginAction"
 		scope="prototype">
 	</bean>
+	 -->
 	<!-- 用户个人信息Action -->
+	<!-- 
 	<bean id="userInfo" class="cn.xdf.controller.action.common.UserAction"
 		scope="prototype">
 	</bean>
+	 -->
 
 
 	  <!-- 管理员 action -->
