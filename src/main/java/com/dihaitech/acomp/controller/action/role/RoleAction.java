@@ -1,0 +1,164 @@
+package com.dihaitech.acomp.controller.action.role;
+
+import java.util.List;
+
+import com.dihaitech.acomp.common.Property;
+import com.dihaitech.acomp.controller.action.BaseAction;
+import com.dihaitech.acomp.model.Role;
+import com.dihaitech.acomp.service.IRoleService;
+import com.dihaitech.acomp.util.Page;
+import com.dihaitech.acomp.util.TypeUtil;
+import com.dihaitech.acomp.util.json.JSONUtil;
+
+/**
+ * 角色Action
+ * 
+ * @author cg
+ *
+ * @date 2014-08-18
+ */
+ @SuppressWarnings("serial")
+public class RoleAction extends BaseAction {
+	private Role role = new Role();
+	private IRoleService roleService;
+	
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	public IRoleService getRoleService() {
+		return roleService;
+	}
+
+	public void setRoleService(IRoleService roleService) {
+		this.roleService = roleService;
+	}
+	/* 
+	 * 角色查询
+	 * @see com.opensymphony.xwork2.ActionSupport#execute()
+	 */
+	public String execute(){
+		try {
+			String pageSizeStr = this.getRequest().getParameter("pageSize");
+			String pageNoStr = this.getRequest().getParameter("pageNo");
+			int pageSize = 0;
+			int pageNo = 0;
+			
+			pageSize = TypeUtil.stringToInt(pageSizeStr);
+			if (pageSize <= 0) {
+				pageSize = Property.PAGESIZE;
+			}
+
+			pageNo = TypeUtil.stringToInt(pageNoStr);
+			if (pageSize > 0) {
+				this.setManagerPageSize(pageSize);
+			}else{
+				this.setManagerPageSize(Property.PAGESIZE);
+			}
+
+			Page pageInfo = roleService.selectRole(role,this.getManagerPageSize());
+			
+			if (pageNo > 0) {
+				pageInfo.setPage(pageNo);
+			} else {
+				pageInfo.setPage(0);
+			}
+			
+			List<Role> resultList = this.roleService.selectRole(role,pageInfo);
+			
+			this.getRequest().setAttribute("pageInfo", pageInfo);
+			this.getRequest().setAttribute("resultList", resultList);
+			this.getRequest().setAttribute("actionName","roleAction");
+
+			String json = "\"Rows\":" + JSONUtil.objectArrayToJson(resultList)+", \"Total\":" + pageInfo.getResultCount();
+			System.out.println("Role json:::::::::::::::::::" + json);
+			this.getRequest().setAttribute("json", json);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 添加 角色
+	 * @return
+	 */
+	public String add(){
+		return "add";
+	}
+	
+	/**
+	 * 保存添加 角色
+	 * @return
+	 */
+	public String addSave(){
+		roleService.addSave(role);
+		return "addSave";
+	}
+	
+	/**
+	 * 修改 角色
+	 * @return
+	 */
+	public String edit(){
+		String idStr = this.getRequest().getParameter("id");
+		int id = 0;
+		id = TypeUtil.stringToInt(idStr);
+		if(id>0){
+			role.setId(id);
+		}else{
+			return null;
+		}
+		
+		Role roleVO = roleService.selectRoleById(role);
+		this.getRequest().setAttribute("role", roleVO);
+		return "edit";
+	}
+	
+	/**
+	 * 保存修改 角色
+	 * @return
+	 */
+	public String editSave(){
+		roleService.editSave(role);
+		return "editSave";
+	}
+	
+	/**
+	 * 删除 角色
+	 * @return
+	 */
+	public String delete(){
+		String id = this.getRequest().getParameter("id");
+		StringBuffer strbuf = new StringBuffer(" where id =");
+		strbuf.append(id);
+		roleService.deleteByIds(strbuf.toString());
+		return "deleteSuccess";
+	}
+
+	/**
+	 * 删除 角色
+	 * @return
+	 */
+	public String deleteByIds(){
+		String[] ids = this.getRequest().getParameterValues("id");
+		StringBuffer strbuf = new StringBuffer(" where id in(");
+		if (ids != null && ids.length > 0) {
+			for (int i = 0; i < ids.length; i++) {
+				if (i != 0) {
+					strbuf.append("," + ids[i]);
+				} else {
+					strbuf.append(ids[i]);
+				}
+			}
+			strbuf.append(")");
+			roleService.deleteByIds(strbuf.toString());
+			return "deleteSuccess";
+		}
+		return "deleteFailure";
+	}
+}

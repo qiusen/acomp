@@ -37,7 +37,7 @@ public abstract class BaseModel implements Serializable {
 	/**
 	 * ID拼凑的字符串 1,2,3,4,5 有时会加 where id in ()等
 	 */
-	private String ids;
+	private String idStr;
 
 	/**
 	 * 排序方式：desc asc
@@ -96,12 +96,14 @@ public abstract class BaseModel implements Serializable {
 		this.count = count;
 	}
 
-	public String getIds() {
-		return ids;
+	
+
+	public String getIdStr() {
+		return idStr;
 	}
 
-	public void setIds(String ids) {
-		this.ids = ids;
+	public void setIdStr(String idStr) {
+		this.idStr = idStr;
 	}
 
 	public String getOrderType() {

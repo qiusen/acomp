@@ -68,4 +68,32 @@ public interface IManagerDAO {
 	 * @return
 	 */
 	public List<Manager> selectAll();
+	
+	/**
+	 * 登录
+	 * @param manager
+	 * @return
+	 */
+	public Manager login(Manager manager);
+	
+	/**
+	 * 根据ID 修改登录时间和IP
+	 * @param manager
+	 * @return
+	 */
+	public int editSaveManagerById(Manager manager);
+	
+	/**
+	 * 修改个人信息
+	 * @param manager
+	 * @return
+	 */
+	public int editSaveUser(Manager manager);
+	
+	/**
+	 * 修改密码
+	 * @param manager
+	 * @return
+	 */
+	public int editSavePassword(Manager manager);
 }

@@ -3,23 +3,49 @@
 <beans default-autowire="byName">
 
 	<!-- 登录登出的Action -->
-	<!-- 
-	<bean id="login" class="cn.xdf.controller.action.common.LoginAction"
+	<bean id="login" class="com.dihaitech.acomp.controller.action.common.LoginAction"
 		scope="prototype">
 	</bean>
-	 -->
+	
 	<!-- 用户个人信息Action -->
-	<!-- 
-	<bean id="userInfo" class="cn.xdf.controller.action.common.UserAction"
+	<bean id="userInfo" class="com.dihaitech.acomp.controller.action.common.UserAction"
 		scope="prototype">
 	</bean>
-	 -->
+
 
 
 	  <!-- 管理员 action -->
 	  <bean id="managerAction" class="com.dihaitech.acomp.controller.action.manager.ManagerAction" scope="prototype">
 			<property name="managerService">
 				<ref bean="managerService" />
+			</property>
+	  </bean>
+	  
+	  <!-- 角色 action -->
+	  <bean id="roleAction" class="com.dihaitech.acomp.controller.action.role.RoleAction" scope="prototype">
+			<property name="roleService">
+				<ref bean="roleService" />
+			</property>
+	  </bean>
+	  
+	  <!-- 菜单 action -->
+	  <bean id="menuAction" class="com.dihaitech.acomp.controller.action.menu.MenuAction" scope="prototype">
+			<property name="menuService">
+				<ref bean="menuService" />
+			</property>
+	  </bean>
+	  
+	  <!-- 目录 action -->
+	  <bean id="catalogAction" class="com.dihaitech.acomp.controller.action.catalog.CatalogAction" scope="prototype">
+			<property name="catalogService">
+				<ref bean="catalogService" />
+			</property>
+	  </bean>
+	  
+	  <!-- 模块 action -->
+	  <bean id="moduleAction" class="com.dihaitech.acomp.controller.action.module.ModuleAction" scope="prototype">
+			<property name="moduleService">
+				<ref bean="moduleService" />
 			</property>
 	  </bean>
 

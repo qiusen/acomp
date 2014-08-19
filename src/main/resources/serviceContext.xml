@@ -4,4 +4,16 @@
 	<!-- 管理员 service -->	
 	<bean id="managerService" class="com.dihaitech.acomp.service.impl.ManagerServiceImpl"/>
 	
+	<!-- 角色 service -->	
+	<bean id="roleService" class="com.dihaitech.acomp.service.impl.RoleServiceImpl"/>
+	
+	<!-- 菜单 service -->	
+	  <bean id="menuService" class="com.dihaitech.acomp.service.impl.MenuServiceImpl"/>
+	
+	<!-- 目录 service -->	
+	  <bean id="catalogService" class="com.dihaitech.acomp.service.impl.CatalogServiceImpl"/>
+	
+	<!-- 模块 service -->	
+	  <bean id="moduleService" class="com.dihaitech.acomp.service.impl.ModuleServiceImpl"/>
+	
 </beans>

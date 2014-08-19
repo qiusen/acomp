@@ -1,0 +1,270 @@
+package com.dihaitech.acomp.controller.action.common;
+
+import java.io.PrintWriter;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.MDC;
+
+import com.dihaitech.acomp.controller.action.BaseAction;
+import com.dihaitech.acomp.model.Catalog;
+import com.dihaitech.acomp.model.Manager;
+import com.dihaitech.acomp.model.Menu;
+import com.dihaitech.acomp.model.Module;
+import com.dihaitech.acomp.model.Role;
+import com.dihaitech.acomp.service.ICatalogService;
+import com.dihaitech.acomp.service.IManagerService;
+import com.dihaitech.acomp.service.IMenuService;
+import com.dihaitech.acomp.service.IModuleService;
+import com.dihaitech.acomp.service.IRoleService;
+import com.dihaitech.acomp.util.MD5Util;
+
+/**
+ * 登录Action
+ * 
+ * @author qiusen
+ *
+ * 2012-2-8 下午04:26:17
+ */
+public class LoginAction extends BaseAction {
+	
+	private static final Log logger = LogFactory.getLog(LoginAction.class);
+
+	private static final long serialVersionUID = 3243281533706763908L;
+	
+	private IManagerService managerService;
+	
+	private IRoleService roleService;
+	
+	private IModuleService moduleService;
+	
+	private ICatalogService catalogService;
+	
+	private IMenuService menuService;
+	
+	public IManagerService getManagerService() {
+		return managerService;
+	}
+
+	public void setManagerService(IManagerService managerService) {
+		this.managerService = managerService;
+	}
+
+
+	public IRoleService getRoleService() {
+		return roleService;
+	}
+
+	public void setRoleService(IRoleService roleService) {
+		this.roleService = roleService;
+	}
+
+	public IModuleService getModuleService() {
+		return moduleService;
+	}
+
+	public void setModuleService(IModuleService moduleService) {
+		this.moduleService = moduleService;
+	}
+
+	public ICatalogService getCatalogService() {
+		return catalogService;
+	}
+
+	public void setCatalogService(ICatalogService catalogService) {
+		this.catalogService = catalogService;
+	}
+
+	public IMenuService getMenuService() {
+		return menuService;
+	}
+
+	public void setMenuService(IMenuService menuService) {
+		this.menuService = menuService;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.opensymphony.xwork2.ActionSupport#execute()
+	 */
+	public String execute(){
+		String username = this.getRequest().getParameter("username");
+		String password = this.getRequest().getParameter("password");
+		String checkCode = this.getRequest().getParameter("checkCode");
+		
+		String sessionCheckCode = (String)this.getSession().getAttribute("checkCode");
+		System.out.println("username:" + username +"===========password:" + password);
+		System.out.println("checkCode:" + checkCode +"===========sessionCheckCode:" + sessionCheckCode);
+		if(checkCode!=null && checkCode.equalsIgnoreCase(sessionCheckCode)){
+			Manager manager = new Manager();
+			manager.setUsername(username);
+			manager.setPassword(MD5Util.stringToMD5(password));
+			Manager managerVO = managerService.login(manager);
+			if(managerVO!=null){
+				//若帐号被冻结  登录失败
+				if(managerVO.getStatus()==0){
+					this.getRequest().setAttribute("errorStr", "您的帐号存在问题（已失效），请联系管理员！！！");
+					return "login";
+				}
+				//记录最后登录的时间和IP
+				managerVO.setLogintime(new Date());
+				managerVO.setLoginip(getRealIP());
+				managerService.editSaveManager(managerVO);
+				
+				//设置权限
+				Role role = new Role();
+				role.setId(managerVO.getRoleId());
+				Role roleVO = roleService.selectRoleById(role);
+				
+				this.getSession().setAttribute("role", roleVO);	//角色信息存入SESSION
+				
+				String rightsStr = roleVO.getRights();
+				if(rightsStr!=null && rightsStr.trim().length()>0){
+					Module module = new Module();
+					module.setIdStr("0" + rightsStr + "0");
+					module.setStatus(1);
+					List<Module> moduleList = moduleService.selectModuleByIdStr(module);
+					if(moduleList!=null && moduleList.size()>0){
+						Map<String, Module> rightsMap = new HashMap<String, Module>();
+						Module moduleTemp = null;
+						for(int i=0;i<moduleList.size();i++){
+							moduleTemp = moduleList.get(i);
+							rightsMap.put(moduleTemp.getModuleurl(), moduleTemp);
+						}
+						managerVO.setRightsMap(rightsMap);
+						
+						//拼凑树
+						StringBuffer strbuf = new StringBuffer("where id in (");
+						for(int i=0;i<moduleList.size();i++){
+							moduleTemp = moduleList.get(i);
+							if(i!=0){
+								strbuf.append("," + moduleTemp.getCatalogId());
+							}else{
+								strbuf.append(moduleTemp.getCatalogId());
+							}
+						}
+						strbuf.append(")");
+						Catalog catalog = new Catalog();
+						catalog.setStatus(1);	//有效
+						catalog.setIdStr(strbuf.toString());
+						List<Catalog> catalogList = catalogService.selectCatalogByIdsStatus(catalog);
+						this.getSession().setAttribute("catalogList", catalogList);
+						
+						StringBuffer catalogstrbuf = new StringBuffer("where id in (");
+						if(catalogList!=null && catalogList.size()>0){
+							Catalog catalogTemp = null;
+							for(int i=0;i<catalogList.size();i++){
+								catalogTemp = catalogList.get(i);
+								if(i!=0){
+									catalogstrbuf.append("," + catalogTemp.getMenuId());
+								}else{
+									catalogstrbuf.append(catalogTemp.getMenuId());
+								}
+							}
+						}
+						catalogstrbuf.append(")");
+						Menu menu = new Menu();
+						menu.setStatus(1);
+						menu.setIdStr(catalogstrbuf.toString());
+						List<Menu> menuList = menuService.selectMenuByIdsStatus(menu);
+						this.getSession().setAttribute("menuList", menuList);
+					}
+					this.getSession().setAttribute("moduleList", moduleList);
+					
+				}
+				
+				//存session
+				this.getSession().setAttribute("manager", managerVO);
+				
+				//记录日志
+				MDC.put("username", username);	//用户名
+				MDC.put("nickname", managerVO.getNickname());	//昵称
+				MDC.put("ip", this.getRealIP());	//IP
+				MDC.put("act", "login");	//登录 
+				logger.info(managerVO.getNickname() + " 登录");
+			}else{
+				this.getRequest().setAttribute("errorStr", "用户名或密码错误");
+				return "login";
+			}
+			// 暂时用status做身份处理
+//			if (managerVO.getStatus()==3){
+//				return "login2";
+//			}
+
+		}else{
+			this.getRequest().setAttribute("errorStr", "验证码错误");
+			return "login";
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 登出
+	 * @return
+	 */
+	public String logOff(){
+		Manager manager = null;
+		Object o = this.getSession().getAttribute("manager");
+		if(o!=null){
+			manager = (Manager)this.getSession().getAttribute("manager");
+			//记录日志
+			MDC.put("username", manager.getUsername());	//用户名
+			MDC.put("nickname", manager.getNickname());	//昵称
+			MDC.put("ip", this.getRealIP());	//IP
+			MDC.put("act", "logoff");	//登出
+			logger.info(manager.getNickname() + " 登出");
+			this.getSession().removeAttribute("manager");
+		}
+		
+		return "logOff";
+	}
+	
+	/**
+	 * SESSION超时后AJAX登录使用
+	 * @return
+	 */
+	public String loginForAjax(){
+		
+		String username = this.getRequest().getParameter("username");
+		String password = this.getRequest().getParameter("password");
+		
+		System.out.println("username:" + username +"===========password:" + password);
+		
+		Manager manager = new Manager();
+		manager.setUsername(username);
+		manager.setPassword(password);
+		Manager managerVO = managerService.login(manager);
+		
+		try {
+			PrintWriter pw = this.getResponse().getWriter();
+			
+			if(managerVO!=null){
+				//若帐号被冻结  登录失败
+				if(managerVO.getStatus()==0){
+					this.getRequest().setAttribute("errorStr", "您的帐号存在问题，请联系管理员");
+					return "login";
+				}
+				//记录最后登录的时间和IP
+				managerVO.setLogintime(new Date());
+				managerVO.setLoginip(getRealIP());
+				managerService.editSaveManager(managerVO);
+				//存session
+				this.getSession().setAttribute("manager", managerVO);
+				
+				pw.write("{\"statusCode\":\"200\",\"message\":\"欢迎回来~\",\"navTabId\":\"\",\"callbackType\":\"\",\"forwardUrl\":\"\"}");
+			}else{
+				pw.write("{\"statusCode\":\"300\",\"message\":\"用户名或密码错误，请重试~\",\"navTabId\":\"\",\"rel\":\"\",\"callbackType\":\"\",\"forwardUrl\":\"\",\"confirmMsg\":\"\"}");
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+}

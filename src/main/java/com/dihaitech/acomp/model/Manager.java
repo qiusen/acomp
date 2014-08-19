@@ -1,6 +1,7 @@
 package com.dihaitech.acomp.model;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * 管理员
@@ -61,6 +62,12 @@ public class Manager extends BaseModel{
 	 * 最后登录IP地址
 	 */
 	private String loginip;
+	
+	/**
+	 * 权限列表
+	 */
+	private Map<String, Module> rightsMap;
+	
 	public String getUsername() {
 		return username;
 	}
@@ -121,4 +128,12 @@ public class Manager extends BaseModel{
 	public void setLoginip(String loginip) {
 		this.loginip = loginip;
 	}
+	public Map<String, Module> getRightsMap() {
+		return rightsMap;
+	}
+	public void setRightsMap(Map<String, Module> rightsMap) {
+		this.rightsMap = rightsMap;
+	}
+	
+	
 }

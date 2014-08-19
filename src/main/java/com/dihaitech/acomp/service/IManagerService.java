@@ -62,4 +62,32 @@ public interface IManagerService {
 	 * @return
 	 */
 	public int deleteByIds(String str);
+	
+	/**
+	 * 登录
+	 * @param manager
+	 * @return
+	 */
+	public Manager login(Manager manager);
+	
+	/**
+	 * 修改
+	 * @param manager
+	 * @return
+	 */
+	public int editSaveManager(Manager manager);
+	
+	/**
+	 * 修改个人信息
+	 * @param manager
+	 * @return
+	 */
+	public int editSaveUser(Manager manager);
+	
+	/**
+	 * 修改密码
+	 * @param manager
+	 * @return
+	 */
+	public int editSavePassword(Manager manager);
 }

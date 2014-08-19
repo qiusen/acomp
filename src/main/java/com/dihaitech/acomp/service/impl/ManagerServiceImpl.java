@@ -72,4 +72,46 @@ public class ManagerServiceImpl implements IManagerService {
 	public Manager selectManagerById(Manager manager) {
 		return managerDAO.selectManagerById(manager);
 	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IManagerService#login(com.dihaitech.acomp.model.Manager)
+	 */
+	@Override
+	public Manager login(Manager manager) {
+		// TODO Auto-generated method stub
+		return managerDAO.login(manager);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IManagerService#editSaveManager(com.dihaitech.acomp.model.Manager)
+	 */
+	@Override
+	public int editSaveManager(Manager manager) {
+		// TODO Auto-generated method stub
+		return this.managerDAO.editSaveManagerById(manager);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IManagerService#editSaveUser(com.dihaitech.acomp.model.Manager)
+	 */
+	@Override
+	public int editSaveUser(Manager manager) {
+		// TODO Auto-generated method stub
+		return this.managerDAO.editSaveUser(manager);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IManagerService#editSavePassword(com.dihaitech.acomp.model.Manager)
+	 */
+	@Override
+	public int editSavePassword(Manager manager) {
+		// TODO Auto-generated method stub
+		return this.managerDAO.editSavePassword(manager);
+	}
+
+
 }

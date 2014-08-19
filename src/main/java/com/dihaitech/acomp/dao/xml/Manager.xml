@@ -128,4 +128,29 @@
 			order by ID desc
 	        <include refid="managerPage" /> 
 	</select>
+	
+	<select id="login" parameterType="manager" resultMap="managerMap" >
+	     SELECT <include refid="managerField" /> FROM `manager`
+	     where USERNAME= #{username} and PASSWORD = #{password} 
+	</select>
+	
+	<update id="editSaveManagerById" parameterType="manager">
+		update `manager` set 
+              `LOGINTIME` = #{logintime}, 
+              `LOGINIP` = #{loginip}
+        	where ID = #{id}
+	</update>
+	
+	<update id="editSaveUser" parameterType="manager">
+		update `manager` set 
+              `EMAIL` = #{email}, 
+              `NICKNAME` = #{nickname}
+        	where ID = #{id}
+	</update>
+	
+	<update id="editSavePassword" parameterType="manager">
+		update `manager` set 
+              `PASSWORD` = #{password}
+        	where ID = #{id}
+	</update>
 </mapper>
