@@ -1,58 +1,43 @@
-package com.dihaitech.acomp.controller.action.catalog;
+package com.dihaitech.acomp.controller.action.city;
 
-import java.util.Date;
 import java.util.List;
 
 import com.dihaitech.acomp.common.Property;
 import com.dihaitech.acomp.controller.action.BaseAction;
-import com.dihaitech.acomp.model.Catalog;
-import com.dihaitech.acomp.model.Menu;
-import com.dihaitech.acomp.service.ICatalogService;
-import com.dihaitech.acomp.service.IMenuService;
+import com.dihaitech.acomp.model.City;
+import com.dihaitech.acomp.service.ICityService;
 import com.dihaitech.acomp.util.Page;
 import com.dihaitech.acomp.util.TypeUtil;
 import com.dihaitech.acomp.util.json.JSONUtil;
 
 /**
- * 目录Action
+ * 市Action
  * 
  * @author cg
  *
- * @date 2014-08-18
+ * @date 2014-08-20
  */
  @SuppressWarnings("serial")
-public class CatalogAction extends BaseAction {
-	private Catalog catalog = new Catalog();
-	private ICatalogService catalogService;
+public class CityAction extends BaseAction {
+	private City city = new City();
+	private ICityService cityService;
 	
-	private IMenuService menuService;
-	
-	
-	
-	public IMenuService getMenuService() {
-		return menuService;
+	public City getCity() {
+		return city;
 	}
 
-	public void setMenuService(IMenuService menuService) {
-		this.menuService = menuService;
+	public void setCity(City city) {
+		this.city = city;
+	}
+	public ICityService getCityService() {
+		return cityService;
 	}
 
-	public Catalog getCatalog() {
-		return catalog;
-	}
-
-	public void setCatalog(Catalog catalog) {
-		this.catalog = catalog;
-	}
-	public ICatalogService getCatalogService() {
-		return catalogService;
-	}
-
-	public void setCatalogService(ICatalogService catalogService) {
-		this.catalogService = catalogService;
+	public void setCityService(ICityService cityService) {
+		this.cityService = cityService;
 	}
 	/* 
-	 * 目录查询
+	 * 市查询
 	 * @see com.opensymphony.xwork2.ActionSupport#execute()
 	 */
 	public String execute(){
@@ -74,7 +59,7 @@ public class CatalogAction extends BaseAction {
 				this.setManagerPageSize(Property.PAGESIZE);
 			}
 
-			Page pageInfo = catalogService.selectCatalog(catalog,this.getManagerPageSize());
+			Page pageInfo = cityService.selectCity(city,this.getManagerPageSize());
 			
 			if (pageNo > 0) {
 				pageInfo.setPage(pageNo);
@@ -82,20 +67,14 @@ public class CatalogAction extends BaseAction {
 				pageInfo.setPage(0);
 			}
 			
-			List<Catalog> resultList = this.catalogService.selectCatalog(catalog,pageInfo);
+			List<City> resultList = this.cityService.selectCity(city,pageInfo);
 			
 			this.getRequest().setAttribute("pageInfo", pageInfo);
 			this.getRequest().setAttribute("resultList", resultList);
-			this.getRequest().setAttribute("actionName","catalogAction");
-			
-			//菜单
-			Menu menu = new Menu();
-			menu.setStatus(1);
-			List<Menu> menuList = menuService.selectAllByStatus(menu);
-			this.getRequest().setAttribute("menuList", menuList);
+			this.getRequest().setAttribute("actionName","cityAction");
 
 			String json = "\"Rows\":" + JSONUtil.objectArrayToJson(resultList)+", \"Total\":" + pageInfo.getResultCount();
-			System.out.println("Catalog json:::::::::::::::::::" + json);
+			System.out.println("City json:::::::::::::::::::" + json);
 			this.getRequest().setAttribute("json", json);
 			
 		} catch (Exception e) {
@@ -105,29 +84,24 @@ public class CatalogAction extends BaseAction {
 	}
 	
 	/**
-	 * 添加 目录
+	 * 添加 市
 	 * @return
 	 */
 	public String add(){
-		Menu menu = new Menu();
-		menu.setStatus(1);
-		List<Menu> menuList = menuService.selectAllByStatus(menu);
-		this.getRequest().setAttribute("menuList", menuList);
 		return "add";
 	}
 	
 	/**
-	 * 保存添加 目录
+	 * 保存添加 市
 	 * @return
 	 */
 	public String addSave(){
-		catalog.setCreatetime(new Date());
-		catalogService.addSave(catalog);
+		cityService.addSave(city);
 		return "addSave";
 	}
 	
 	/**
-	 * 修改 目录
+	 * 修改 市
 	 * @return
 	 */
 	public String edit(){
@@ -135,44 +109,39 @@ public class CatalogAction extends BaseAction {
 		int id = 0;
 		id = TypeUtil.stringToInt(idStr);
 		if(id>0){
-			catalog.setId(id);
+			city.setId(id);
 		}else{
 			return null;
 		}
 		
-		Catalog catalogVO = catalogService.selectCatalogById(catalog);
-		this.getRequest().setAttribute("catalog", catalogVO);
-		
-		Menu menu = new Menu();
-		menu.setStatus(1);
-		List<Menu> menuList = menuService.selectAllByStatus(menu);
-		this.getRequest().setAttribute("menuList", menuList);
+		City cityVO = cityService.selectCityById(city);
+		this.getRequest().setAttribute("city", cityVO);
 		return "edit";
 	}
 	
 	/**
-	 * 保存修改 目录
+	 * 保存修改 市
 	 * @return
 	 */
 	public String editSave(){
-		catalogService.editSave(catalog);
+		cityService.editSave(city);
 		return "editSave";
 	}
 	
 	/**
-	 * 删除 目录
+	 * 删除 市
 	 * @return
 	 */
 	public String delete(){
 		String id = this.getRequest().getParameter("id");
 		StringBuffer strbuf = new StringBuffer(" where id =");
 		strbuf.append(id);
-		catalogService.deleteByIds(strbuf.toString());
+		cityService.deleteByIds(strbuf.toString());
 		return "deleteSuccess";
 	}
 
 	/**
-	 * 删除 目录
+	 * 删除 市
 	 * @return
 	 */
 	public String deleteByIds(){
@@ -187,7 +156,7 @@ public class CatalogAction extends BaseAction {
 				}
 			}
 			strbuf.append(")");
-			catalogService.deleteByIds(strbuf.toString());
+			cityService.deleteByIds(strbuf.toString());
 			return "deleteSuccess";
 		}
 		return "deleteFailure";

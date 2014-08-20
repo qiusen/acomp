@@ -25,7 +25,16 @@ function f_initGrid(){
         //{ display: '主键', name: 'id', width: 50, type: 'int', frozen: true },
 		
 		{ display: '菜单名称', name: 'menuname',type: 'text' , width: '15%'},
-		{ display: '状态', name: 'status',type: 'text' , width: '15%'},
+		{ display: '状态', name: 'status', width: '15%',render: function (rowdata, rowindex, value)
+        {
+        	var h = "-";
+            if(rowdata.status==1){
+                h = "有效";
+            }else{
+                h = "无效";
+            }
+            return h;
+        } },
 		{ display: '排序', name: 'ordernum',type: 'text' , width: '15%'},
 		{ display: '创建时间', name: 'createtime',type: 'text' , width: '15%'}
         ],
@@ -85,7 +94,7 @@ function f_initGrid(){
     $(".pcontrol input").val(pageNo);
    	$(".pcontrol input").css("width", ((totalPage + "").length * 7) + "px");
    	$(".pcontrol input").attr("maxlength", (totalPage + "").length);
-	$(".pcontrol input").attr("readonly", "readonly");
+   	$(".pcontrol input").attr("readonly", "readonly");
        $(".pcontrol span").html(totalPage);
        var start = 0;
 	var end = 0;
@@ -146,13 +155,13 @@ function itemclick(item){
 	}
 	if(item.value=='edit'){
         var row = manager.getSelectedRow();
-        if (!row) { $.ligerDialog.warn('请选择行'); return; }
+        if (!row) { alert('请选择行'); return; }
             //alert(row.id);
 		window.location="${base}/admin/menu/menuAction!edit.${actionExt}?id=" + row.id;
 	}
 	if(item.value=='delete'){
 		var row = manager.getSelectedRow();
-        if (!row) {$.ligerDialog.warn('请选择行'); return; }
+        if (!row) { alert('请选择行'); return; }
 		$.ligerDialog.confirm('确认删除模块 ' + row.menuname + ' 的信息？', function (yes) {
             if(yes==true){
             	window.location="${base}/admin/menu/menuAction!delete.${actionExt}?id=" + row.id;

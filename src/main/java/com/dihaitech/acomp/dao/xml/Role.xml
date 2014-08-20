@@ -95,4 +95,10 @@
 	        where `STATUS` = #{status}
 			order by ID  
 	</select>
+	
+	<update id="editRights" parameterType="role">
+		update role set 
+              RIGHTS = #{rights}
+        	where ID = #{id}
+	</update>
 </mapper>

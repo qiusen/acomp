@@ -69,4 +69,10 @@ public interface IModuleService {
 	 * @return
 	 */
 	public List<Module> selectModuleByIdStr(Module module);
+	
+	/**
+	 * 根据状态获取所有模块
+	 * @return
+	 */
+	public List<Module> selectAllByStatus(Module module);
 }

@@ -102,4 +102,16 @@
 	        ${idStr} and STATUS = #{status}
 			order by ORDERNUM,ID
 	</select>
+	
+	<select id="selectAllByStatus" parameterType="catalog" resultMap="catalogMap" >
+		SELECT <include refid="catalogField" /> FROM `catalog`
+	        where STATUS = #{status}
+			order by MENU_ID, ORDERNUM,ID
+	</select>
+	
+	<select id="selectAllByMenuStatus" parameterType="catalog" resultMap="catalogMap" >
+		SELECT <include refid="catalogField" /> FROM `catalog`
+	        where MENU_ID = #{menuId} and `STATUS` = #{status}
+			order by ORDERNUM,ID
+	</select>
 </mapper>

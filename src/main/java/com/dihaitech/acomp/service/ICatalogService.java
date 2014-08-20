@@ -69,4 +69,19 @@ public interface ICatalogService {
 	 * @return
 	 */
 	public List<Catalog> selectCatalogByIdsStatus(Catalog catalog);
+	
+	/**
+	 * 根据状态获取所有目录
+	 * @param catalog
+	 * @return
+	 */
+	public List<Catalog> selectAllByStatus(Catalog catalog);
+	
+	/**
+	 * 根据菜单和状态获取目录
+	 * @param catalog
+	 * @return
+	 */
+	public List<Catalog>  selectAllByMenuStatus(Catalog catalog);
+	
 }

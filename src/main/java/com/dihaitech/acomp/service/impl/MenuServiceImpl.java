@@ -82,4 +82,14 @@ public class MenuServiceImpl implements IMenuService {
 		// TODO Auto-generated method stub
 		return menuDAO.selectMenuByIdsStatus(menu);
 	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IMenuService#selectAllByStatus(com.dihaitech.acomp.model.Menu)
+	 */
+	@Override
+	public List<Menu> selectAllByStatus(Menu menu) {
+		// TODO Auto-generated method stub
+		return menuDAO.selectAllByStatus(menu);
+	}
 }

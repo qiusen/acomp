@@ -9,9 +9,6 @@
 function checkForm(){
 	return true;
 }
-function cancleClick(){
-	self.location='menuAction.${actionExt}';    
-}
 </script>
 <style type="text/css">
     body{ font-size:12px;}
@@ -30,8 +27,12 @@ function cancleClick(){
     	<td align="left"></td>
     </tr>
     <tr>
-    	<td align="right" class="l-table-edit-td">状态：</td>
-    	<td align="left" class="l-table-edit-td"><input name="menu.status" type="text" id="menu.status" ltype="text" /></td>
+    	<td align="right" class="l-table-edit-td">菜单状态：</td>
+    	<td align="left" class="l-table-edit-td">
+    	<select name="menu.status" id="menu.status" >
+        <option value="1">有效</option>
+        <option value="0">无效</option>
+        </select></td>
     	<td align="left"></td>
     </tr>
     <tr>
@@ -40,14 +41,9 @@ function cancleClick(){
     	<td align="left"></td>
     </tr>
     <tr>
-    	<td align="right" class="l-table-edit-td">创建时间：</td>
-    	<td align="left" class="l-table-edit-td"><input name="menu.createtime" type="text" id="menu.createtime" ltype="text" /></td>
-    	<td align="left"></td>
-    </tr>
-    <tr>
     	<td align="center" colspan="3">
     	<input type="submit" value="保存" id="Button1" class="l-button l-button-submit" /> 
-    	<input type="button" value="取消" class="l-button l-button-reset" onclick="javascript:cancleClick();"/>
+    	<input type="button" value="取消" class="l-button l-button-reset" onclick="javascript: history.back(-1);"/>
     	</td>
     </tr>
 </table>

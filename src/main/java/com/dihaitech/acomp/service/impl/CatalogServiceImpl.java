@@ -82,4 +82,24 @@ public class CatalogServiceImpl implements ICatalogService {
 		// TODO Auto-generated method stub
 		return catalogDAO.selectCatalogByIdsStatus(catalog);
 	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.ICatalogService#selectAllByStatus(com.dihaitech.acomp.model.Catalog)
+	 */
+	@Override
+	public List<Catalog> selectAllByStatus(Catalog catalog) {
+		// TODO Auto-generated method stub
+		return catalogDAO.selectAllByStatus(catalog);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.ICatalogService#selectAllByMenuStatus(com.dihaitech.acomp.model.Catalog)
+	 */
+	@Override
+	public List<Catalog> selectAllByMenuStatus(Catalog catalog) {
+		// TODO Auto-generated method stub
+		return catalogDAO.selectAllByMenuStatus(catalog);
+	}
 }

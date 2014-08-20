@@ -20,16 +20,33 @@ var pageNo =${requestScope.pageInfo.page};
 $(f_initGrid);
 function f_initGrid(){
     g = manager = $("#maingrid").ligerGrid({
-    	title:'模块列表',
+    	title:'管理员列表',
         columns: [
         //{ display: '主键', name: 'id', width: 50, type: 'int', frozen: true },
-		
-		{ display: '模块名称', name: 'modulename',type: 'text' , width: '15%'},
-		{ display: '模块URL', name: 'moduleurl',type: 'text' , width: '15%'},
-		{ display: '模块ACTION', name: 'moduleact',type: 'text' , width: '15%'},
-		{ display: '所属目录ID', name: 'catalogId',type: 'text' , width: '15%'},
-		{ display: '模块状态', name: 'status',type: 'text' , width: '15%'},
-		{ display: '创建时间', name: 'createtime',type: 'text' , width: '15%'}
+        { display: '模块名称', name: 'modulename',type: 'text' , width: '15%'},
+        { display: '模块URL', name: 'moduleurl',type: 'text' , width: '25%'},
+        { display: '模块Action', name: 'moduleact',type: 'text' , width: '20%'},
+        { display: '所属菜单', name: 'catalogId', width: '10%' ,render: function (rowdata, rowindex, value)
+        {
+        	var r = "-";
+        	<c:forEach items="${catalogList }" var="catalog">
+        	if(rowdata.catalogId==${catalog.id}){
+                r = "${catalog.catalogname}";
+            }
+            </c:forEach>
+            return r;
+        }  },
+        { display: '状态', name: 'status', width: '10%',render: function (rowdata, rowindex, value)
+        {
+        	var h = "-";
+            if(rowdata.status==1){
+                h = "有效";
+            }else{
+                h = "无效";
+            }
+            return h;
+        } },
+        { display: '创建时间', name: 'createtime', type: 'text', width: '20%' }
         ],
         onSelectRow: function (rowdata, rowindex)
         {
@@ -87,14 +104,14 @@ function f_initGrid(){
     $(".pcontrol input").val(pageNo);
    	$(".pcontrol input").css("width", ((totalPage + "").length * 7) + "px");
    	$(".pcontrol input").attr("maxlength", (totalPage + "").length);
-	$(".pcontrol input").attr("readonly", "readonly");
+   	$(".pcontrol input").attr("readonly", "readonly");
        $(".pcontrol span").html(totalPage);
        var start = 0;
-	var end = 0;
-	if(pageNo>0){
-		start = (pageSize * (pageNo - 1) + 1);
-		end = start + resultListData.Rows.length - 1;
-	}
+       var end = 0;
+       if(pageNo>0){
+    	   start = (pageSize * (pageNo - 1) + 1);
+    	   end = start + resultListData.Rows.length - 1;
+       }
        $(".l-bar-text").html("显示记录从" + start + "到" + end + "，总数 " + itemCount + " 条");
        if (!itemCount)
        {
@@ -136,25 +153,26 @@ function deleteData(id){
     }
 }
 function showData(id){
-	var dialog=$.ligerDialog.open({ title:'查看', url: '${base}/admin//module/moduleAction!show.${actionExt}?id=' + id, height: 300, width: null, buttons: [
+	var dialog=$.ligerDialog.open({ title:'查看', url: '${base}/admin/product/productAction!show.${actionExt}?id=' + id, height: 300, width: null, buttons: [
               { text: '关闭', onclick: function (item, dialog) { dialog.close(); } }
            ], isResize: true
           });                                                                 	
 }
 
-function itemclick(item){
+function itemclick(item)
+{
 	if(item.value=='add'){
 		window.location="${base}/admin/module/moduleAction!add.${actionExt}";
 	}
 	if(item.value=='edit'){
         var row = manager.getSelectedRow();
-        if (!row) { $.ligerDialog.warn('请选择行'); return; }
+        if (!row) { alert('请选择行'); return; }
             //alert(row.id);
 		window.location="${base}/admin/module/moduleAction!edit.${actionExt}?id=" + row.id;
 	}
 	if(item.value=='delete'){
 		var row = manager.getSelectedRow();
-        if (!row) {$.ligerDialog.warn('请选择行'); return; }
+        if (!row) { alert('请选择行'); return; }
 		$.ligerDialog.confirm('确认删除模块 ' + row.modulename + ' 的信息？', function (yes) {
             if(yes==true){
             	window.location="${base}/admin/module/moduleAction!delete.${actionExt}?id=" + row.id;
@@ -164,17 +182,18 @@ function itemclick(item){
     
 }
 
+
 </script>
 <style type="text/css">
-.l-case-title{font-weight:bold; margin-top:20px;margin-bottom:20px;}
-</style>
+        .l-case-title{font-weight:bold; margin-top:20px;margin-bottom:20px;}
+     </style>
 </head>
 <body style="padding:6px; overflow:hidden;">
 <form name="moduleForm" id="moduleForm" method="post" action="moduleAction.${actionExt}" >
 <input type="hidden" name="pageNo" id="pageNo" value="${requestScope.pageInfo.page}" />
 <input type="hidden" name="pageSize" id="pageSize" value="${requestScope.pageInfo.pageSize}" />
 <div id="searchbar">
-模块名称：<input id="module.modulename" type="text" name="module.modulename" value="${module.modulename }"/>
+   模块名称：<input id="module.modulename" type="text" name="module.modulename" value="${module.modulename }"/>
     <input id="btnOK" type="submit" value="查询"/>
 </div>
     <div id="maingrid" style="margin:0; padding:0"></div>
@@ -185,4 +204,5 @@ function itemclick(item){
  
 </form>
 </body>
+
 </html>

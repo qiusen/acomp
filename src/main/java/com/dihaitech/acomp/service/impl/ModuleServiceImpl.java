@@ -82,4 +82,14 @@ public class ModuleServiceImpl implements IModuleService {
 		// TODO Auto-generated method stub
 		return moduleDAO.selectModuleByIdStr(module);
 	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IModuleService#selectAllByStatus(com.dihaitech.acomp.model.Module)
+	 */
+	@Override
+	public List<Module> selectAllByStatus(Module module) {
+		// TODO Auto-generated method stub
+		return moduleDAO.selectAllByStatus(module);
+	}
 }

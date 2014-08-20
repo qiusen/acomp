@@ -65,8 +65,7 @@
 		update `menu` set 
               `MENUNAME` = #{menuname}, 
               `STATUS` = #{status}, 
-              `ORDERNUM` = #{ordernum}, 
-              `CREATETIME` = #{createtime}
+              `ORDERNUM` = #{ordernum}
         	where ID = #{id}
 	</update>
 	
@@ -93,6 +92,12 @@
 	<select id="selectMenuByIdsStatus" parameterType="menu" resultMap="menuMap" >
 		SELECT <include refid="menuField" /> FROM `menu`
 	        ${idStr} and `STATUS` = #{status}
+	        order by ORDERNUM,ID
+	</select>
+	
+	<select id="selectAllByStatus" parameterType="menu" resultMap="menuMap" >
+		SELECT <include refid="menuField" /> FROM `menu`
+	        where `STATUS` = #{status}
 	        order by ORDERNUM,ID
 	</select>
 </mapper>

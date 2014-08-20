@@ -1,10 +1,20 @@
 package com.dihaitech.acomp.controller.action.module;
 
+import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.MDC;
 
 import com.dihaitech.acomp.common.Property;
 import com.dihaitech.acomp.controller.action.BaseAction;
+import com.dihaitech.acomp.model.Catalog;
+import com.dihaitech.acomp.model.Manager;
+import com.dihaitech.acomp.model.Menu;
 import com.dihaitech.acomp.model.Module;
+import com.dihaitech.acomp.service.ICatalogService;
+import com.dihaitech.acomp.service.IMenuService;
 import com.dihaitech.acomp.service.IModuleService;
 import com.dihaitech.acomp.util.Page;
 import com.dihaitech.acomp.util.TypeUtil;
@@ -19,8 +29,13 @@ import com.dihaitech.acomp.util.json.JSONUtil;
  */
  @SuppressWarnings("serial")
 public class ModuleAction extends BaseAction {
+	private static final Log logger = LogFactory.getLog(ModuleAction.class);
 	private Module module = new Module();
 	private IModuleService moduleService;
+	
+	private ICatalogService catalogService;
+	
+	private IMenuService menuService;
 	
 	public Module getModule() {
 		return module;
@@ -36,6 +51,24 @@ public class ModuleAction extends BaseAction {
 	public void setModuleService(IModuleService moduleService) {
 		this.moduleService = moduleService;
 	}
+	
+	
+	public ICatalogService getCatalogService() {
+		return catalogService;
+	}
+
+	public void setCatalogService(ICatalogService catalogService) {
+		this.catalogService = catalogService;
+	}
+
+	public IMenuService getMenuService() {
+		return menuService;
+	}
+
+	public void setMenuService(IMenuService menuService) {
+		this.menuService = menuService;
+	}
+
 	/* 
 	 * 模块查询
 	 * @see com.opensymphony.xwork2.ActionSupport#execute()
@@ -72,6 +105,12 @@ public class ModuleAction extends BaseAction {
 			this.getRequest().setAttribute("pageInfo", pageInfo);
 			this.getRequest().setAttribute("resultList", resultList);
 			this.getRequest().setAttribute("actionName","moduleAction");
+			
+			//目录
+			Catalog catalog = new Catalog();
+			catalog.setStatus(1);
+			List<Catalog> catalogList = catalogService.selectAllByStatus(catalog);
+			this.getRequest().setAttribute("catalogList", catalogList);
 
 			String json = "\"Rows\":" + JSONUtil.objectArrayToJson(resultList)+", \"Total\":" + pageInfo.getResultCount();
 			System.out.println("Module json:::::::::::::::::::" + json);
@@ -88,6 +127,21 @@ public class ModuleAction extends BaseAction {
 	 * @return
 	 */
 	public String add(){
+		//菜单
+		Menu menu = new Menu();
+		menu.setStatus(1);
+		List<Menu> menuList = menuService.selectAllByStatus(menu);
+		this.getRequest().setAttribute("menuList", menuList);
+		
+		if(menuList!=null && menuList.size()>0){
+			Menu menuTemp = menuList.get(0);
+			//获取同菜单下所有目录
+			Catalog catalog = new Catalog();
+			catalog.setMenuId(menuTemp.getId());
+			catalog.setStatus(1);
+			List<Catalog> catalogList = catalogService.selectAllByMenuStatus(catalog);
+			this.getRequest().setAttribute("catalogList", catalogList);
+		}
 		return "add";
 	}
 	
@@ -96,7 +150,16 @@ public class ModuleAction extends BaseAction {
 	 * @return
 	 */
 	public String addSave(){
+		module.setCreatetime(new Date());
 		moduleService.addSave(module);
+		
+		Manager managerVO = (Manager)this.getSession().getAttribute("manager");
+		//记录日志
+		MDC.put("username", managerVO.getUsername());	//用户名
+		MDC.put("nickname", managerVO.getNickname());	//昵称
+		MDC.put("ip", this.getRealIP());	//IP
+		MDC.put("act", "addModule");	//添加模块
+		logger.info(managerVO.getNickname() + " 添加模块 " + module.getModulename());
 		return "addSave";
 	}
 	
@@ -116,6 +179,38 @@ public class ModuleAction extends BaseAction {
 		
 		Module moduleVO = moduleService.selectModuleById(module);
 		this.getRequest().setAttribute("module", moduleVO);
+		
+		//菜单
+		Menu menu = new Menu();
+		menu.setStatus(1);
+		List<Menu> menuList = menuService.selectAllByStatus(menu);
+		this.getRequest().setAttribute("menuList", menuList);
+		
+		//获取同菜单下所有目录
+		Catalog catalog = new Catalog();
+		catalog.setId(moduleVO.getCatalogId());
+		Catalog catalogVO = catalogService.selectCatalogById(catalog);
+		if(catalogVO!=null){
+			this.getRequest().setAttribute("catalog", catalogVO);
+			
+			catalog.setMenuId(catalogVO.getMenuId());
+			catalog.setStatus(1);
+			
+			List<Catalog> catalogList = catalogService.selectAllByMenuStatus(catalog);
+			this.getRequest().setAttribute("catalogList", catalogList);
+		}else{	//模块上线目录被删除
+			Menu menuTemp = menuList.get(0);
+			//获取同菜单下所有目录
+			catalog.setMenuId(menuTemp.getId());
+			catalog.setStatus(1);
+			List<Catalog> catalogList = catalogService.selectAllByMenuStatus(catalog);
+			if(catalogList!=null){
+				this.getRequest().setAttribute("catalog", catalogList.get(0));
+			}
+			
+			this.getRequest().setAttribute("catalogList", catalogList);
+		}
+				
 		return "edit";
 	}
 	
@@ -125,6 +220,15 @@ public class ModuleAction extends BaseAction {
 	 */
 	public String editSave(){
 		moduleService.editSave(module);
+		
+		Manager managerVO = (Manager)this.getSession().getAttribute("manager");
+		//记录日志
+		MDC.put("username", managerVO.getUsername());	//用户名
+		MDC.put("nickname", managerVO.getNickname());	//昵称
+		MDC.put("ip", this.getRealIP());	//IP
+		MDC.put("act", "editModule");	//修改模块
+		logger.info(managerVO.getNickname() + " 修改模块 " + module.getModulename());
+		
 		return "editSave";
 	}
 	
@@ -137,6 +241,15 @@ public class ModuleAction extends BaseAction {
 		StringBuffer strbuf = new StringBuffer(" where id =");
 		strbuf.append(id);
 		moduleService.deleteByIds(strbuf.toString());
+		
+		Manager managerVO = (Manager)this.getSession().getAttribute("manager");
+		//记录日志
+		MDC.put("username", managerVO.getUsername());	//用户名
+		MDC.put("nickname", managerVO.getNickname());	//昵称
+		MDC.put("ip", this.getRealIP());	//IP
+		MDC.put("act", "deleteModule");	//删除模块
+		logger.info(managerVO.getNickname() + " 删除模块ID号： " + id);
+		
 		return "deleteSuccess";
 	}
 
@@ -157,6 +270,15 @@ public class ModuleAction extends BaseAction {
 			}
 			strbuf.append(")");
 			moduleService.deleteByIds(strbuf.toString());
+			
+			Manager managerVO = (Manager)this.getSession().getAttribute("manager");
+			//记录日志
+			MDC.put("username", managerVO.getUsername());	//用户名
+			MDC.put("nickname", managerVO.getNickname());	//昵称
+			MDC.put("ip", this.getRealIP());	//IP
+			MDC.put("act", "deleteModule");	//删除模块
+			logger.info(managerVO.getNickname() + " 删除模块ID号： " + strbuf.toString());
+			
 			return "deleteSuccess";
 		}
 		return "deleteFailure";

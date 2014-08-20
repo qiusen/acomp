@@ -90,4 +90,11 @@ public interface IManagerService {
 	 * @return
 	 */
 	public int editSavePassword(Manager manager);
+	
+	/**
+	 * 根据角色ID查询用户
+	 * @param manager
+	 * @return
+	 */
+	public Long selectCountByRoleId(Manager manager);
 }

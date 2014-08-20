@@ -75,4 +75,11 @@ public interface IRoleDAO {
 	 * @return
 	 */
 	public List<Role> selectAllByStatus(Role role);
+	
+	/**
+	 * 修改 权限 
+	 * @param role
+	 * @return
+	 */
+	public int editRights(Role role);
 }

@@ -1,10 +1,23 @@
 package com.dihaitech.acomp.controller.action.role;
 
+import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.MDC;
 
 import com.dihaitech.acomp.common.Property;
 import com.dihaitech.acomp.controller.action.BaseAction;
+import com.dihaitech.acomp.model.Catalog;
+import com.dihaitech.acomp.model.Manager;
+import com.dihaitech.acomp.model.Menu;
+import com.dihaitech.acomp.model.Module;
 import com.dihaitech.acomp.model.Role;
+import com.dihaitech.acomp.service.ICatalogService;
+import com.dihaitech.acomp.service.IManagerService;
+import com.dihaitech.acomp.service.IMenuService;
+import com.dihaitech.acomp.service.IModuleService;
 import com.dihaitech.acomp.service.IRoleService;
 import com.dihaitech.acomp.util.Page;
 import com.dihaitech.acomp.util.TypeUtil;
@@ -17,11 +30,20 @@ import com.dihaitech.acomp.util.json.JSONUtil;
  *
  * @date 2014-08-18
  */
- @SuppressWarnings("serial")
+@SuppressWarnings("serial")
 public class RoleAction extends BaseAction {
+	private static final Log logger = LogFactory.getLog(RoleAction.class);
 	private Role role = new Role();
 	private IRoleService roleService;
-	
+
+	private IManagerService managerService;
+
+	private IModuleService moduleService;
+
+	private IMenuService menuService;
+
+	private ICatalogService catalogService;
+
 	public Role getRole() {
 		return role;
 	}
@@ -29,6 +51,7 @@ public class RoleAction extends BaseAction {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+
 	public IRoleService getRoleService() {
 		return roleService;
 	}
@@ -36,115 +59,212 @@ public class RoleAction extends BaseAction {
 	public void setRoleService(IRoleService roleService) {
 		this.roleService = roleService;
 	}
-	/* 
+
+	public IModuleService getModuleService() {
+		return moduleService;
+	}
+
+	public void setModuleService(IModuleService moduleService) {
+		this.moduleService = moduleService;
+	}
+
+	public IMenuService getMenuService() {
+		return menuService;
+	}
+
+	public void setMenuService(IMenuService menuService) {
+		this.menuService = menuService;
+	}
+
+	public ICatalogService getCatalogService() {
+		return catalogService;
+	}
+
+	public void setCatalogService(ICatalogService catalogService) {
+		this.catalogService = catalogService;
+	}
+
+	public IManagerService getManagerService() {
+		return managerService;
+	}
+
+	public void setManagerService(IManagerService managerService) {
+		this.managerService = managerService;
+	}
+
+	/*
 	 * 角色查询
+	 * 
 	 * @see com.opensymphony.xwork2.ActionSupport#execute()
 	 */
-	public String execute(){
+	public String execute() {
 		try {
 			String pageSizeStr = this.getRequest().getParameter("pageSize");
 			String pageNoStr = this.getRequest().getParameter("pageNo");
 			int pageSize = 0;
 			int pageNo = 0;
-			
-			pageSize = TypeUtil.stringToInt(pageSizeStr);
-			if (pageSize <= 0) {
+			if (pageSizeStr != null && pageSizeStr.length() > 0) {
+				try {
+					pageSize = Integer.parseInt(pageSizeStr);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {
 				pageSize = Property.PAGESIZE;
 			}
-
-			pageNo = TypeUtil.stringToInt(pageNoStr);
+			if (pageNoStr != null && pageNoStr.length() > 0) {
+				try {
+					pageNo = Integer.parseInt(pageNoStr);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 			if (pageSize > 0) {
 				this.setManagerPageSize(pageSize);
-			}else{
+			} else {
 				this.setManagerPageSize(Property.PAGESIZE);
 			}
 
-			Page pageInfo = roleService.selectRole(role,this.getManagerPageSize());
-			
+			Page pageInfo = roleService.selectRole(role,
+					this.getManagerPageSize());
+
 			if (pageNo > 0) {
 				pageInfo.setPage(pageNo);
 			} else {
-				pageInfo.setPage(0);
+				pageInfo.setPage(1);
 			}
-			
-			List<Role> resultList = this.roleService.selectRole(role,pageInfo);
-			
+
+			List<Role> resultList = this.roleService.selectRole(role, pageInfo);
+
 			this.getRequest().setAttribute("pageInfo", pageInfo);
 			this.getRequest().setAttribute("resultList", resultList);
-			this.getRequest().setAttribute("actionName","roleAction");
+			this.getRequest().setAttribute("actionName", "roleAction");
 
-			String json = "\"Rows\":" + JSONUtil.objectArrayToJson(resultList)+", \"Total\":" + pageInfo.getResultCount();
+			String json = "\"Rows\":" + JSONUtil.objectArrayToJson(resultList)
+					+ ", \"Total\":" + pageInfo.getResultCount();
 			System.out.println("Role json:::::::::::::::::::" + json);
 			this.getRequest().setAttribute("json", json);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return SUCCESS;
 	}
-	
+
 	/**
 	 * 添加 角色
+	 * 
 	 * @return
 	 */
-	public String add(){
+	public String add() {
 		return "add";
 	}
-	
+
 	/**
 	 * 保存添加 角色
+	 * 
 	 * @return
 	 */
-	public String addSave(){
+	public String addSave() {
+		role.setCreatetime(new Date());
 		roleService.addSave(role);
+
+		Manager managerVO = (Manager) this.getSession().getAttribute("manager");
+		// 记录日志
+		MDC.put("username", managerVO.getUsername()); // 用户名
+		MDC.put("nickname", managerVO.getNickname()); // 昵称
+		MDC.put("ip", this.getRealIP()); // IP
+		MDC.put("act", "addRole"); // 添加角色
+		logger.info(managerVO.getNickname() + " 添加角色 " + role.getRolename());
+
 		return "addSave";
 	}
-	
+
 	/**
 	 * 修改 角色
+	 * 
 	 * @return
 	 */
-	public String edit(){
+	public String edit() {
 		String idStr = this.getRequest().getParameter("id");
 		int id = 0;
-		id = TypeUtil.stringToInt(idStr);
-		if(id>0){
+		if (idStr != null && idStr.length() > 0) {
+			try {
+				id = Integer.parseInt(idStr);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		if (id > 0) {
 			role.setId(id);
-		}else{
+		} else {
 			return null;
 		}
-		
+
 		Role roleVO = roleService.selectRoleById(role);
 		this.getRequest().setAttribute("role", roleVO);
 		return "edit";
 	}
-	
+
 	/**
 	 * 保存修改 角色
+	 * 
 	 * @return
 	 */
-	public String editSave(){
+	public String editSave() {
 		roleService.editSave(role);
+
+		Manager managerVO = (Manager) this.getSession().getAttribute("manager");
+		// 记录日志
+		MDC.put("username", managerVO.getUsername()); // 用户名
+		MDC.put("nickname", managerVO.getNickname()); // 昵称
+		MDC.put("ip", this.getRealIP()); // IP
+		MDC.put("act", "editRole"); // 修改角色
+		logger.info(managerVO.getNickname() + " 修改角色 " + role.getRolename());
+
 		return "editSave";
 	}
-	
+
 	/**
 	 * 删除 角色
+	 * 
 	 * @return
 	 */
-	public String delete(){
-		String id = this.getRequest().getParameter("id");
-		StringBuffer strbuf = new StringBuffer(" where id =");
-		strbuf.append(id);
-		roleService.deleteByIds(strbuf.toString());
+	public String delete() {
+		String idstr = this.getRequest().getParameter("id");
+		int id = TypeUtil.stringToInt(idstr);
+		if (id > 0) {
+			Manager managerTemp = new Manager();
+			managerTemp.setRoleId(id);
+			long c = managerService.selectCountByRoleId(managerTemp);
+			if (c > 0) { // 角色下有用户，不允许删除
+				this.getRequest().setAttribute("errCode", "hasManager");
+				return "forward";
+			} else {
+				StringBuffer strbuf = new StringBuffer(" where id =");
+				strbuf.append(idstr);
+				roleService.deleteByIds(strbuf.toString());
+
+				Manager managerVO = (Manager) this.getSession().getAttribute(
+						"manager");
+				// 记录日志
+				MDC.put("username", managerVO.getUsername()); // 用户名
+				MDC.put("nickname", managerVO.getNickname()); // 昵称
+				MDC.put("ip", this.getRealIP()); // IP
+				MDC.put("act", "deleteRole"); // 删除角色
+				logger.info(managerVO.getNickname() + " 删除角色ID号： " + idstr);
+			}
+		}
+
 		return "deleteSuccess";
 	}
 
 	/**
 	 * 删除 角色
+	 * 
 	 * @return
 	 */
-	public String deleteByIds(){
+	public String deleteByIds() {
 		String[] ids = this.getRequest().getParameterValues("id");
 		StringBuffer strbuf = new StringBuffer(" where id in(");
 		if (ids != null && ids.length > 0) {
@@ -157,8 +277,93 @@ public class RoleAction extends BaseAction {
 			}
 			strbuf.append(")");
 			roleService.deleteByIds(strbuf.toString());
+
+			Manager managerVO = (Manager) this.getSession().getAttribute(
+					"manager");
+			// 记录日志
+			MDC.put("username", managerVO.getUsername()); // 用户名
+			MDC.put("nickname", managerVO.getNickname()); // 昵称
+			MDC.put("ip", this.getRealIP()); // IP
+			MDC.put("act", "deleteRole"); // 删除角色
+			logger.info(managerVO.getNickname() + " 删除角色ID号： "
+					+ strbuf.toString());
+
 			return "deleteSuccess";
 		}
 		return "deleteFailure";
+	}
+
+	/**
+	 * 分配权限
+	 * 
+	 * @return
+	 */
+	public String giveRights() {
+		String idStr = this.getRequest().getParameter("id");
+		int id = TypeUtil.stringToInt(idStr);
+		if (id > 0) {
+			role.setId(id);
+		} else {
+			return null;
+		}
+		Role roleVO = roleService.selectRoleById(role);
+		this.getRequest().setAttribute("role", roleVO);
+
+		String rightsStr = roleVO.getRights();
+		if (rightsStr != null && rightsStr.trim().length() > 0) {
+			String[] rights = rightsStr.split(",");
+			this.getRequest().setAttribute("rights", rights);
+		}
+
+		Module module = new Module();
+		module.setStatus(1);
+		List<Module> moduleList = moduleService.selectAllByStatus(module);
+		this.getRequest().setAttribute("moduleList", moduleList);
+
+		// 菜单
+		Menu menu = new Menu();
+		menu.setStatus(1);
+		List<Menu> menuList = menuService.selectAllByStatus(menu);
+		this.getRequest().setAttribute("menuList", menuList);
+
+		// 目录
+		Catalog catalog = new Catalog();
+		catalog.setStatus(1);
+		List<Catalog> catalogList = catalogService.selectAllByStatus(catalog);
+		this.getRequest().setAttribute("catalogList", catalogList);
+
+		return "giveRights";
+	}
+
+	/**
+	 * 保存权限
+	 * 
+	 * @return
+	 */
+	public String saveRights() {
+		String[] modules = this.getRequest().getParameterValues("module");
+
+		if (modules != null && modules.length > 0) {
+			StringBuffer strbuf = new StringBuffer(",");
+			for (int i = 0; i < modules.length; i++) {
+				strbuf.append(modules[i] + ",");
+			}
+			role.setRights(strbuf.toString());
+
+			roleService.editRights(role);
+
+			Manager managerVO = (Manager) this.getSession().getAttribute(
+					"manager");
+			// 记录日志
+			MDC.put("username", managerVO.getUsername()); // 用户名
+			MDC.put("nickname", managerVO.getNickname()); // 昵称
+			MDC.put("ip", this.getRealIP()); // IP
+			MDC.put("act", "giveRoleRights"); // 给角色赋权
+			logger.info(managerVO.getNickname() + " 给角色 " + role.getId()
+					+ " 赋权： " + strbuf.toString());
+
+		}
+
+		return "saveRights";
 	}
 }

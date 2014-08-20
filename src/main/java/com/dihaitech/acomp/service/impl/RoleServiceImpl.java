@@ -74,9 +74,22 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IRoleService#selectAllByStatus(com.dihaitech.acomp.model.Role)
+	 */
 	@Override
 	public List<Role> selectAllByStatus(Role role) {
 		// TODO Auto-generated method stub
 		return roleDAO.selectAllByStatus(role);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IRoleService#editRights(com.dihaitech.acomp.model.Role)
+	 */
+	@Override
+	public int editRights(Role role) {
+		// TODO Auto-generated method stub
+		return roleDAO.editRights(role);
 	}
 }

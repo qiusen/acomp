@@ -76,4 +76,11 @@ public interface IMenuDAO {
 	 * @return
 	 */
 	public List<Menu> selectMenuByIdsStatus(Menu menu);
+	
+	/**
+	 * 根据状态查询所有菜单
+	 * @param menu
+	 * @return
+	 */
+	public List<Menu> selectAllByStatus(Menu menu);
 }

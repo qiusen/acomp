@@ -109,4 +109,10 @@
 	        where STATUS = #{status} and ID in (${idStr})
 			order by ID 
 	</select>
+	
+	<select id="selectAllByStatus" parameterType="module" resultMap="moduleMap" >
+		SELECT <include refid="moduleField" /> FROM `module`
+	        where STATUS = #{status}
+			order by ID 
+	</select>
 </mapper>

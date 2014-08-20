@@ -114,4 +114,14 @@ public class ManagerServiceImpl implements IManagerService {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IManagerService#selectCountByRoleId(com.dihaitech.acomp.model.Manager)
+	 */
+	@Override
+	public Long selectCountByRoleId(Manager manager) {
+		// TODO Auto-generated method stub
+		return this.managerDAO.getManagerCount(manager);
+	}
+
+
 }

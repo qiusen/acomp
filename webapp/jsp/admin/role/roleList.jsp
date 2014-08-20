@@ -23,11 +23,25 @@ function f_initGrid(){
     	title:'角色列表',
         columns: [
         //{ display: '主键', name: 'id', width: 50, type: 'int', frozen: true },
-		
-		{ display: '角色名称', name: 'rolename',type: 'text' , width: '15%'},
-		{ display: '角色状态', name: 'status',type: 'text' , width: '15%'},
-		{ display: '创建时间', name: 'createtime',type: 'text' , width: '15%'},
-		{ display: '权限', name: 'rights',type: 'text' , width: '15%'}
+        { display: '角色名称', name: 'rolename',type: 'text' , width: '15%'},
+        { display: '状态', name: 'status', width: '10%',render: function (rowdata, rowindex, value)
+        {
+        	var h = "-";
+            if(rowdata.status==1){
+                h = "有效";
+            }else{
+                h = "无效";
+            }
+            return h;
+        } },
+        { display: '创建时间', name: 'createtime', type: 'text', width: '20%' },
+        { display: '操作', isSort: false, width: '20%', render: function (rowdata, rowindex, value)
+            {
+                var h = "";
+                    h += "<a href='${base}/admin/role/roleAction!giveRights.${actionExt}?id=" + rowdata.id + "'>授权</a> ";
+                return h;
+            }
+            }
         ],
         onSelectRow: function (rowdata, rowindex)
         {
@@ -85,14 +99,14 @@ function f_initGrid(){
     $(".pcontrol input").val(pageNo);
    	$(".pcontrol input").css("width", ((totalPage + "").length * 7) + "px");
    	$(".pcontrol input").attr("maxlength", (totalPage + "").length);
-	$(".pcontrol input").attr("readonly", "readonly");
+   	$(".pcontrol input").attr("readonly", "readonly");
        $(".pcontrol span").html(totalPage);
        var start = 0;
-	var end = 0;
-	if(pageNo>0){
-		start = (pageSize * (pageNo - 1) + 1);
-		end = start + resultListData.Rows.length - 1;
-	}
+       var end = 0;
+       if(pageNo>0){
+    	   start = (pageSize * (pageNo - 1) + 1);
+    	   end = start + resultListData.Rows.length - 1;
+       }
        $(".l-bar-text").html("显示记录从" + start + "到" + end + "，总数 " + itemCount + " 条");
        if (!itemCount)
        {
@@ -130,30 +144,31 @@ function search(){
 }
 function deleteData(id){
     if (confirm('确定删除?')){
-    	window.location="${base}/admin/role/roleAction!delete.${actionExt}?id=" + id;
+    	window.location="${base}/admin/product/productAction!delete.${actionExt}?id=" + id;
     }
 }
 function showData(id){
-	var dialog=$.ligerDialog.open({ title:'查看', url: '${base}/admin//role/roleAction!show.${actionExt}?id=' + id, height: 300, width: null, buttons: [
+	var dialog=$.ligerDialog.open({ title:'查看', url: '${base}/admin/product/productAction!show.${actionExt}?id=' + id, height: 300, width: null, buttons: [
               { text: '关闭', onclick: function (item, dialog) { dialog.close(); } }
            ], isResize: true
           });                                                                 	
 }
 
-function itemclick(item){
+function itemclick(item)
+{
 	if(item.value=='add'){
 		window.location="${base}/admin/role/roleAction!add.${actionExt}";
 	}
 	if(item.value=='edit'){
         var row = manager.getSelectedRow();
-        if (!row) { $.ligerDialog.warn('请选择行'); return; }
+        if (!row) { alert('请选择行'); return; }
             //alert(row.id);
 		window.location="${base}/admin/role/roleAction!edit.${actionExt}?id=" + row.id;
 	}
 	if(item.value=='delete'){
 		var row = manager.getSelectedRow();
-        if (!row) {$.ligerDialog.warn('请选择行'); return; }
-		$.ligerDialog.confirm('确认删除模块 ' + row.rolename + ' 的信息？', function (yes) {
+        if (!row) { alert('请选择行'); return; }
+		$.ligerDialog.confirm('确认删除角色 ' + row.rolename + ' 的信息？', function (yes) {
             if(yes==true){
             	window.location="${base}/admin/role/roleAction!delete.${actionExt}?id=" + row.id;
             }
@@ -164,15 +179,15 @@ function itemclick(item){
 
 </script>
 <style type="text/css">
-.l-case-title{font-weight:bold; margin-top:20px;margin-bottom:20px;}
-</style>
+        .l-case-title{font-weight:bold; margin-top:20px;margin-bottom:20px;}
+     </style>
 </head>
 <body style="padding:6px; overflow:hidden;">
 <form name="roleForm" id="roleForm" method="post" action="roleAction.${actionExt}" >
 <input type="hidden" name="pageNo" id="pageNo" value="${requestScope.pageInfo.page}" />
 <input type="hidden" name="pageSize" id="pageSize" value="${requestScope.pageInfo.pageSize}" />
 <div id="searchbar">
-角色名称：<input id="role.rolename" type="text" name="role.rolename" value="${role.rolename }"/>
+    角色名称：<input id="role.rolename" type="text" name="role.rolename" value="${role.rolename }"/>
     <input id="btnOK" type="submit" value="查询"/>
 </div>
     <div id="maingrid" style="margin:0; padding:0"></div>

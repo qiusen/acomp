@@ -48,5 +48,12 @@
 				<ref bean="moduleService" />
 			</property>
 	  </bean>
+	  
+	  <!-- 市 action -->
+	  <bean id="cityAction" class="com.dihaitech.acomp.controller.action.city.CityAction" scope="prototype">
+			<property name="cityService">
+				<ref bean="cityService" />
+			</property>
+	  </bean>
 
 </beans>
