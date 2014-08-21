@@ -19,5 +19,11 @@
 	<!-- 市 service -->	
 	  <bean id="cityService" class="com.dihaitech.acomp.service.impl.CityServiceImpl"/>
 	  
+	<!-- 省 service -->	
+	  <bean id="provinceService" class="com.dihaitech.acomp.service.impl.ProvinceServiceImpl"/>
+	  
+	<!-- 区 service -->	
+	  <bean id="areaService" class="com.dihaitech.acomp.service.impl.AreaServiceImpl"/>
+	  
 	  
 </beans>

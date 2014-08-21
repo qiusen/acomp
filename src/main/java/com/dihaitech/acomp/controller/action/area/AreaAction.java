@@ -1,11 +1,13 @@
-package com.dihaitech.acomp.controller.action.city;
+package com.dihaitech.acomp.controller.action.area;
 
 import java.util.List;
 
 import com.dihaitech.acomp.common.Property;
 import com.dihaitech.acomp.controller.action.BaseAction;
+import com.dihaitech.acomp.model.Area;
 import com.dihaitech.acomp.model.City;
 import com.dihaitech.acomp.model.Province;
+import com.dihaitech.acomp.service.IAreaService;
 import com.dihaitech.acomp.service.ICityService;
 import com.dihaitech.acomp.service.IProvinceService;
 import com.dihaitech.acomp.util.Page;
@@ -13,26 +15,36 @@ import com.dihaitech.acomp.util.TypeUtil;
 import com.dihaitech.acomp.util.json.JSONUtil;
 
 /**
- * 市Action
+ * 区Action
  * 
  * @author cg
  *
  * @date 2014-03-01
  */
  @SuppressWarnings("serial")
-public class CityAction extends BaseAction {
-	private City city = new City();
+public class AreaAction extends BaseAction {
+	private Area area = new Area();
+	private IAreaService areaService;
+	
 	private ICityService cityService;
 	
 	private IProvinceService provinceService;
 	
-	public City getCity() {
-		return city;
+	public Area getArea() {
+		return area;
 	}
 
-	public void setCity(City city) {
-		this.city = city;
+	public void setArea(Area area) {
+		this.area = area;
 	}
+	public IAreaService getAreaService() {
+		return areaService;
+	}
+
+	public void setAreaService(IAreaService areaService) {
+		this.areaService = areaService;
+	}
+	
 	public ICityService getCityService() {
 		return cityService;
 	}
@@ -41,6 +53,7 @@ public class CityAction extends BaseAction {
 		this.cityService = cityService;
 	}
 	
+
 	public IProvinceService getProvinceService() {
 		return provinceService;
 	}
@@ -50,7 +63,7 @@ public class CityAction extends BaseAction {
 	}
 
 	/* 
-	 * 市查询
+	 * 区查询
 	 * @see com.opensymphony.xwork2.ActionSupport#execute()
 	 */
 	public String execute(){
@@ -72,7 +85,7 @@ public class CityAction extends BaseAction {
 				this.setManagerPageSize(Property.PAGESIZE);
 			}
 
-			Page pageInfo = cityService.selectCity(city,this.getManagerPageSize());
+			Page pageInfo = areaService.selectArea(area,this.getManagerPageSize());
 			
 			if (pageNo > 0) {
 				pageInfo.setPage(pageNo);
@@ -80,36 +93,41 @@ public class CityAction extends BaseAction {
 				pageInfo.setPage(0);
 			}
 			
-			List<City> resultList = this.cityService.selectCity(city,pageInfo);
+			List<Area> resultList = this.areaService.selectArea(area,pageInfo);
 			
 			this.getRequest().setAttribute("pageInfo", pageInfo);
 			this.getRequest().setAttribute("resultList", resultList);
-			this.getRequest().setAttribute("actionName","cityAction");
+			this.getRequest().setAttribute("actionName","areaAction");
 
 			String json = "\"Rows\":" + JSONUtil.objectArrayToJson(resultList)+", \"Total\":" + pageInfo.getResultCount();
-			System.out.println("City json:::::::::::::::::::" + json);
+			System.out.println("Area json:::::::::::::::::::" + json);
 			this.getRequest().setAttribute("json", json);
 			
 			if(resultList!=null && resultList.size()>0){
-				City city = null;
+				Area area = null;
 				StringBuffer strbuf = new StringBuffer();
 				for(int i=0;i<resultList.size();i++){
-					city = resultList.get(i);
+					area = resultList.get(i);
 					if(i==0){
-						strbuf.append("'" + city.getProvinceCode() + "'");
+						strbuf.append("'" + area.getCityCode() + "'");
 					}else{
-						strbuf.append(", '" + city.getProvinceCode() + "'");
+						strbuf.append(", '" + area.getCityCode() + "'");
 					}
 				}
 				
-				Province province = new Province();
-				province.setIdStr(strbuf.toString());
-				List<Province> provinceList = provinceService.selectProvinceByCodes(province);
-				this.getRequest().setAttribute("provinceList", provinceList);
+				City city = new City();
+				city.setIdStr(strbuf.toString());
+				List<City> cityList = cityService.selectCityByCodes(city);
+				this.getRequest().setAttribute("cityList", cityList);
 			}
 			
-			List<Province> pList = provinceService.selectAll();
-			this.getRequest().setAttribute("pList", pList);
+			List<Province> provinceList = provinceService.selectAll();
+			this.getRequest().setAttribute("provinceList", provinceList);
+			
+			City city = new City();
+			city.setCode(area.getCityCode());
+			City cityVO = cityService.selectCityByCode(city);
+			this.getRequest().setAttribute("city", cityVO);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -118,7 +136,7 @@ public class CityAction extends BaseAction {
 	}
 	
 	/**
-	 * 添加 市
+	 * 添加 区
 	 * @return
 	 */
 	public String add(){
@@ -129,16 +147,16 @@ public class CityAction extends BaseAction {
 	}
 	
 	/**
-	 * 保存添加 市
+	 * 保存添加 区
 	 * @return
 	 */
 	public String addSave(){
-		cityService.addSave(city);
+		areaService.addSave(area);
 		return "addSave";
 	}
 	
 	/**
-	 * 修改 市
+	 * 修改 区
 	 * @return
 	 */
 	public String edit(){
@@ -146,42 +164,49 @@ public class CityAction extends BaseAction {
 		int id = 0;
 		id = TypeUtil.stringToInt(idStr);
 		if(id>0){
-			city.setId(id);
+			area.setId(id);
 		}else{
 			return null;
 		}
 		
-		City cityVO = cityService.selectCityById(city);
+		Area areaVO = areaService.selectAreaById(area);
+		this.getRequest().setAttribute("area", areaVO);
+		
+		City city = new City();
+		city.setCode(areaVO.getCityCode());
+		City cityVO = cityService.selectCityByCode(city);
 		this.getRequest().setAttribute("city", cityVO);
 		
 		List<Province> provinceList = provinceService.selectAll();
 		this.getRequest().setAttribute("provinceList", provinceList);
+		
+		
 		return "edit";
 	}
 	
 	/**
-	 * 保存修改 市
+	 * 保存修改 区
 	 * @return
 	 */
 	public String editSave(){
-		cityService.editSave(city);
+		areaService.editSave(area);
 		return "editSave";
 	}
 	
 	/**
-	 * 删除 市
+	 * 删除 区
 	 * @return
 	 */
 	public String delete(){
 		String id = this.getRequest().getParameter("id");
 		StringBuffer strbuf = new StringBuffer(" where id =");
 		strbuf.append(id);
-		cityService.deleteByIds(strbuf.toString());
+		areaService.deleteByIds(strbuf.toString());
 		return "deleteSuccess";
 	}
 
 	/**
-	 * 删除 市
+	 * 删除 区
 	 * @return
 	 */
 	public String deleteByIds(){
@@ -196,7 +221,7 @@ public class CityAction extends BaseAction {
 				}
 			}
 			strbuf.append(")");
-			cityService.deleteByIds(strbuf.toString());
+			areaService.deleteByIds(strbuf.toString());
 			return "deleteSuccess";
 		}
 		return "deleteFailure";

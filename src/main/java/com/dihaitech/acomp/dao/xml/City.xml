@@ -91,4 +91,16 @@
 		where PROVINCE_CODE = #{provinceCode}
 		order by ID
 	</select>
+	
+	<select id="selectCityByCodes" parameterType="city" resultMap="cityMap"  >
+		SELECT * FROM `city` 
+		where CODE in (${idStr})
+		order by ID
+	</select>
+	
+	<select id="selectCityByCode" parameterType="city" resultMap="cityMap"  >
+		SELECT * FROM `city` 
+		where CODE = #{code}
+		order by ID
+	</select>
 </mapper>

@@ -190,5 +190,57 @@
     </package> 
     <!-- 市Action End -->
     
+    <!-- 省Action Begin -->
+    <package name="struts-admin-province" namespace="/admin/province" extends="struts-interceptor">
+		<action name="provinceAction" class="provinceAction">
+			<result name="success" type="dispatcher">/jsp/admin/province/provinceList.jsp</result>
+			<result name="add" type="dispatcher">/jsp/admin/province/provinceAdd.jsp</result>
+			<result name="addSave" type="redirectAction">
+				<param name="actionName">provinceAction</param>
+				<param name="namespace">/admin/province</param>
+			</result>
+
+			<result name="edit" type="dispatcher">/jsp/admin/province/provinceEdit.jsp</result>
+			<result name="editSave" type="redirectAction">
+				<param name="actionName">provinceAction</param>
+				<param name="namespace">/admin/province</param>
+			</result>
+			
+			<result name="deleteSuccess" type="redirectAction">
+				<param name="actionName">provinceAction</param>
+				<param name="namespace">/admin/province</param>
+			</result>
+			
+			<interceptor-ref name="common-params"/>
+        </action>
+    </package> 
+    <!-- 省Action End -->
+    
+    <!-- 区Action Begin -->
+    <package name="struts-admin-area" namespace="/admin/area" extends="struts-interceptor">
+		<action name="areaAction" class="areaAction">
+			<result name="success" type="dispatcher">/jsp/admin/area/areaList.jsp</result>
+			<result name="add" type="dispatcher">/jsp/admin/area/areaAdd.jsp</result>
+			<result name="addSave" type="redirectAction">
+				<param name="actionName">areaAction</param>
+				<param name="namespace">/admin/area</param>
+			</result>
+
+			<result name="edit" type="dispatcher">/jsp/admin/area/areaEdit.jsp</result>
+			<result name="editSave" type="redirectAction">
+				<param name="actionName">areaAction</param>
+				<param name="namespace">/admin/area</param>
+			</result>
+			
+			<result name="deleteSuccess" type="redirectAction">
+				<param name="actionName">areaAction</param>
+				<param name="namespace">/admin/area</param>
+			</result>
+			
+			<interceptor-ref name="common-params"/>
+        </action>
+    </package> 
+    <!-- 区Action End -->
+    
     
 </struts>

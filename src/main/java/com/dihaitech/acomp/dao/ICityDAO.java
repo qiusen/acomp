@@ -76,4 +76,18 @@ public interface ICityDAO {
 	 * @return
 	 */
 	public List<City> selectCityByProvinceCode(City city);
+	
+	/**
+	 * 根据CODES获取所有市
+	 * @param city
+	 * @return
+	 */
+	public List<City> selectCityByCodes(City city);
+	
+	/**
+	 * 根据市CODE，查询市
+	 * @param city
+	 * @return
+	 */
+	public City selectCityByCode(City city);
 }

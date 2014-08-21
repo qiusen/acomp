@@ -82,4 +82,24 @@ public class CityServiceImpl implements ICityService {
 		// TODO Auto-generated method stub
 		return cityDAO.selectCityByProvinceCode(city);
 	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.ICityService#selectCityByCodes(com.dihaitech.acomp.model.City)
+	 */
+	@Override
+	public List<City> selectCityByCodes(City city) {
+		// TODO Auto-generated method stub
+		return cityDAO.selectCityByCodes(city);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.ICityService#selectCityByCode(com.dihaitech.acomp.model.City)
+	 */
+	@Override
+	public City selectCityByCode(City city) {
+		// TODO Auto-generated method stub
+		return cityDAO.selectCityByCode(city);
+	}
 }

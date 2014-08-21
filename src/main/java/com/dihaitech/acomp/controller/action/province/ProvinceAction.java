@@ -1,46 +1,34 @@
-package com.dihaitech.acomp.controller.action.city;
+package com.dihaitech.acomp.controller.action.province;
 
 import java.util.List;
 
 import com.dihaitech.acomp.common.Property;
 import com.dihaitech.acomp.controller.action.BaseAction;
-import com.dihaitech.acomp.model.City;
 import com.dihaitech.acomp.model.Province;
-import com.dihaitech.acomp.service.ICityService;
 import com.dihaitech.acomp.service.IProvinceService;
 import com.dihaitech.acomp.util.Page;
 import com.dihaitech.acomp.util.TypeUtil;
 import com.dihaitech.acomp.util.json.JSONUtil;
 
 /**
- * 市Action
+ * 省Action
  * 
  * @author cg
  *
  * @date 2014-03-01
  */
  @SuppressWarnings("serial")
-public class CityAction extends BaseAction {
-	private City city = new City();
-	private ICityService cityService;
-	
+public class ProvinceAction extends BaseAction {
+	private Province province = new Province();
 	private IProvinceService provinceService;
 	
-	public City getCity() {
-		return city;
+	public Province getProvince() {
+		return province;
 	}
 
-	public void setCity(City city) {
-		this.city = city;
+	public void setProvince(Province province) {
+		this.province = province;
 	}
-	public ICityService getCityService() {
-		return cityService;
-	}
-
-	public void setCityService(ICityService cityService) {
-		this.cityService = cityService;
-	}
-	
 	public IProvinceService getProvinceService() {
 		return provinceService;
 	}
@@ -48,9 +36,8 @@ public class CityAction extends BaseAction {
 	public void setProvinceService(IProvinceService provinceService) {
 		this.provinceService = provinceService;
 	}
-
 	/* 
-	 * 市查询
+	 * 省查询
 	 * @see com.opensymphony.xwork2.ActionSupport#execute()
 	 */
 	public String execute(){
@@ -72,7 +59,7 @@ public class CityAction extends BaseAction {
 				this.setManagerPageSize(Property.PAGESIZE);
 			}
 
-			Page pageInfo = cityService.selectCity(city,this.getManagerPageSize());
+			Page pageInfo = provinceService.selectProvince(province,this.getManagerPageSize());
 			
 			if (pageNo > 0) {
 				pageInfo.setPage(pageNo);
@@ -80,36 +67,15 @@ public class CityAction extends BaseAction {
 				pageInfo.setPage(0);
 			}
 			
-			List<City> resultList = this.cityService.selectCity(city,pageInfo);
+			List<Province> resultList = this.provinceService.selectProvince(province,pageInfo);
 			
 			this.getRequest().setAttribute("pageInfo", pageInfo);
 			this.getRequest().setAttribute("resultList", resultList);
-			this.getRequest().setAttribute("actionName","cityAction");
+			this.getRequest().setAttribute("actionName","provinceAction");
 
 			String json = "\"Rows\":" + JSONUtil.objectArrayToJson(resultList)+", \"Total\":" + pageInfo.getResultCount();
-			System.out.println("City json:::::::::::::::::::" + json);
+			System.out.println("Province json:::::::::::::::::::" + json);
 			this.getRequest().setAttribute("json", json);
-			
-			if(resultList!=null && resultList.size()>0){
-				City city = null;
-				StringBuffer strbuf = new StringBuffer();
-				for(int i=0;i<resultList.size();i++){
-					city = resultList.get(i);
-					if(i==0){
-						strbuf.append("'" + city.getProvinceCode() + "'");
-					}else{
-						strbuf.append(", '" + city.getProvinceCode() + "'");
-					}
-				}
-				
-				Province province = new Province();
-				province.setIdStr(strbuf.toString());
-				List<Province> provinceList = provinceService.selectProvinceByCodes(province);
-				this.getRequest().setAttribute("provinceList", provinceList);
-			}
-			
-			List<Province> pList = provinceService.selectAll();
-			this.getRequest().setAttribute("pList", pList);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -118,27 +84,24 @@ public class CityAction extends BaseAction {
 	}
 	
 	/**
-	 * 添加 市
+	 * 添加 省
 	 * @return
 	 */
 	public String add(){
-		List<Province> provinceList = provinceService.selectAll();
-		this.getRequest().setAttribute("provinceList", provinceList);
-		
 		return "add";
 	}
 	
 	/**
-	 * 保存添加 市
+	 * 保存添加 省
 	 * @return
 	 */
 	public String addSave(){
-		cityService.addSave(city);
+		provinceService.addSave(province);
 		return "addSave";
 	}
 	
 	/**
-	 * 修改 市
+	 * 修改 省
 	 * @return
 	 */
 	public String edit(){
@@ -146,42 +109,39 @@ public class CityAction extends BaseAction {
 		int id = 0;
 		id = TypeUtil.stringToInt(idStr);
 		if(id>0){
-			city.setId(id);
+			province.setId(id);
 		}else{
 			return null;
 		}
 		
-		City cityVO = cityService.selectCityById(city);
-		this.getRequest().setAttribute("city", cityVO);
-		
-		List<Province> provinceList = provinceService.selectAll();
-		this.getRequest().setAttribute("provinceList", provinceList);
+		Province provinceVO = provinceService.selectProvinceById(province);
+		this.getRequest().setAttribute("province", provinceVO);
 		return "edit";
 	}
 	
 	/**
-	 * 保存修改 市
+	 * 保存修改 省
 	 * @return
 	 */
 	public String editSave(){
-		cityService.editSave(city);
+		provinceService.editSave(province);
 		return "editSave";
 	}
 	
 	/**
-	 * 删除 市
+	 * 删除 省
 	 * @return
 	 */
 	public String delete(){
 		String id = this.getRequest().getParameter("id");
 		StringBuffer strbuf = new StringBuffer(" where id =");
 		strbuf.append(id);
-		cityService.deleteByIds(strbuf.toString());
+		provinceService.deleteByIds(strbuf.toString());
 		return "deleteSuccess";
 	}
 
 	/**
-	 * 删除 市
+	 * 删除 省
 	 * @return
 	 */
 	public String deleteByIds(){
@@ -196,7 +156,7 @@ public class CityAction extends BaseAction {
 				}
 			}
 			strbuf.append(")");
-			cityService.deleteByIds(strbuf.toString());
+			provinceService.deleteByIds(strbuf.toString());
 			return "deleteSuccess";
 		}
 		return "deleteFailure";

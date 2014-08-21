@@ -55,5 +55,19 @@
 				<ref bean="cityService" />
 			</property>
 	  </bean>
+	  
+	  <!-- 省 action -->
+	  <bean id="provinceAction" class="com.dihaitech.acomp.controller.action.province.ProvinceAction" scope="prototype">
+			<property name="provinceService">
+				<ref bean="provinceService" />
+			</property>
+	  </bean>
+	  
+	  <!-- 区 action -->
+	  <bean id="areaAction" class="com.dihaitech.acomp.controller.action.area.AreaAction" scope="prototype">
+			<property name="areaService">
+				<ref bean="areaService" />
+			</property>
+	  </bean>
 
 </beans>
