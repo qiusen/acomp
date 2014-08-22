@@ -7,8 +7,60 @@
 <%@ include file="/jsp/common/meta.jsp"%>
 <script language="javascript">
 function checkForm(){
+	getChecked();
 	return true;
 }
+var data1 = [{ id: 'm1', pid: -1, text: '1' }, { id: 'm2', pid:'m1', text: '1.1xxx' }];
+          
+        data1.push({ id: 4, pid: 'm2', text: '1.1.2' });
+         data1.push({ id: 5, pid: 'm2', text: '1.1.2' });      
+ 
+        data1.push({ id: 10, pid: 8, text: 'wefwfwfe' });
+         data1.push({ id: 11, pid: 8, text: 'wgegwgwg' });
+        data1.push({ id: 12, pid: 8, text: 'gwegwg' });
+ 
+         data1.push({ id: 6, pid: 2, text: '1.1.3', ischecked: true });
+        data1.push({ id: 7, pid: 2, text: '1.1.4' });
+        data1.push({ id: 8, pid: 7, text: '1.1.5' });
+        data1.push({ id: 9, pid: 7, text: '1.1.6' });
+
+var data = ${requestScope.data};
+
+var treeManager = null;
+
+//调用初始化页面方法
+$(document).ready(function(){
+	init();
+});
+//初始化方法
+function init(){
+    var tree = $("#tree1").ligerTree({  
+    data:data, 
+     idFieldName :'id',
+     slide : false,
+     parentIDFieldName :'pid'
+     });
+
+     treeManager = $("#tree1").ligerGetTreeManager();
+     
+     treeManager.expandAll();
+    
+}
+
+function getChecked() {
+    var notes = treeManager.getChecked();
+    var text = ",";
+    for (var i = 0; i < notes.length; i++) {
+        if(notes[i].data.type==3){
+        	text += notes[i].data.id + ",";
+        }
+        
+    }
+    
+    document.getElementById("role.rights").value = text;
+    //alert('选择的节点数：' + text);
+}
+
 </script>
 <style type="text/css">
     body{ font-size:12px;}
@@ -21,6 +73,7 @@ function checkForm(){
 <body>
 <form name="roleForm" id="roleForm" method="post" action="roleAction!saveRights.${actionExt}" onsubmit="return checkForm();">
 <input type="hidden" id="role.id" name="role.id" value="${requestScope.role.id}"/>
+<input type="hidden" id="role.rights" name="role.rights" value="${requestScope.role.rights}"/>
 <table cellpadding="0" cellspacing="0" class="l-table-edit" style="margin-top:50px;margin-left:50px;width:550px;">
     <tr>
         <td align="right" class="l-table-edit-td">角色名称：</td>
@@ -37,32 +90,9 @@ function checkForm(){
     <tr>
     	<td align="right" class="l-table-edit-td">可操作模块：</td>
     	<td align="left" colspan="2">
-    	<table border="1" style="width:400px;">
-    	<c:forEach items="${menuList}" var="menu" varStatus="i">
-    	<tr>
-    		<td><c:out value="${menu.menuname}"/>:</td>
-    		<td>
-    		<table style="width:200px;" >
-    		<c:forEach items="${catalogList}" var="catalog" >
-	    	<c:if test="${catalog.menuId==menu.id}">
-	    	<tr>
-	    	<td><c:out value="${catalog.catalogname}"/>:</td>
-	    	<td>
-	    	<c:forEach items="${moduleList}" var="module" >
-	    	<c:if test="${module.catalogId==catalog.id}"><c:out value="${module.modulename}"/>&nbsp;<input type="checkbox" value="${module.id }" id="module" name="module" <c:forEach items="${rights}" var="right" varStatus="j">
-    	<c:if test="${right==module.id}">checked</c:if>
-    	</c:forEach>/><br /></c:if>
-	    	</c:forEach>
-	    	</td>
-	    	</tr>
-	    	</c:if>
-	    	
-	    	</c:forEach>
-	    	</table>
-    		</td>
-    	</tr>
-    	</c:forEach>
-    	</table>
+    	<div style="width:300px; height:300px; margin:10px; float:left; border:1px solid #ccc; overflow:auto;  ">
+		<ul id="tree1"></ul>
+		</div> 
     	
     	</td>
     </tr>

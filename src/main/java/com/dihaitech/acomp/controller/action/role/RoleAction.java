@@ -310,8 +310,9 @@ public class RoleAction extends BaseAction {
 		this.getRequest().setAttribute("role", roleVO);
 
 		String rightsStr = roleVO.getRights();
+		String[] rights = null;
 		if (rightsStr != null && rightsStr.trim().length() > 0) {
-			String[] rights = rightsStr.split(",");
+			rights = rightsStr.split(",");
 			this.getRequest().setAttribute("rights", rights);
 		}
 
@@ -331,7 +332,57 @@ public class RoleAction extends BaseAction {
 		catalog.setStatus(1);
 		List<Catalog> catalogList = catalogService.selectAllByStatus(catalog);
 		this.getRequest().setAttribute("catalogList", catalogList);
+		
+		StringBuffer strbuf = new StringBuffer("[");
+		
+		strbuf.append("{ id: 'mm', pid: -1, text: '主要菜单' , type:0 }");
+		
+		if(menuList!=null && menuList.size()>0){
+			Menu menuTemp = null;
+			for(int i=0;i<menuList.size();i++){
+				menuTemp = menuList.get(i);
+				strbuf.append(",{ id: 'm" + menuTemp.getId() + "', pid: 'mm', text: '" + menuTemp.getMenuname() + "' ,type: 1}");
+			}
+		}
+		
+		if(catalogList!=null && catalogList.size()>0){
+			Catalog catalogTemp = null;
+			for(int i=0;i<catalogList.size();i++){
+				catalogTemp = catalogList.get(i);
+				strbuf.append(",{ id: 'c" + catalogTemp.getId() + "', pid: 'm" + catalogTemp.getMenuId() + "', text: '" + catalogTemp.getCatalogname() + "' ,type: 2}");
+			}
+		}
+		
+		if(moduleList!=null && moduleList.size()>0){
+			Module moduleTemp = null;
+			for(int i=0;i<moduleList.size();i++){
+				moduleTemp = moduleList.get(i);
+				boolean isChecked = false;
+				
+				if(rights!=null && rights.length>0){
+					for(int j=0;j<rights.length;j++){
+						if(moduleTemp.getId().intValue() == TypeUtil.stringToInt(rights[j])){
+							isChecked = true;
+							break;
+						}
+					}
+				}
+				
+				strbuf.append(",{ id: " + moduleTemp.getId() + ", pid: 'c" + moduleTemp.getCatalogId() + "', text: '" + moduleTemp.getModulename() + "' ,type: 3");
+				
+				if(isChecked){
+					strbuf.append(", ischecked: true");
+				}
+				
+				strbuf.append("}");
+				
+			}
+		}
+		
 
+		strbuf.append("]");
+		
+		this.getRequest().setAttribute("data", strbuf.toString());
 		return "giveRights";
 	}
 
@@ -341,28 +392,23 @@ public class RoleAction extends BaseAction {
 	 * @return
 	 */
 	public String saveRights() {
-		String[] modules = this.getRequest().getParameterValues("module");
-
-		if (modules != null && modules.length > 0) {
-			StringBuffer strbuf = new StringBuffer(",");
-			for (int i = 0; i < modules.length; i++) {
-				strbuf.append(modules[i] + ",");
-			}
-			role.setRights(strbuf.toString());
+//		String[] modules = this.getRequest().getParameterValues("module");
+//
+//		if (modules != null && modules.length > 0) {
+//			StringBuffer strbuf = new StringBuffer(",");
+//			for (int i = 0; i < modules.length; i++) {
+//				strbuf.append(modules[i] + ",");
+//			}
+//			role.setRights(strbuf.toString());
 
 			roleService.editRights(role);
 
 			Manager managerVO = (Manager) this.getSession().getAttribute(
 					"manager");
-			// 记录日志
-			MDC.put("username", managerVO.getUsername()); // 用户名
-			MDC.put("nickname", managerVO.getNickname()); // 昵称
-			MDC.put("ip", this.getRealIP()); // IP
-			MDC.put("act", "giveRoleRights"); // 给角色赋权
-			logger.info(managerVO.getNickname() + " 给角色 " + role.getId()
-					+ " 赋权： " + strbuf.toString());
-
-		}
+			
+			this.recordLogs(logger, "giveRoleRights", managerVO.getNickname() + " 给角色 " + role.getId()
+					+ " 赋权： " + role.getRights());
+//		}
 
 		return "saveRights";
 	}
