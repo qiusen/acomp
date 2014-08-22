@@ -10,19 +10,7 @@ function checkForm(){
 	getChecked();
 	return true;
 }
-var data1 = [{ id: 'm1', pid: -1, text: '1' }, { id: 'm2', pid:'m1', text: '1.1xxx' }];
-          
-        data1.push({ id: 4, pid: 'm2', text: '1.1.2' });
-         data1.push({ id: 5, pid: 'm2', text: '1.1.2' });      
- 
-        data1.push({ id: 10, pid: 8, text: 'wefwfwfe' });
-         data1.push({ id: 11, pid: 8, text: 'wgegwgwg' });
-        data1.push({ id: 12, pid: 8, text: 'gwegwg' });
- 
-         data1.push({ id: 6, pid: 2, text: '1.1.3', ischecked: true });
-        data1.push({ id: 7, pid: 2, text: '1.1.4' });
-        data1.push({ id: 8, pid: 7, text: '1.1.5' });
-        data1.push({ id: 9, pid: 7, text: '1.1.6' });
+
 
 var data = ${requestScope.data};
 
