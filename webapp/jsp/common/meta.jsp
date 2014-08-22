@@ -13,7 +13,6 @@
 <script src="${base}/ligerUI/js/ligerui.all.js" type="text/javascript"></script>
 <script src="${base}/ligerUI/js/plugins/ligerForm.js" type="text/javascript"></script>
 <script src="${base}/js/common.js" type="text/javascript"></script>
-<script src="${base}/flex/swfobject.js" type="text/javascript"></script>
 <Script language="JavaScript">
 	var base = "${base}";
 </Script>

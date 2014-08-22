@@ -25,5 +25,7 @@
 	<!-- 区 service -->	
 	  <bean id="areaService" class="com.dihaitech.acomp.service.impl.AreaServiceImpl"/>
 	  
+	  <!-- 日志 service -->	
+	  <bean id="logsService" class="com.dihaitech.acomp.service.impl.LogsServiceImpl"/>
 	  
 </beans>

@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>管理员 列表</title>
+<title>日志 列表</title>
 <%@ include file="/jsp/common/meta.jsp"%>
 <script language="javascript">
 var resultListData = {${requestScope.json}} ;
@@ -20,35 +20,16 @@ var pageNo =${requestScope.pageInfo.page};
 $(f_initGrid);
 function f_initGrid(){
     g = manager = $("#maingrid").ligerGrid({
-    	title:'管理员列表',
+    	title:'日志列表',
         columns: [
         //{ display: '主键', name: 'id', width: 50, type: 'int', frozen: true },
-        { display: '用户名', name: 'username',type: 'text' , width: '15%'},
-        { display: '邮箱', name: 'email', type: 'text', width: '15%' },
-        { display: '昵称', name: 'nickname', type: 'text', width: '10%' },
-        { display: '状态', name: 'status', width: '10%',render: function (rowdata, rowindex, value)
-        {
-        	var h = "-";
-            if(rowdata.status==1){
-                h = "有效";
-            }else{
-                h = "无效";
-            }
-            return h;
-        } },
-        { display: '角色', name: 'roleId', width: '10%' ,render: function (rowdata, rowindex, value)
-        {
-        	var r = "-";
-        	<c:forEach items="${roleList }" var="role">
-        	if(rowdata.roleId==${role.id}){
-                r = "${role.rolename}";
-            }
-            </c:forEach>
-            return r;
-        }  },
-        { display: '创建时间', name: 'createtime', type: 'text', width: '20%' },
-        { display: '最后登录时间', name: 'logintime', type: 'text', width: '15%' },
-        { display: '最后登录IP地址', name: 'loginip', type: 'text', width: '15%' }
+		
+		{ display: '用户名', name: 'username',type: 'text' , width: '15%'},
+		{ display: '昵称', name: 'nickname',type: 'text' , width: '15%'},
+		{ display: 'IP', name: 'ip',type: 'text' , width: '15%'},
+		{ display: '操作标识', name: 'act',type: 'text' , width: '15%'},
+		{ display: '操作时间', name: 'opttime',type: 'text' , width: '25%'},
+		{ display: '操作内容', name: 'content',type: 'text' , width: '35%'}
         ],
         onSelectRow: function (rowdata, rowindex)
         {
@@ -59,7 +40,7 @@ function f_initGrid(){
         data: resultListData,
         record: resultListData.Total,
         //usePager :false,
-        width: '90%',height: '90%',
+        width: '90%',height: '95%',
         pageSize:pageSize,
         pageSizeOptions:[5,10,15,20],
         onReload: function() {
@@ -92,12 +73,12 @@ function f_initGrid(){
         		search();
         	}
 			return false;
-        } ,
+        } 
         //isScroll: false, 
         
-        toolbar: { items: [{ text: '增加', value:'add', click: itemclick, icon: 'add', img: '${base}/ligerUI/skins/icons/add.gif' },
-                           { text: '修改', value:'edit', click: itemclick, icon: 'edit', img: '${base}/ligerUI/skins/icons/edit.gif' },
-                           { text: '删除', value:'delete', click: itemclick, icon: 'delete', img: '${base}/ligerUI/skins/icons/delete.gif' } ] }
+        //toolbar: { items: [{ text: '增加', value:'add', click: itemclick, icon: 'add', img: '${base}/ligerUI/skins/icons/add.gif' },
+        //                   { text: '修改', value:'edit', click: itemclick, icon: 'edit', img: '${base}/ligerUI/skins/icons/edit.gif' },
+        //                   { text: '删除', value:'delete', click: itemclick, icon: 'delete', img: '${base}/ligerUI/skins/icons/delete.gif' } ] },
 
         
                                  
@@ -112,6 +93,8 @@ function f_initGrid(){
        var end = 0;
        if(pageNo>0){
     	   start = (pageSize * (pageNo - 1) + 1);
+    	   //alert(resultListData.Rows);
+    	   //end = start + manager.data.Rows.length - 1;
     	   end = start + resultListData.Rows.length - 1;
        }
        $(".l-bar-text").html("显示记录从" + start + "到" + end + "，总数 " + itemCount + " 条");
@@ -151,33 +134,32 @@ function search(){
 }
 function deleteData(id){
     if (confirm('确定删除?')){
-    	window.location="${base}/admin/product/productAction!delete.${actionExt}?id=" + id;
+    	window.location="${base}/admin/logs/logsAction!delete.${actionExt}?id=" + id;
     }
 }
 function showData(id){
-	var dialog=$.ligerDialog.open({ title:'查看', url: '${base}/admin/product/productAction!show.${actionExt}?id=' + id, height: 300, width: null, buttons: [
+	var dialog=$.ligerDialog.open({ title:'查看', url: '${base}/admin//logs/logsAction!show.${actionExt}?id=' + id, height: 300, width: null, buttons: [
               { text: '关闭', onclick: function (item, dialog) { dialog.close(); } }
            ], isResize: true
           });                                                                 	
 }
 
-function itemclick(item)
-{
+function itemclick(item){
 	if(item.value=='add'){
-		window.location="${base}/admin/manager/managerAction!add.${actionExt}";
+		window.location="${base}/admin/logs/logsAction!add.${actionExt}";
 	}
 	if(item.value=='edit'){
         var row = manager.getSelectedRow();
         if (!row) { alert('请选择行'); return; }
             //alert(row.id);
-		window.location="${base}/admin/manager/managerAction!edit.${actionExt}?id=" + row.id;
+		window.location="${base}/admin/logs/logsAction!edit.${actionExt}?id=" + row.id;
 	}
 	if(item.value=='delete'){
 		var row = manager.getSelectedRow();
         if (!row) { alert('请选择行'); return; }
-		$.ligerDialog.confirm('确认删除管理员 ' + row.nickname + ' 的信息？', function (yes) {
+		$.ligerDialog.confirm('确认删除模块 ' + row.username + ' 的信息？', function (yes) {
             if(yes==true){
-            	window.location="${base}/admin/manager/managerAction!delete.${actionExt}?id=" + row.id;
+            	window.location="${base}/admin/logs/logsAction!delete.${actionExt}?id=" + row.id;
             }
         });
 	}
@@ -186,16 +168,15 @@ function itemclick(item)
 
 </script>
 <style type="text/css">
-        .l-case-title{font-weight:bold; margin-top:20px;margin-bottom:20px;}
-     </style>
+.l-case-title{font-weight:bold; margin-top:20px;margin-bottom:20px;}
+</style>
 </head>
 <body style="padding:6px; overflow:hidden;">
-<form name="managerForm" id="managerForm" method="post" action="managerAction.${actionExt}" >
+<form name="logsForm" id="logsForm" method="post" action="logsAction.${actionExt}" >
 <input type="hidden" name="pageNo" id="pageNo" value="${requestScope.pageInfo.page}" />
 <input type="hidden" name="pageSize" id="pageSize" value="${requestScope.pageInfo.pageSize}" />
 <div id="searchbar">
-    用户名：<input id="manager.username" type="text" name="manager.username" value="${manager.username }"/>
-    邮箱：<input id="manager.email" type="text" name="manager.email" value="${manager.email }"/>
+用户名：<input id="logs.username" type="text" name="logs.username" value="${logs.username }"/>
     <input id="btnOK" type="submit" value="查询"/>
 </div>
     <div id="maingrid" style="margin:0; padding:0"></div>

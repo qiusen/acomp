@@ -69,5 +69,12 @@
 				<ref bean="areaService" />
 			</property>
 	  </bean>
+	  
+	  <!-- 日志 action -->
+	  <bean id="logsAction" class="com.dihaitech.acomp.controller.action.logs.LogsAction" scope="prototype">
+			<property name="logsService">
+				<ref bean="logsService" />
+			</property>
+	  </bean>
 
 </beans>

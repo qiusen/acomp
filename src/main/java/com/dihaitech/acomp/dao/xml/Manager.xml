@@ -102,8 +102,6 @@
               `NICKNAME` = #{nickname}, 
               `STATUS` = #{status}, 
               `ROLE_ID` = #{roleId}, 
-              `CREATOR` = #{creator}, 
-              `CREATETIME` = #{createtime}, 
               `LOGINTIME` = #{logintime}, 
               `LOGINIP` = #{loginip}
         	where ID = #{id}

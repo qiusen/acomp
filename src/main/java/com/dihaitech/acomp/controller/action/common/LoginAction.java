@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.MDC;
 
 import com.dihaitech.acomp.controller.action.BaseAction;
 import com.dihaitech.acomp.model.Catalog;
@@ -180,11 +179,7 @@ public class LoginAction extends BaseAction {
 				this.getSession().setAttribute("manager", managerVO);
 				
 				//记录日志
-				MDC.put("username", username);	//用户名
-				MDC.put("nickname", managerVO.getNickname());	//昵称
-				MDC.put("ip", this.getRealIP());	//IP
-				MDC.put("act", "login");	//登录 
-				logger.info(managerVO.getNickname() + " 登录");
+				this.recordLogs(logger, "login", managerVO.getNickname() + " 登录");
 			}else{
 				this.getRequest().setAttribute("errorStr", "用户名或密码错误");
 				return "login";
@@ -212,12 +207,7 @@ public class LoginAction extends BaseAction {
 		if(o!=null){
 			manager = (Manager)this.getSession().getAttribute("manager");
 			//记录日志
-			MDC.put("username", manager.getUsername());	//用户名
-			MDC.put("nickname", manager.getNickname());	//昵称
-			MDC.put("ip", this.getRealIP());	//IP
-			MDC.put("act", "logoff");	//登出
-			logger.info(manager.getNickname() + " 登出");
-			this.getSession().removeAttribute("manager");
+			this.recordLogs(logger, "logoff", manager.getNickname() + " 登出");
 		}
 		
 		return "logOff";

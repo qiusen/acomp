@@ -242,5 +242,13 @@
     </package> 
     <!-- 区Action End -->
     
-    
+    <!-- 日志Action Begin -->
+    <package name="struts-admin-logs" namespace="/admin/logs" extends="struts-interceptor">
+		<action name="logsAction" class="logsAction">
+			<result name="success" type="dispatcher">/jsp/admin/logs/logsList.jsp</result>
+			
+			<interceptor-ref name="common-params"/>
+        </action>
+    </package> 
+    <!-- 日志Action End -->
 </struts>

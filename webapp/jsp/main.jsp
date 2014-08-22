@@ -1,5 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" %><%@ include file="/jsp/common/taglibs.jsp"%><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ page contentType="text/html;charset=UTF-8" %><%@ include file="/jsp/common/taglibs.jsp"%><!DOCTYPE html>
+<html lang="zh-CN">
 <head>
 <title><%=Property.SYSTEM_NAME %></title>
 <%@ include file="/jsp/common/meta.jsp"%>

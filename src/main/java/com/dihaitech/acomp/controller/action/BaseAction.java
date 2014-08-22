@@ -8,7 +8,6 @@ import org.apache.commons.logging.Log;
 import org.apache.log4j.MDC;
 import org.apache.struts2.ServletActionContext;
 
-import com.dihaitech.acomp.common.Constants;
 import com.dihaitech.acomp.model.Manager;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -137,22 +136,23 @@ public abstract class BaseAction extends ActionSupport {
 
 	/**
 	 * 记录日志
-	 * 
-	 * @param desc
-	 * @param id
-	 * @param nameZh
+	 * @param logger
+	 * @param act
+	 * @param description
 	 */
-	protected void proLogs(Log logger, String desc, Integer id, String nameZh) {
+	protected void recordLogs(Log logger, String act, String description) {
 
-		MDC.put(Constants.LOGS_COLUMN_NAME_OPERATOR, this.getSessionManager().getNickname()); // 用户名
-		MDC.put(Constants.LOGS_COLUMN_NAME_EMAIL, this.getSessionManager()
-				.getEmail()); // 昵称
-		MDC.put(Constants.LOGS_COLUMN_NAME_OPER_IP, this.getRealIP()); // IP
-		MDC.put(Constants.LOGS_COLUMN_NAME_DATA_ID, null != id ? id : "");
-		MDC.put(Constants.LOGS_COLUMN_NAME_DATA_NAME, null != nameZh ? nameZh
-				: "");
-		logger.info(this.getSessionManager().getNickname() + desc
-				+ (null != nameZh ? nameZh : ""));
+		Manager manager = null;
+		Object o = this.getSession().getAttribute("manager");
+		if(o!=null){
+			manager = (Manager)this.getSession().getAttribute("manager");
+			//记录日志
+			MDC.put("username", manager.getUsername());	//用户名
+			MDC.put("nickname", manager.getNickname());	//昵称
+			MDC.put("ip", this.getRealIP());	//IP
+			MDC.put("act", act);	//动作
+			logger.info(description);
+		}
 	}
 	
 }
