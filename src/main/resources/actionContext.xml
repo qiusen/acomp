@@ -76,5 +76,12 @@
 				<ref bean="logsService" />
 			</property>
 	  </bean>
+	  
+	  <!-- 字典 action -->
+	  <bean id="dictAction" class="com.dihaitech.acomp.controller.action.dict.DictAction" scope="prototype">
+			<property name="dictService">
+				<ref bean="dictService" />
+			</property>
+	  </bean>
 
 </beans>

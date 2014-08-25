@@ -251,4 +251,30 @@
         </action>
     </package> 
     <!-- 日志Action End -->
+    
+    <!-- 字典Action Begin -->
+    <package name="struts-admin-dict" namespace="/admin/dict" extends="struts-interceptor">
+		<action name="dictAction" class="dictAction">
+			<result name="success" type="dispatcher">/jsp/admin/dict/dictList.jsp</result>
+			<result name="add" type="dispatcher">/jsp/admin/dict/dictAdd.jsp</result>
+			<result name="addSave" type="redirectAction">
+				<param name="actionName">dictAction</param>
+				<param name="namespace">/admin/dict</param>
+			</result>
+
+			<result name="edit" type="dispatcher">/jsp/admin/dict/dictEdit.jsp</result>
+			<result name="editSave" type="redirectAction">
+				<param name="actionName">dictAction</param>
+				<param name="namespace">/admin/dict</param>
+			</result>
+			
+			<result name="deleteSuccess" type="redirectAction">
+				<param name="actionName">dictAction</param>
+				<param name="namespace">/admin/dict</param>
+			</result>
+			
+			<interceptor-ref name="common-params"/>
+        </action>
+    </package> 
+    <!-- 字典Action End -->
 </struts>
