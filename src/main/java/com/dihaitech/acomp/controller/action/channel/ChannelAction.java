@@ -93,6 +93,24 @@ public class ChannelAction extends BaseAction {
 			System.out.println("Channel json:::::::::::::::::::" + json);
 			this.getRequest().setAttribute("json", json);
 			
+			if(resultList!=null && resultList.size()>0){
+				Channel channel = null;
+				StringBuffer strbuf = new StringBuffer();
+				for(int i=0;i<resultList.size();i++){
+					channel = resultList.get(i);
+					if(i==0){
+						strbuf.append(channel.getTempleteId());
+					}else{
+						strbuf.append(", " + channel.getTempleteId());
+					}
+				}
+				
+				Templete templete = new Templete();
+				templete.setIdStr(strbuf.toString());
+				List<Templete> templeteList = templeteService.selectTempleteByIds(templete);
+				this.getRequest().setAttribute("templeteList", templeteList);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

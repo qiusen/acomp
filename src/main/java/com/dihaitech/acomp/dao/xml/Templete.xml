@@ -111,4 +111,10 @@
 	        where `TYPE` = #{type}
 			order by ID 
 	</select>
+	
+	<select id="selectTempleteByIds" parameterType="templete" resultMap="templeteMap" >
+		SELECT <include refid="templeteField" /> FROM `templete`
+	        where `ID` in (${idStr})
+			order by ID 
+	</select>
 </mapper>

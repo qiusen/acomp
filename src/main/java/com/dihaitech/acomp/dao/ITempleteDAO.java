@@ -75,4 +75,10 @@ public interface ITempleteDAO {
 	 * @return
 	 */
 	public List<Templete> selectTempleteByType(Templete templete);
+	
+	/**
+	 * @param templete
+	 * @return
+	 */
+	public List<Templete> selectTempleteByIds(Templete templete);
 }

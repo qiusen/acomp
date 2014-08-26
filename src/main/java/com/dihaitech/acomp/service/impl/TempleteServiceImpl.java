@@ -80,4 +80,14 @@ public class TempleteServiceImpl implements ITempleteService {
 		// TODO Auto-generated method stub
 		return templeteDAO.selectTempleteByType(templete);
 	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.ITempleteService#selectTempleteByIds(com.dihaitech.acomp.model.Templete)
+	 */
+	@Override
+	public List<Templete> selectTempleteByIds(Templete templete) {
+		// TODO Auto-generated method stub
+		return templeteDAO.selectTempleteByIds(templete);
+	}
 }

@@ -82,7 +82,7 @@
 	<select id="selectCityLike" parameterType="city" resultMap="cityMap" >
 		SELECT <include refid="cityField" /> FROM `city`
 	        <include refid="cityLikeWhere" />
-			order by ID desc
+			order by ID
 	        <include refid="cityPage" /> 
 	</select>
 	

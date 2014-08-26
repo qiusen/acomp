@@ -82,7 +82,7 @@
 	<select id="selectAreaLike" parameterType="area" resultMap="areaMap" >
 		SELECT <include refid="areaField" /> FROM `area`
 	        <include refid="areaLikeWhere" />
-			order by ID desc
+			order by ID
 	        <include refid="areaPage" /> 
 	</select>
 </mapper>

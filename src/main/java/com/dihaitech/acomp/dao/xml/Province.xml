@@ -75,7 +75,7 @@
 	<select id="selectProvinceLike" parameterType="province" resultMap="provinceMap" >
 		SELECT <include refid="provinceField" /> FROM `province`
 	        <include refid="provinceLikeWhere" />
-			order by ID desc
+			order by ID
 	        <include refid="provincePage" /> 
 	</select>
 	
