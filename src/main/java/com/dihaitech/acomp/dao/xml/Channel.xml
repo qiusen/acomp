@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dihaitech.acomp.dao.IChannelDAO">
+	
+	<cache flushInterval="600000" eviction="LRU" type="org.mybatis.caches.oscache.OSCache"/>
+	
+	<sql id="channelLikeWhere">
+		<where>
+            <if test ="id != null and id > -1">
+				and `ID` = #{id}
+			</if>
+	        <if test ="name != null and name != ''">
+			    and `NAME` like '%${name}%'
+		    </if>
+	        <if test ="brief != null and brief != ''">
+			    and `BRIEF` like '%${brief}%'
+		    </if>
+            <if test ="templeteId != null and templeteId > -1">
+				and `TEMPLETE_ID` = #{templeteId}
+			</if>
+            <if test ="status != null and status > -1">
+				and `STATUS` = #{status}
+			</if>
+            <if test ="ordernum != null and ordernum > -1">
+				and `ORDERNUM` = #{ordernum}
+			</if>
+	        <if test ="createuser != null and createuser != ''">
+			    and `CREATEUSER` like '%${createuser}%'
+		    </if>
+	        <if test ="updateuser != null and updateuser != ''">
+			    and `UPDATEUSER` like '%${updateuser}%'
+		    </if>
+		</where>
+	</sql>
+	
+	<sql id="channelPage">
+		<if test="null != start">
+		  limit #{start},#{pageSize}
+		</if>
+	</sql>
+	
+	<sql id="channelField">
+		`ID`, `NAME`, `BRIEF`, `TEMPLETE_ID`, `STATUS`, `ORDERNUM`, `CREATEUSER`, `CREATETIME`, `UPDATEUSER`, `UPDATETIME`
+	</sql>
+	
+	<resultMap id="channelMap" type="channel">
+	    	<result property="id" column="ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+	    	<result property="name" column="NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="brief" column="BRIEF" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="templeteId" column="TEMPLETE_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+	    	<result property="status" column="STATUS" javaType="java.lang.Integer" jdbcType="INTEGER" />
+	    	<result property="ordernum" column="ORDERNUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+	    	<result property="createuser" column="CREATEUSER" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="createtime" column="CREATETIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+	    	<result property="updateuser" column="UPDATEUSER" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="updatetime" column="UPDATETIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="addSaveChannel" parameterType="channel">
+		insert into `channel` (
+           `NAME`, 
+           `BRIEF`, 
+           `TEMPLETE_ID`, 
+           `STATUS`, 
+           `ORDERNUM`, 
+           `CREATEUSER`, 
+           `CREATETIME`, 
+           `UPDATEUSER`, 
+           `UPDATETIME`
+		) values 
+		(
+            #{name}, 
+            #{brief}, 
+            #{templeteId}, 
+            #{status}, 
+            #{ordernum}, 
+            #{createuser}, 
+            #{createtime}, 
+            #{updateuser}, 
+            #{updatetime}
+		)
+		<selectKey keyProperty="id"  resultType="java.lang.Integer">
+			select last_insert_id() as id from `channel` limit 1
+		</selectKey>
+	</insert>
+	
+	<delete id="deleteByIds" parameterType="String">
+		delete from `channel` ${_parameter}
+	</delete>
+	
+	<update id="editSaveChannel" parameterType="channel">
+		update `channel` set 
+              `NAME` = #{name}, 
+              `BRIEF` = #{brief}, 
+              `TEMPLETE_ID` = #{templeteId}, 
+              `STATUS` = #{status}, 
+              `ORDERNUM` = #{ordernum}, 
+              `UPDATEUSER` = #{updateuser}, 
+              `UPDATETIME` = #{updatetime}
+        	where ID = #{id}
+	</update>
+	
+	<select id="selectChannelById" parameterType="channel" resultMap="channelMap"  >
+		SELECT * FROM `channel` where ID = #{id}
+	</select>
+	
+	<select id="getChannelCount" parameterType="channel" resultType="Long" >
+		select count(*) from `channel`
+		<include refid="channelLikeWhere" />
+	</select>
+	
+	<select id="selectAll" parameterType="channel" resultMap="channelMap" >
+		select * from `channel`
+	</select>
+	
+	<select id="selectChannelLike" parameterType="channel" resultMap="channelMap" >
+		SELECT <include refid="channelField" /> FROM `channel`
+	        <include refid="channelLikeWhere" />
+			order by ID desc
+	        <include refid="channelPage" /> 
+	</select>
+</mapper>

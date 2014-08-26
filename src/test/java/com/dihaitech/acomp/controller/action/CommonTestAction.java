@@ -29,6 +29,7 @@ public abstract class CommonTestAction extends StrutsSpringTestCase {
 		manager.setNickname("单元测试");
 		manager.setId(-1);
 		manager.setEmail("单元测试mail");
+		manager.setUsername("单元测试username");
 
 		request.getSession().setAttribute("manager", manager);
 		proxy.getInvocation().getInvocationContext().getSession()

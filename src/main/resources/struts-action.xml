@@ -277,4 +277,84 @@
         </action>
     </package> 
     <!-- 字典Action End -->
+    
+    
+    <!-- 频道Action Begin -->
+    <package name="struts-admin-channel" namespace="/admin/channel" extends="struts-interceptor">
+		<action name="channelAction" class="channelAction">
+			<result name="success" type="dispatcher">/jsp/admin/channel/channelList.jsp</result>
+			<result name="add" type="dispatcher">/jsp/admin/channel/channelAdd.jsp</result>
+			<result name="addSave" type="redirectAction">
+				<param name="actionName">channelAction</param>
+				<param name="namespace">/admin/channel</param>
+			</result>
+
+			<result name="edit" type="dispatcher">/jsp/admin/channel/channelEdit.jsp</result>
+			<result name="editSave" type="redirectAction">
+				<param name="actionName">channelAction</param>
+				<param name="namespace">/admin/channel</param>
+			</result>
+			
+			<result name="deleteSuccess" type="redirectAction">
+				<param name="actionName">channelAction</param>
+				<param name="namespace">/admin/channel</param>
+			</result>
+			
+			<interceptor-ref name="common-params"/>
+        </action>
+    </package> 
+    <!-- 频道Action End -->
+    
+    
+    <!-- 模板Action Begin -->
+    <package name="struts-admin-templete" namespace="/admin/templete" extends="struts-interceptor">
+		<action name="templeteAction" class="templeteAction">
+			<result name="success" type="dispatcher">/jsp/admin/templete/templeteList.jsp</result>
+			<result name="add" type="dispatcher">/jsp/admin/templete/templeteAdd.jsp</result>
+			<result name="addSave" type="redirectAction">
+				<param name="actionName">templeteAction</param>
+				<param name="namespace">/admin/templete</param>
+			</result>
+
+			<result name="edit" type="dispatcher">/jsp/admin/templete/templeteEdit.jsp</result>
+			<result name="editSave" type="redirectAction">
+				<param name="actionName">templeteAction</param>
+				<param name="namespace">/admin/templete</param>
+			</result>
+			
+			<result name="deleteSuccess" type="redirectAction">
+				<param name="actionName">templeteAction</param>
+				<param name="namespace">/admin/templete</param>
+			</result>
+			
+			<interceptor-ref name="common-params"/>
+        </action>
+    </package> 
+    <!-- 模板Action End -->
+    
+    <!-- 模板标签Action Begin -->
+    <package name="struts-admin-templeteTag" namespace="/admin/templeteTag" extends="struts-interceptor">
+		<action name="templeteTagAction" class="templeteTagAction">
+			<result name="success" type="dispatcher">/jsp/admin/templeteTag/templeteTagList.jsp</result>
+			<result name="add" type="dispatcher">/jsp/admin/templeteTag/templeteTagAdd.jsp</result>
+			<result name="addSave" type="redirectAction">
+				<param name="actionName">templeteTagAction</param>
+				<param name="namespace">/admin/templeteTag</param>
+			</result>
+
+			<result name="edit" type="dispatcher">/jsp/admin/templeteTag/templeteTagEdit.jsp</result>
+			<result name="editSave" type="redirectAction">
+				<param name="actionName">templeteTagAction</param>
+				<param name="namespace">/admin/templeteTag</param>
+			</result>
+			
+			<result name="deleteSuccess" type="redirectAction">
+				<param name="actionName">templeteTagAction</param>
+				<param name="namespace">/admin/templeteTag</param>
+			</result>
+			
+			<interceptor-ref name="common-params"/>
+        </action>
+    </package> 
+    <!-- 模板标签Action End -->
 </struts>

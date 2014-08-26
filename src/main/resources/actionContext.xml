@@ -83,5 +83,26 @@
 				<ref bean="dictService" />
 			</property>
 	  </bean>
+	  
+	  <!-- 频道 action -->
+	  <bean id="channelAction" class="com.dihaitech.acomp.controller.action.channel.ChannelAction" scope="prototype">
+			<property name="channelService">
+				<ref bean="channelService" />
+			</property>
+	  </bean>
+	  
+	  <!-- 模板 action -->
+	  <bean id="templeteAction" class="com.dihaitech.acomp.controller.action.templete.TempleteAction" scope="prototype">
+			<property name="templeteService">
+				<ref bean="templeteService" />
+			</property>
+	  </bean>
+	  
+	  <!-- 模板标签 action -->
+	  <bean id="templeteTagAction" class="com.dihaitech.acomp.controller.action.templeteTag.TempleteTagAction" scope="prototype">
+			<property name="templeteTagService">
+				<ref bean="templeteTagService" />
+			</property>
+	  </bean>
 
 </beans>

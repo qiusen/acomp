@@ -212,11 +212,7 @@ public class ManagerAction extends BaseAction {
 		
 		Manager managerVO = (Manager)this.getSession().getAttribute("manager");
 		//记录日志
-		MDC.put("username", managerVO.getUsername());	//用户名
-		MDC.put("nickname", managerVO.getNickname());	//昵称
-		MDC.put("ip", this.getRealIP());	//IP
-		MDC.put("act", "deleteManager");	//删除管理员
-		logger.info(managerVO.getNickname() + " 删除管理员 ID号：" + id);
+		this.recordLogs(logger, "editModule", managerVO.getNickname() + " 删除管理员 ID号：" + id);
 		
 		return "deleteSuccess";
 	}

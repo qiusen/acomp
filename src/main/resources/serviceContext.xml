@@ -31,4 +31,13 @@
 	  <!-- 字典 service -->	
 	  <bean id="dictService" class="com.dihaitech.acomp.service.impl.DictServiceImpl"/>
 	  
+	  <!-- 频道 service -->	
+	  <bean id="channelService" class="com.dihaitech.acomp.service.impl.ChannelServiceImpl"/>
+	  
+	  <!-- 模板 service -->	
+	  <bean id="templeteService" class="com.dihaitech.acomp.service.impl.TempleteServiceImpl"/>
+	  
+	  <!-- 模板标签 service -->	
+	  <bean id="templeteTagService" class="com.dihaitech.acomp.service.impl.TempleteTagServiceImpl"/>
+	  
 </beans>

@@ -38,8 +38,8 @@ public class TestManagerAction extends CommonTestAction {
 		manager.setPassword("测试");
 		manager.setEmail("测试");
 		manager.setNickname("测试");
-		manager.setStatus(123);
-		manager.setRoleId(123);
+		manager.setStatus(1);
+		manager.setRoleId(1);
 		manager.setCreator("测试");
         manager.setCreatetime(DateUtil.stringToDate(DateUtil
 				.getNowDateString(DateUtil.TIME_CONTINUOUS_FORM)));

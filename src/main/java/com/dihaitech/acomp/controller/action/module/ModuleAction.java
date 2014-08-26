@@ -222,13 +222,7 @@ public class ModuleAction extends BaseAction {
 		moduleService.editSave(module);
 		
 		Manager managerVO = (Manager)this.getSession().getAttribute("manager");
-		//记录日志
-		MDC.put("username", managerVO.getUsername());	//用户名
-		MDC.put("nickname", managerVO.getNickname());	//昵称
-		MDC.put("ip", this.getRealIP());	//IP
-		MDC.put("act", "editModule");	//修改模块
-		logger.info(managerVO.getNickname() + " 修改模块 " + module.getModulename());
-		
+		this.recordLogs(logger, "editModule", managerVO.getNickname() + " 修改模块 " + module.getModulename());
 		return "editSave";
 	}
 	
