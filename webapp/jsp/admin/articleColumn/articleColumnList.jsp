@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%><%@ include file="/jsp/common/taglibs.jsp"%><!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<title>频道 列表</title>
+<title>文章栏目 列表</title>
 <%@ include file="/jsp/common/meta.jsp"%>
 <script language="javascript">
 var resultListData = {${requestScope.json}} ;
@@ -18,19 +18,18 @@ var pageNo =${requestScope.pageInfo.page};
 $(f_initGrid);
 function f_initGrid(){
     g = manager = $("#maingrid").ligerGrid({
-    	title:'频道列表',
+    	title:'文章栏目列表',
         columns: [
         //{ display: '主键', name: 'id', width: 50, type: 'int', frozen: true },
 		
 		{ display: '编码', name: 'code',type: 'text' , width: '15%'},
 		{ display: '名称', name: 'name',type: 'text' , width: '15%'},
-		{ display: '摘要', name: 'brief',type: 'text' , width: '15%'},
-		{ display: '模板', name: 'templeteId',type: 'text' , width: '15%',render: function (rowdata, rowindex, value)
+		{ display: '频道', name: 'channelId',type: 'text' , width: '15%',render: function (rowdata, rowindex, value)
         {
         	var r = "-";
-        	<c:forEach items="${templeteList}" var="templete">
-        	if(rowdata.templeteId == ${templete.id}){
-        		r = "${templete.name}";
+        	<c:forEach items="${channelList}" var="channel">
+        	if(rowdata.channelId == ${channel.id}){
+        		r = "${channel.name}";
         	}
         	</c:forEach>
         	
@@ -153,11 +152,11 @@ function search(){
 }
 function deleteData(id){
     if (confirm('确定删除?')){
-    	window.location="${base}/admin/channel/channelAction!delete.${actionExt}?id=" + id;
+    	window.location="${base}/admin/articleColumn/articleColumnAction!delete.${actionExt}?id=" + id;
     }
 }
 function showData(id){
-	var dialog=$.ligerDialog.open({ title:'查看', url: '${base}/admin//channel/channelAction!show.${actionExt}?id=' + id, height: 300, width: null, buttons: [
+	var dialog=$.ligerDialog.open({ title:'查看', url: '${base}/admin//articleColumn/articleColumnAction!show.${actionExt}?id=' + id, height: 300, width: null, buttons: [
               { text: '关闭', onclick: function (item, dialog) { dialog.close(); } }
            ], isResize: true
           });                                                                 	
@@ -165,20 +164,20 @@ function showData(id){
 
 function itemclick(item){
 	if(item.value=='add'){
-		window.location="${base}/admin/channel/channelAction!add.${actionExt}";
+		window.location="${base}/admin/articleColumn/articleColumnAction!add.${actionExt}";
 	}
 	if(item.value=='edit'){
         var row = manager.getSelectedRow();
         if (!row) { $.ligerDialog.warn('请选择行'); return; }
             //alert(row.id);
-		window.location="${base}/admin/channel/channelAction!edit.${actionExt}?id=" + row.id;
+		window.location="${base}/admin/articleColumn/articleColumnAction!edit.${actionExt}?id=" + row.id;
 	}
 	if(item.value=='delete'){
 		var row = manager.getSelectedRow();
         if (!row) {$.ligerDialog.warn('请选择行'); return; }
-		$.ligerDialog.confirm('确认删除模块 ' + row.name + ' 的信息？', function (yes) {
+		$.ligerDialog.confirm('确认删除模块 ' + row.code + ' 的信息？', function (yes) {
             if(yes==true){
-            	window.location="${base}/admin/channel/channelAction!delete.${actionExt}?id=" + row.id;
+            	window.location="${base}/admin/articleColumn/articleColumnAction!delete.${actionExt}?id=" + row.id;
             }
         });
 	}
@@ -191,11 +190,11 @@ function itemclick(item){
 </style>
 </head>
 <body style="padding:6px; overflow:hidden;">
-<form name="channelForm" id="channelForm" method="post" action="channelAction.${actionExt}" >
+<form name="articleColumnForm" id="articleColumnForm" method="post" action="articleColumnAction.${actionExt}" >
 <input type="hidden" name="pageNo" id="pageNo" value="${requestScope.pageInfo.page}" />
 <input type="hidden" name="pageSize" id="pageSize" value="${requestScope.pageInfo.pageSize}" />
 <div id="searchbar">
-名称：<input id="channel.name" type="text" name="channel.name" value="${channel.name }"/>
+编码：<input id="articleColumn.code" type="text" name="articleColumn.code" value="${articleColumn.code }"/>
     <input id="btnOK" type="submit" value="查询"/>
 </div>
     <div id="maingrid" style="margin:0; padding:0"></div>

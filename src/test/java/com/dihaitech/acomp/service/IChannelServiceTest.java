@@ -17,7 +17,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
  * 频道 Service 接口测试
  * 
  * @author cg
- * @since 2014-08-26
+ * @since 2014-08-27
  */
 public class IChannelServiceTest extends BaseTestCase{
 	@Autowired
@@ -25,6 +25,7 @@ public class IChannelServiceTest extends BaseTestCase{
 	private Channel buildTestModel(){
 	
 		Channel channel = new Channel();
+		channel.setCode("测试");
 		channel.setName("测试");
 		channel.setBrief("测试");
 		channel.setTempleteId(123);
@@ -100,6 +101,7 @@ public class IChannelServiceTest extends BaseTestCase{
 		Channel channel1 = addTestChannel();
 		
 	    Channel channel2 = channelService.selectChannelById(channel1);
+		channel2.setCode("测试2");
 		channel2.setName("测试2");
 		channel2.setBrief("测试2");
 		channel2.setTempleteId(21);

@@ -70,4 +70,24 @@ public class ChannelServiceImpl implements IChannelService {
 	public Channel selectChannelById(Channel channel) {
 		return channelDAO.selectChannelById(channel);
 	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IChannelService#selectChannelByStatus(com.dihaitech.acomp.model.Channel)
+	 */
+	@Override
+	public List<Channel> selectChannelByStatus(Channel channel) {
+		// TODO Auto-generated method stub
+		return channelDAO.selectChannelByStatus(channel);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IChannelService#selectChannelByIds(com.dihaitech.acomp.model.Channel)
+	 */
+	@Override
+	public List<Channel> selectChannelByIds(Channel channel) {
+		// TODO Auto-generated method stub
+		return channelDAO.selectChannelByIds(channel);
+	}
 }

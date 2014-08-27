@@ -40,4 +40,7 @@
 	  <!-- 模板标签 service -->	
 	  <bean id="templeteTagService" class="com.dihaitech.acomp.service.impl.TempleteTagServiceImpl"/>
 	  
+	  <!-- 文章栏目 service -->	
+	  <bean id="articleColumnService" class="com.dihaitech.acomp.service.impl.ArticleColumnServiceImpl"/>
+	  
 </beans>

@@ -3,17 +3,17 @@ package com.dihaitech.acomp.model;
 import java.util.Date;
 
 /**
- * 频道
+ * 文章栏目
  * 
  * @author cg
  *
  * @date 2014-08-27
  */
 @SuppressWarnings("serial")
-public class Channel extends BaseModel{
+public class ArticleColumn extends BaseModel{
 	
 	/**
-	 * CODE
+	 * 编码
 	 */
 	private String code;
 	
@@ -23,14 +23,9 @@ public class Channel extends BaseModel{
 	private String name;
 	
 	/**
-	 * 摘要
+	 * 频道ID
 	 */
-	private String brief;
-	
-	/**
-	 * 模板ID
-	 */
-	private Integer templeteId;
+	private Integer channelId;
 	
 	/**
 	 * 状态
@@ -73,17 +68,11 @@ public class Channel extends BaseModel{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getBrief() {
-		return brief;
+	public Integer getChannelId() {
+		return channelId;
 	}
-	public void setBrief(String brief) {
-		this.brief = brief;
-	}
-	public Integer getTempleteId() {
-		return templeteId;
-	}
-	public void setTempleteId(Integer templeteId) {
-		this.templeteId = templeteId;
+	public void setChannelId(Integer channelId) {
+		this.channelId = channelId;
 	}
 	public Integer getStatus() {
 		return status;

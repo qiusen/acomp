@@ -12,7 +12,7 @@ import com.dihaitech.acomp.util.DateUtil;
  * 频道 Action 测试
  * 
  * @author cg
- * @since 2014-08-26
+ * @since 2014-08-27
  */
 public class TestChannelAction extends CommonTestAction {
 	private ChannelAction test;
@@ -34,6 +34,7 @@ public class TestChannelAction extends CommonTestAction {
 	private Channel buildTestModel(){
 	
 		Channel channel = new Channel();
+		channel.setCode("测试");
 		channel.setName("测试");
 		channel.setBrief("测试");
 		channel.setTempleteId(1);

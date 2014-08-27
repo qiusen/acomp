@@ -104,5 +104,12 @@
 				<ref bean="templeteTagService" />
 			</property>
 	  </bean>
+	  
+	  <!-- 文章栏目 action -->
+	  <bean id="articleColumnAction" class="com.dihaitech.acomp.controller.action.articleColumn.ArticleColumnAction" scope="prototype">
+			<property name="articleColumnService">
+				<ref bean="articleColumnService" />
+			</property>
+	  </bean>
 
 </beans>

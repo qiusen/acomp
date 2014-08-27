@@ -24,6 +24,11 @@ function cancleClick(){
 <table cellpadding="0" cellspacing="0" class="l-table-edit" style="margin-top:50px;margin-left:50px;">
     <input type="hidden" id="channel.id" name="channel.id" value="${requestScope.channel.id}"/>
     <tr>
+        <td align="right" class="l-table-edit-td">编码：</td>
+        <td align="left" class="l-table-edit-td"><input name="channel.code" type="text" id="channel.code" ltype="text" value="${requestScope.channel.code}"/></td>
+        <td align="left"></td>
+    </tr>
+    <tr>
         <td align="right" class="l-table-edit-td">名称：</td>
         <td align="left" class="l-table-edit-td"><input name="channel.name" type="text" id="channel.name" ltype="text" value="${requestScope.channel.name}"/></td>
         <td align="left"></td>

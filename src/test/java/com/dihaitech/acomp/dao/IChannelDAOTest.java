@@ -16,7 +16,7 @@ import com.dihaitech.acomp.util.DateUtil;
  * 频道 DAO 接口测试
  * 
  * @author cg
- * @since 2014-08-26
+ * @since 2014-08-27
  */
 public class IChannelDAOTest extends BaseTestCase {
 	@Resource
@@ -24,6 +24,7 @@ public class IChannelDAOTest extends BaseTestCase {
 	private Channel buildTestModel(){
 	
 		Channel channel = new Channel();
+		channel.setCode("测试");
 		channel.setName("测试");
 		channel.setBrief("测试");
 		channel.setTempleteId(123);
@@ -84,6 +85,7 @@ public class IChannelDAOTest extends BaseTestCase {
 	@Test
 	public void editSaveChannel(){
 		Channel add_obj = addTestChannel();
+		add_obj.setCode("测试2");
 		add_obj.setName("测试2");
 		add_obj.setBrief("测试2");
 		add_obj.setTempleteId(21);

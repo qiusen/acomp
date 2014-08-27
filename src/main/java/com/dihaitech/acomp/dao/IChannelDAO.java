@@ -69,4 +69,18 @@ public interface IChannelDAO {
 	 * @return
 	 */
 	public List<Channel> selectAll();
+	
+	/**
+	 * 根据状态获取所有频道
+	 * @param channel
+	 * @return
+	 */
+	public List<Channel> selectChannelByStatus(Channel channel);
+	
+	/**
+	 * 根据IDS获取所有频道
+	 * @param channel
+	 * @return
+	 */
+	public List<Channel> selectChannelByIds(Channel channel);
 }

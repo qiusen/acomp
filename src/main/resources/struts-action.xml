@@ -357,4 +357,30 @@
         </action>
     </package> 
     <!-- 模板标签Action End -->
+    
+    <!-- 文章栏目Action Begin -->
+    <package name="struts-admin-articleColumn" namespace="/admin/articleColumn" extends="struts-interceptor">
+		<action name="articleColumnAction" class="articleColumnAction">
+			<result name="success" type="dispatcher">/jsp/admin/articleColumn/articleColumnList.jsp</result>
+			<result name="add" type="dispatcher">/jsp/admin/articleColumn/articleColumnAdd.jsp</result>
+			<result name="addSave" type="redirectAction">
+				<param name="actionName">articleColumnAction</param>
+				<param name="namespace">/admin/articleColumn</param>
+			</result>
+
+			<result name="edit" type="dispatcher">/jsp/admin/articleColumn/articleColumnEdit.jsp</result>
+			<result name="editSave" type="redirectAction">
+				<param name="actionName">articleColumnAction</param>
+				<param name="namespace">/admin/articleColumn</param>
+			</result>
+			
+			<result name="deleteSuccess" type="redirectAction">
+				<param name="actionName">articleColumnAction</param>
+				<param name="namespace">/admin/articleColumn</param>
+			</result>
+			
+			<interceptor-ref name="common-params"/>
+        </action>
+    </package> 
+    <!-- 文章栏目Action End -->
 </struts>
