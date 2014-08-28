@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dihaitech.acomp.dao.IArticleColumnDAO">
+<mapper namespace="com.dihaitech.acomp.dao.IArticleCategoryDAO">
 	
 	<cache flushInterval="600000" eviction="LRU" type="org.mybatis.caches.oscache.OSCache"/>
 	
-	<sql id="articleColumnLikeWhere">
+	<sql id="articleCategoryLikeWhere">
 		<where>
             <if test ="id != null and id > -1">
 				and `ID` = #{id}
@@ -15,8 +15,8 @@
 	        <if test ="name != null and name != ''">
 			    and `NAME` like '%${name}%'
 		    </if>
-            <if test ="channelId != null and channelId > -1">
-				and `CHANNEL_ID` = #{channelId}
+            <if test ="columnId != null and columnId > -1">
+				and `COLUMN_ID` = #{columnId}
 			</if>
             <if test ="status != null and status > -1">
 				and `STATUS` = #{status}
@@ -33,21 +33,21 @@
 		</where>
 	</sql>
 	
-	<sql id="articleColumnPage">
+	<sql id="articleCategoryPage">
 		<if test="null != start">
 		  limit #{start},#{pageSize}
 		</if>
 	</sql>
 	
-	<sql id="articleColumnField">
-		`ID`, `CODE`, `NAME`, `CHANNEL_ID`, `STATUS`, `ORDERNUM`, `CREATEUSER`, `CREATETIME`, `UPDATEUSER`, `UPDATETIME`
+	<sql id="articleCategoryField">
+		`ID`, `CODE`, `NAME`, `COLUMN_ID`, `STATUS`, `ORDERNUM`, `CREATEUSER`, `CREATETIME`, `UPDATEUSER`, `UPDATETIME`
 	</sql>
 	
-	<resultMap id="articleColumnMap" type="articleColumn">
+	<resultMap id="articleCategoryMap" type="articleCategory">
 	    	<result property="id" column="ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
 	    	<result property="code" column="CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
 	    	<result property="name" column="NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
-	    	<result property="channelId" column="CHANNEL_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+	    	<result property="columnId" column="COLUMN_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
 	    	<result property="status" column="STATUS" javaType="java.lang.Integer" jdbcType="INTEGER" />
 	    	<result property="ordernum" column="ORDERNUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
 	    	<result property="createuser" column="CREATEUSER" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -56,11 +56,11 @@
 	    	<result property="updatetime" column="UPDATETIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
 	</resultMap>
 	
-	<insert id="addSaveArticleColumn" parameterType="articleColumn">
-		insert into `article_column` (
+	<insert id="addSaveArticleCategory" parameterType="articleCategory">
+		insert into `article_category` (
            `CODE`, 
            `NAME`, 
-           `CHANNEL_ID`, 
+           `COLUMN_ID`, 
            `STATUS`, 
            `ORDERNUM`, 
            `CREATEUSER`, 
@@ -71,7 +71,7 @@
 		(
             #{code}, 
             #{name}, 
-            #{channelId}, 
+            #{columnId}, 
             #{status}, 
             #{ordernum}, 
             #{createuser}, 
@@ -80,19 +80,19 @@
             #{updatetime}
 		)
 		<selectKey keyProperty="id"  resultType="java.lang.Integer">
-			select last_insert_id() as id from `article_column` limit 1
+			select last_insert_id() as id from `article_category` limit 1
 		</selectKey>
 	</insert>
 	
 	<delete id="deleteByIds" parameterType="String">
-		delete from `article_column` ${_parameter}
+		delete from `article_category` ${_parameter}
 	</delete>
 	
-	<update id="editSaveArticleColumn" parameterType="articleColumn">
-		update `article_column` set 
+	<update id="editSaveArticleCategory" parameterType="articleCategory">
+		update `article_category` set 
               `CODE` = #{code}, 
               `NAME` = #{name}, 
-              `CHANNEL_ID` = #{channelId}, 
+              `COLUMN_ID` = #{columnId}, 
               `STATUS` = #{status}, 
               `ORDERNUM` = #{ordernum}, 
               `UPDATEUSER` = #{updateuser}, 
@@ -100,36 +100,23 @@
         	where ID = #{id}
 	</update>
 	
-	<select id="selectArticleColumnById" parameterType="articleColumn" resultMap="articleColumnMap"  >
-		SELECT * FROM `article_column` where ID = #{id}
+	<select id="selectArticleCategoryById" parameterType="articleCategory" resultMap="articleCategoryMap"  >
+		SELECT * FROM `article_category` where ID = #{id}
 	</select>
 	
-	<select id="getArticleColumnCount" parameterType="articleColumn" resultType="Long" >
-		select count(*) from `article_column`
-		<include refid="articleColumnLikeWhere" />
+	<select id="getArticleCategoryCount" parameterType="articleCategory" resultType="Long" >
+		select count(*) from `article_category`
+		<include refid="articleCategoryLikeWhere" />
 	</select>
 	
-	<select id="selectAll" parameterType="articleColumn" resultMap="articleColumnMap" >
-		select * from `article_column`
+	<select id="selectAll" parameterType="articleCategory" resultMap="articleCategoryMap" >
+		select * from `article_category`
 	</select>
 	
-	<select id="selectArticleColumnLike" parameterType="articleColumn" resultMap="articleColumnMap" >
-		SELECT <include refid="articleColumnField" /> FROM `article_column`
-	        <include refid="articleColumnLikeWhere" />
+	<select id="selectArticleCategoryLike" parameterType="articleCategory" resultMap="articleCategoryMap" >
+		SELECT <include refid="articleCategoryField" /> FROM `article_category`
+	        <include refid="articleCategoryLikeWhere" />
 			order by ID desc
-	        <include refid="articleColumnPage" /> 
+	        <include refid="articleCategoryPage" /> 
 	</select>
-	
-	<select id="selectArticleColumnByChannelId" parameterType="articleColumn" resultMap="articleColumnMap" >
-		SELECT <include refid="articleColumnField" /> FROM `article_column`
-	        where `CHANNEL_ID` = #{channelId}
-			order by ORDERNUM
-	</select>
-	
-	<select id="selectArticleColumnByIds" parameterType="articleColumn" resultMap="articleColumnMap" >
-		SELECT <include refid="articleColumnField" /> FROM `article_column`
-	        where id in (${idStr})
-			order by ORDERNUM
-	</select>
-	
 </mapper>

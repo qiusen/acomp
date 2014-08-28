@@ -111,5 +111,12 @@
 				<ref bean="articleColumnService" />
 			</property>
 	  </bean>
+	  
+	  <!-- 文章类别 action -->
+	  <bean id="articleCategoryAction" class="com.dihaitech.acomp.controller.action.articleCategory.ArticleCategoryAction" scope="prototype">
+			<property name="articleCategoryService">
+				<ref bean="articleCategoryService" />
+			</property>
+	  </bean>
 
 </beans>

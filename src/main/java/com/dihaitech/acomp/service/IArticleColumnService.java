@@ -63,4 +63,18 @@ public interface IArticleColumnService {
 	 * @return
 	 */
 	public int deleteByIds(String str);
+	
+	/**
+	 * 根据频道ID获取所有栏目
+	 * @param articleColumn
+	 * @return
+	 */
+	public List<ArticleColumn> selectArticleColumnByChannelId(ArticleColumn articleColumn);
+	
+	/**
+	 * 根据IDS获取所有栏目
+	 * @param articleColumn
+	 * @return
+	 */
+	public List<ArticleColumn> selectArticleColumnByIds(ArticleColumn articleColumn);
 }

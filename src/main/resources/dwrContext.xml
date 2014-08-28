@@ -8,5 +8,9 @@
 	<bean id="cityAjax" class="com.dihaitech.acomp.dwr.CityAjax" >
 		<property name="cityService" ref="cityService"></property>
 	</bean>
+	
+	<bean id="articleColumnAjax" class="com.dihaitech.acomp.dwr.ArticleColumnAjax" >
+		<property name="articleColumnService" ref="articleColumnService"></property>
+	</bean>
 
 </beans>

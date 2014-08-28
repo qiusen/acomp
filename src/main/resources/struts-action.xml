@@ -383,4 +383,30 @@
         </action>
     </package> 
     <!-- 文章栏目Action End -->
+    
+    <!-- 文章类别Action Begin -->
+    <package name="struts-admin-articleCategory" namespace="/admin/articleCategory" extends="struts-interceptor">
+		<action name="articleCategoryAction" class="articleCategoryAction">
+			<result name="success" type="dispatcher">/jsp/admin/articleCategory/articleCategoryList.jsp</result>
+			<result name="add" type="dispatcher">/jsp/admin/articleCategory/articleCategoryAdd.jsp</result>
+			<result name="addSave" type="redirectAction">
+				<param name="actionName">articleCategoryAction</param>
+				<param name="namespace">/admin/articleCategory</param>
+			</result>
+
+			<result name="edit" type="dispatcher">/jsp/admin/articleCategory/articleCategoryEdit.jsp</result>
+			<result name="editSave" type="redirectAction">
+				<param name="actionName">articleCategoryAction</param>
+				<param name="namespace">/admin/articleCategory</param>
+			</result>
+			
+			<result name="deleteSuccess" type="redirectAction">
+				<param name="actionName">articleCategoryAction</param>
+				<param name="namespace">/admin/articleCategory</param>
+			</result>
+			
+			<interceptor-ref name="common-params"/>
+        </action>
+    </package> 
+    <!-- 文章类别Action End -->
 </struts>

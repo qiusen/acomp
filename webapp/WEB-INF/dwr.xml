@@ -8,9 +8,13 @@
 	    <create creator="spring" javascript="cityDwr">
 	      <param name="beanName" value="cityAjax"/>
 	    </create>
+	    <create creator="spring" javascript="articleColumnDwr">
+	      <param name="beanName" value="articleColumnAjax"/>
+	    </create>
 	    
 	    <convert converter="bean" match="com.dihaitech.acomp.model.Catalog"/>
 	    <convert converter="bean" match="com.dihaitech.acomp.model.City"/>
+	    <convert converter="bean" match="com.dihaitech.acomp.model.ArticleColumn"/>
     
 	</allow>
 </dwr>

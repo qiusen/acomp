@@ -70,4 +70,26 @@ public class ArticleColumnServiceImpl implements IArticleColumnService {
 	public ArticleColumn selectArticleColumnById(ArticleColumn articleColumn) {
 		return articleColumnDAO.selectArticleColumnById(articleColumn);
 	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IArticleColumnService#selectArticleColumnByChannelId(com.dihaitech.acomp.model.ArticleColumn)
+	 */
+	@Override
+	public List<ArticleColumn> selectArticleColumnByChannelId(
+			ArticleColumn articleColumn) {
+		// TODO Auto-generated method stub
+		return articleColumnDAO.selectArticleColumnByChannelId(articleColumn);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IArticleColumnService#selectArticleColumnByIds(com.dihaitech.acomp.model.ArticleColumn)
+	 */
+	@Override
+	public List<ArticleColumn> selectArticleColumnByIds(
+			ArticleColumn articleColumn) {
+		// TODO Auto-generated method stub
+		return articleColumnDAO.selectArticleColumnByIds(articleColumn);
+	}
 }
