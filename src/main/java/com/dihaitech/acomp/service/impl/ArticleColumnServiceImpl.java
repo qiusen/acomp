@@ -92,4 +92,25 @@ public class ArticleColumnServiceImpl implements IArticleColumnService {
 		// TODO Auto-generated method stub
 		return articleColumnDAO.selectArticleColumnByIds(articleColumn);
 	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IArticleColumnService#selectArticleColumnByCode(com.dihaitech.acomp.model.ArticleColumn)
+	 */
+	@Override
+	public ArticleColumn selectArticleColumnByCode(ArticleColumn articleColumn) {
+		// TODO Auto-generated method stub
+		return articleColumnDAO.selectArticleColumnByCode(articleColumn);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IArticleColumnService#selectArticleColumnByCodes(com.dihaitech.acomp.model.ArticleColumn)
+	 */
+	@Override
+	public List<ArticleColumn> selectArticleColumnByCodes(
+			ArticleColumn articleColumn) {
+		// TODO Auto-generated method stub
+		return articleColumnDAO.selectArticleColumnByCodes(articleColumn);
+	}
 }

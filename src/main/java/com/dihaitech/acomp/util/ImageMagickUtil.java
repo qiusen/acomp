@@ -26,12 +26,15 @@ public class ImageMagickUtil {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		// System.out.println(System.getProperty("java.library.path"));
+		 System.out.println(System.getProperty("java.library.path"));
 
 		// 测试代码
 		try {
-			reSize("D:/workgbk/acomp/WebRoot/image/bg.jpg", "D:/13440.jpg",
-					"D:/w.jpg", 300, 300);
+//			reSize("D:/workgbk/acomp/WebRoot/image/bg.jpg", "D:/13440.jpg",
+//					"D:/w.jpg", 300, 300);
+			
+			reSize("/Users/qiusen/Desktop/9a8d.jpg", "/Users/qiusen/Desktop/9a8d222.jpg",
+					"/myfile/workspaceutf8/cms-manage/webapp/image/shuiyin.png", 300, 300);
 
 			// cutImg("D:/13440.jpg", "D:/13440_new.jpg", 480, 480, 80, 0);
 		} catch (Exception e) {

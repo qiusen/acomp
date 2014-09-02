@@ -118,7 +118,10 @@ public class UploadJsonServlet extends HttpServlet {
 			files = wrapper.getFiles("imgFile");
 			filenames = wrapper.getFileNames("imgFile");
 		}
+		
+		System.out.println("0000000000-------000000000");
 		if (files != null && files.length > 0) {
+			System.out.println("0000000000---1111111111---000000000");
 			for (int i = 0; i < files.length; i++) {
 				File fileItem = files[i];
 				String fileName = filenames[i];

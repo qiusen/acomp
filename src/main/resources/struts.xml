@@ -9,16 +9,4 @@
 	<!-- 通用的Action -->
 	<include file="struts-action.xml" />
 	
-	<!-- CMS的Action -->
-	<include file="struts-action-cms.xml" />
-	
-	<!-- WeiXin的Action -->
-	<include file="struts-action-weixin.xml" />
-	
-	<!-- Product的Action -->
-	<include file="struts-action-product.xml" />
-	
-	<!-- Shop的Action -->
-	<include file="struts-action-shop.xml" />
-	
 </struts>

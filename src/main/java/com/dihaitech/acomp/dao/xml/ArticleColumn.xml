@@ -132,4 +132,14 @@
 			order by ORDERNUM
 	</select>
 	
+	<select id="selectArticleColumnByCode" parameterType="articleColumn" resultMap="articleColumnMap"  >
+		SELECT * FROM `article_column` where `CODE` = #{code}
+	</select>
+	
+	<select id="selectArticleColumnByCodes" parameterType="articleColumn" resultMap="articleColumnMap" >
+		SELECT <include refid="articleColumnField" /> FROM `article_column`
+	        where code in (${idStr})
+			order by ORDERNUM
+	</select>
+	
 </mapper>

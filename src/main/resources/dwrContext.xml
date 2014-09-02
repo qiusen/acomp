@@ -12,5 +12,10 @@
 	<bean id="articleColumnAjax" class="com.dihaitech.acomp.dwr.ArticleColumnAjax" >
 		<property name="articleColumnService" ref="articleColumnService"></property>
 	</bean>
+	
+	<bean id="articleCategoryAjax" class="com.dihaitech.acomp.dwr.ArticleCategoryAjax" >
+		<property name="articleColumnService" ref="articleColumnService"></property>
+		<property name="articleCategoryService" ref="articleCategoryService"></property>
+	</bean>
 
 </beans>

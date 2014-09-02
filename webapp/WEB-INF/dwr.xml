@@ -11,10 +11,14 @@
 	    <create creator="spring" javascript="articleColumnDwr">
 	      <param name="beanName" value="articleColumnAjax"/>
 	    </create>
+	    <create creator="spring" javascript="articleCategoryDwr">
+	      <param name="beanName" value="articleCategoryAjax"/>
+	    </create>
 	    
 	    <convert converter="bean" match="com.dihaitech.acomp.model.Catalog"/>
 	    <convert converter="bean" match="com.dihaitech.acomp.model.City"/>
 	    <convert converter="bean" match="com.dihaitech.acomp.model.ArticleColumn"/>
+	    <convert converter="bean" match="com.dihaitech.acomp.model.ArticleCategory"/>
     
 	</allow>
 </dwr>

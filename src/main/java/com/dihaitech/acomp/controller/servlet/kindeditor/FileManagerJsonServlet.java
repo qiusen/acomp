@@ -67,11 +67,14 @@ public class FileManagerJsonServlet extends HttpServlet {
 				}
 			}
 		}
+		System.out.println("rootUrl1111111" + rootUrl);
 		// 根据path参数，设置各路径和URL
 		String path = request.getParameter("path") != null ? request
 				.getParameter("path") : "";
 		String currentPath = rootPath + path;
 		String currentUrl = rootUrl + path;
+		
+		System.out.println("currentUrl1111111" + currentUrl);
 		String currentDirPath = path;
 		String moveupDirPath = "";
 		if (!"".equals(path)) {
@@ -140,6 +143,10 @@ public class FileManagerJsonServlet extends HttpServlet {
 			Collections.sort(fileList, new NameComparator());
 		}
 		JSONObject result = new JSONObject();
+		System.out.println("moveupDirPath------------" + moveupDirPath);
+		System.out.println("currentDirPath------------" + currentDirPath);
+		System.out.println("currentUrl------------" + currentUrl);
+		
 		result.put("moveup_dir_path", moveupDirPath);
 		result.put("current_dir_path", currentDirPath);
 		result.put("current_url", currentUrl);

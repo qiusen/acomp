@@ -409,4 +409,31 @@
         </action>
     </package> 
     <!-- 文章类别Action End -->
+    
+    <!-- 文章Action Begin -->
+    <package name="struts-admin-article" namespace="/admin/article" extends="struts-interceptor">
+		<action name="articleAction" class="articleAction">
+			<result name="success" type="dispatcher">/jsp/admin/article/articleList.jsp</result>
+			<result name="add" type="dispatcher">/jsp/admin/article/articleAdd.jsp</result>
+			<result name="addSave" type="redirectAction">
+				<param name="actionName">articleAction</param>
+				<param name="namespace">/admin/article</param>
+			</result>
+
+			<result name="edit" type="dispatcher">/jsp/admin/article/articleEdit.jsp</result>
+			<result name="editSave" type="redirectAction">
+				<param name="actionName">articleAction</param>
+				<param name="namespace">/admin/article</param>
+			</result>
+			
+			<result name="deleteSuccess" type="redirectAction">
+				<param name="actionName">articleAction</param>
+				<param name="namespace">/admin/article</param>
+			</result>
+			
+			<interceptor-ref name="common-params-upload"/>
+        </action>
+    </package> 
+    <!-- 文章Action End -->
+    
 </struts>

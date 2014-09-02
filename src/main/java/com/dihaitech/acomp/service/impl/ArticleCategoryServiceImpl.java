@@ -70,4 +70,37 @@ public class ArticleCategoryServiceImpl implements IArticleCategoryService {
 	public ArticleCategory selectArticleCategoryById(ArticleCategory articleCategory) {
 		return articleCategoryDAO.selectArticleCategoryById(articleCategory);
 	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IArticleCategoryService#selectArticleCategoryByColumnId(com.dihaitech.acomp.model.ArticleCategory)
+	 */
+	@Override
+	public List<ArticleCategory> selectArticleCategoryByColumnId(
+			ArticleCategory articleCategory) {
+		// TODO Auto-generated method stub
+		return articleCategoryDAO.selectArticleCategoryByColumnId(articleCategory);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IArticleCategoryService#selectArticleCategoryByCode(com.dihaitech.acomp.model.ArticleCategory)
+	 */
+	@Override
+	public ArticleCategory selectArticleCategoryByCode(
+			ArticleCategory articleCategory) {
+		// TODO Auto-generated method stub
+		return articleCategoryDAO.selectArticleCategoryByCode(articleCategory);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IArticleCategoryService#selectArticleCategoryByCodes(com.dihaitech.acomp.model.ArticleCategory)
+	 */
+	@Override
+	public List<ArticleCategory> selectArticleCategoryByCodes(
+			ArticleCategory articleCategory) {
+		// TODO Auto-generated method stub
+		return articleCategoryDAO.selectArticleCategoryByCodes(articleCategory);
+	}
 }

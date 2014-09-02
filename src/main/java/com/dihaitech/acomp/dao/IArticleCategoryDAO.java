@@ -69,4 +69,25 @@ public interface IArticleCategoryDAO {
 	 * @return
 	 */
 	public List<ArticleCategory> selectAll();
+	
+	/**
+	 * 根据栏目ID获取所有类别
+	 * @param articleCategory
+	 * @return
+	 */
+	public List<ArticleCategory> selectArticleCategoryByColumnId(ArticleCategory articleCategory);
+	
+	/**
+	 * 根据CODE查询
+	 * @param articleCategory
+	 * @return
+	 */
+	public ArticleCategory selectArticleCategoryByCode(ArticleCategory articleCategory);
+	
+	/**
+	 * 根据CODE拼凑字符串，查询
+	 * @param articleCategory
+	 * @return
+	 */
+	public List<ArticleCategory> selectArticleCategoryByCodes(ArticleCategory articleCategory);
 }

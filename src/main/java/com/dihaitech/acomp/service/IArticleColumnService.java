@@ -77,4 +77,18 @@ public interface IArticleColumnService {
 	 * @return
 	 */
 	public List<ArticleColumn> selectArticleColumnByIds(ArticleColumn articleColumn);
+	
+	/**
+	 * 根据编码查询栏目
+	 * @param articleColumn
+	 * @return
+	 */
+	public ArticleColumn selectArticleColumnByCode(ArticleColumn articleColumn);
+	
+	/**
+	 * 根据CODE拼凑的字符串，查询
+	 * @param articleColumn
+	 * @return
+	 */
+	public List<ArticleColumn> selectArticleColumnByCodes(ArticleColumn articleColumn);
 }

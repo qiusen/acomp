@@ -46,4 +46,7 @@
 	  <!-- 文章类别 service -->	
 	  <bean id="articleCategoryService" class="com.dihaitech.acomp.service.impl.ArticleCategoryServiceImpl"/>
 	  
+	  <!-- 文章 service -->	
+	  <bean id="articleService" class="com.dihaitech.acomp.service.impl.ArticleServiceImpl"/>
+	  
 </beans>

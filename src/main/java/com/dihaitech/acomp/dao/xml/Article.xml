@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dihaitech.acomp.dao.IArticleDAO">
+	
+	<cache flushInterval="600000" eviction="LRU" type="org.mybatis.caches.oscache.OSCache"/>
+	
+	<sql id="articleLikeWhere">
+		<where>
+            <if test ="id != null and id > -1">
+				and `ID` = #{id}
+			</if>
+	        <if test ="columnCode != null and columnCode != ''">
+			    and `COLUMN_CODE` like '%${columnCode}%'
+		    </if>
+	        <if test ="categoryCode != null and categoryCode != ''">
+			    and `CATEGORY_CODE` like '%${categoryCode}%'
+		    </if>
+	        <if test ="title != null and title != ''">
+			    and `TITLE` like '%${title}%'
+		    </if>
+	        <if test ="auth != null and auth != ''">
+			    and `AUTH` like '%${auth}%'
+		    </if>
+	        <if test ="shortTitle != null and shortTitle != ''">
+			    and `SHORT_TITLE` like '%${shortTitle}%'
+		    </if>
+	        <if test ="articleImg != null and articleImg != ''">
+			    and `ARTICLE_IMG` like '%${articleImg}%'
+		    </if>
+	        <if test ="brief != null and brief != ''">
+			    and `BRIEF` like '%${brief}%'
+		    </if>
+	        <if test ="content != null and content != ''">
+			    and `CONTENT` like '%${content}%'
+		    </if>
+            <if test ="status != null and status > -1">
+				and `STATUS` = #{status}
+			</if>
+	        <if test ="createuser != null and createuser != ''">
+			    and `CREATEUSER` like '%${createuser}%'
+		    </if>
+	        <if test ="updateuser != null and updateuser != ''">
+			    and `UPDATEUSER` like '%${updateuser}%'
+		    </if>
+		</where>
+	</sql>
+	
+	<sql id="articlePage">
+		<if test="null != start">
+		  limit #{start},#{pageSize}
+		</if>
+	</sql>
+	
+	<sql id="articleField">
+		`ID`, `COLUMN_CODE`, `CATEGORY_CODE`, `TITLE`, `AUTH`, `SHORT_TITLE`, `ARTICLE_IMG`, `BRIEF`, `CONTENT`, `STATUS`, `CREATEUSER`, `CREATETIME`, `UPDATEUSER`, `UPDATETIME`
+	</sql>
+	
+	<resultMap id="articleMap" type="article">
+	    	<result property="id" column="ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+	    	<result property="columnCode" column="COLUMN_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="categoryCode" column="CATEGORY_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="title" column="TITLE" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="auth" column="AUTH" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="shortTitle" column="SHORT_TITLE" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="articleImg" column="ARTICLE_IMG" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="brief" column="BRIEF" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="content" column="CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="status" column="STATUS" javaType="java.lang.Integer" jdbcType="INTEGER" />
+	    	<result property="createuser" column="CREATEUSER" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="createtime" column="CREATETIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+	    	<result property="updateuser" column="UPDATEUSER" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="updatetime" column="UPDATETIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="addSaveArticle" parameterType="article">
+		insert into `article` (
+           `COLUMN_CODE`, 
+           `CATEGORY_CODE`, 
+           `TITLE`, 
+           `AUTH`, 
+           `SHORT_TITLE`, 
+           `ARTICLE_IMG`, 
+           `BRIEF`, 
+           `CONTENT`, 
+           `STATUS`, 
+           `CREATEUSER`, 
+           `CREATETIME`, 
+           `UPDATEUSER`, 
+           `UPDATETIME`
+		) values 
+		(
+            #{columnCode}, 
+            #{categoryCode}, 
+            #{title}, 
+            #{auth}, 
+            #{shortTitle}, 
+            #{articleImg}, 
+            #{brief}, 
+            #{content}, 
+            #{status}, 
+            #{createuser}, 
+            #{createtime}, 
+            #{updateuser}, 
+            #{updatetime}
+		)
+		<selectKey keyProperty="id"  resultType="java.lang.Integer">
+			select last_insert_id() as id from `article` limit 1
+		</selectKey>
+	</insert>
+	
+	<delete id="deleteByIds" parameterType="String">
+		delete from `article` ${_parameter}
+	</delete>
+	
+	<update id="editSaveArticle" parameterType="article">
+		update `article` set 
+              `TITLE` = #{title}, 
+              `AUTH` = #{auth}, 
+              `SHORT_TITLE` = #{shortTitle}, 
+              `ARTICLE_IMG` = #{articleImg}, 
+              `BRIEF` = #{brief}, 
+              `CONTENT` = #{content}, 
+              `STATUS` = #{status}, 
+              `UPDATEUSER` = #{updateuser}, 
+              `UPDATETIME` = #{updatetime}
+        	where ID = #{id}
+	</update>
+	
+	<select id="selectArticleById" parameterType="article" resultMap="articleMap"  >
+		SELECT * FROM `article` where ID = #{id}
+	</select>
+	
+	<select id="getArticleCount" parameterType="article" resultType="Long" >
+		select count(*) from `article`
+		<include refid="articleLikeWhere" />
+	</select>
+	
+	<select id="selectAll" parameterType="article" resultMap="articleMap" >
+		select * from `article`
+	</select>
+	
+	<select id="selectArticleLike" parameterType="article" resultMap="articleMap" >
+		SELECT <include refid="articleField" /> FROM `article`
+	        <include refid="articleLikeWhere" />
+			order by ID desc
+	        <include refid="articlePage" /> 
+	</select>
+</mapper>

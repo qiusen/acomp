@@ -118,5 +118,21 @@
 				<ref bean="articleCategoryService" />
 			</property>
 	  </bean>
+	  
+	  <!-- 文章 action -->
+	  <bean id="articleAction" class="com.dihaitech.acomp.controller.action.article.ArticleAction" scope="prototype">
+			<property name="articleService">
+				<ref bean="articleService" />
+			</property>
+			<property name="articleColumnService">
+				<ref bean="articleColumnService" />
+			</property>
+			<property name="articleCategoryService">
+				<ref bean="articleCategoryService" />
+			</property>
+			<property name="channelService">
+				<ref bean="channelService" />
+			</property>
+	  </bean>
 
 </beans>
