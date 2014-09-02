@@ -52,7 +52,7 @@
 	</sql>
 	
 	<sql id="articleField">
-		`ID`, `COLUMN_CODE`, `CATEGORY_CODE`, `TITLE`, `AUTH`, `SHORT_TITLE`, `ARTICLE_IMG`, `BRIEF`, `CONTENT`, `STATUS`, `CREATEUSER`, `CREATETIME`, `UPDATEUSER`, `UPDATETIME`
+		`ID`, `COLUMN_CODE`, `CATEGORY_CODE`, `TITLE`, `AUTH`, `SHORT_TITLE`, `ARTICLE_IMG`, `BRIEF`, `CONTENT`,`TEMPLETE_ID`, `STATUS`, `CREATEUSER`, `CREATETIME`, `UPDATEUSER`, `UPDATETIME`
 	</sql>
 	
 	<resultMap id="articleMap" type="article">
@@ -66,6 +66,7 @@
 	    	<result property="brief" column="BRIEF" javaType="java.lang.String" jdbcType="VARCHAR" />
 	    	<result property="content" column="CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />
 	    	<result property="status" column="STATUS" javaType="java.lang.Integer" jdbcType="INTEGER" />
+	    	<result property="templeteId" column="TEMPLETE_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
 	    	<result property="createuser" column="CREATEUSER" javaType="java.lang.String" jdbcType="VARCHAR" />
 	    	<result property="createtime" column="CREATETIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
 	    	<result property="updateuser" column="UPDATEUSER" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -83,6 +84,7 @@
            `BRIEF`, 
            `CONTENT`, 
            `STATUS`, 
+           `TEMPLETE_ID`,
            `CREATEUSER`, 
            `CREATETIME`, 
            `UPDATEUSER`, 
@@ -98,6 +100,7 @@
             #{brief}, 
             #{content}, 
             #{status}, 
+            #{templeteId}, 
             #{createuser}, 
             #{createtime}, 
             #{updateuser}, 
@@ -121,6 +124,7 @@
               `BRIEF` = #{brief}, 
               `CONTENT` = #{content}, 
               `STATUS` = #{status}, 
+              `TEMPLETE_ID` = #{templeteId},
               `UPDATEUSER` = #{updateuser}, 
               `UPDATETIME` = #{updatetime}
         	where ID = #{id}

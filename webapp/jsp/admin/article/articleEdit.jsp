@@ -150,6 +150,17 @@ function doUpload(element) {
         <td align="left"></td>
     </tr>
     <tr>
+    	<td align="right" class="l-table-edit-td">模板：</td>
+    	<td align="left" class="l-table-edit-td">
+    	<select name="article.templeteId" id="article.templeteId" >
+    	<c:forEach items="${templeteList}" var="templete">
+    	<option value="${templete.id }" <c:if test="${templete.id ==requestScope.article.templeteId}">selected=true</c:if>>${templete.name }</option>
+    	</c:forEach>
+    	</select>
+    	</td>
+    	<td align="left"></td>
+    </tr>
+    <tr>
     	<td align="center" colspan="3">
     	<input type="submit" value="保存" id="Button1" class="l-button l-button-submit" /> 
 	<input type="button" value="取消" class="l-button l-button-reset" onclick="javascript:cancleClick();"/>

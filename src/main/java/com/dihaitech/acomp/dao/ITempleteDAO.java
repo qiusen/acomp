@@ -71,6 +71,7 @@ public interface ITempleteDAO {
 	public List<Templete> selectAll();
 	
 	/**
+	 * 根据类型查询模板
 	 * @param templete
 	 * @return
 	 */

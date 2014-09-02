@@ -65,6 +65,7 @@ public interface ITempleteService {
 	public int deleteByIds(String str);
 	
 	/**
+	 * 根据类型查询模板
 	 * @param templete
 	 * @return
 	 */

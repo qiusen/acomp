@@ -58,6 +58,11 @@ public class Article extends BaseModel{
 	private Integer status;
 	
 	/**
+	 * 模板ID
+	 */
+	private Integer templeteId;
+	
+	/**
 	 * 创建人
 	 */
 	private String createuser;
@@ -154,4 +159,11 @@ public class Article extends BaseModel{
 	public void setUpdatetime(Date updatetime) {
 		this.updatetime = updatetime;
 	}
+	public Integer getTempleteId() {
+		return templeteId;
+	}
+	public void setTempleteId(Integer templeteId) {
+		this.templeteId = templeteId;
+	}
+	
 }

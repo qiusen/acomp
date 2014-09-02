@@ -10,10 +10,12 @@ import com.dihaitech.acomp.model.ArticleCategory;
 import com.dihaitech.acomp.model.ArticleColumn;
 import com.dihaitech.acomp.model.Channel;
 import com.dihaitech.acomp.model.Manager;
+import com.dihaitech.acomp.model.Templete;
 import com.dihaitech.acomp.service.IArticleCategoryService;
 import com.dihaitech.acomp.service.IArticleColumnService;
 import com.dihaitech.acomp.service.IArticleService;
 import com.dihaitech.acomp.service.IChannelService;
+import com.dihaitech.acomp.service.ITempleteService;
 import com.dihaitech.acomp.util.Page;
 import com.dihaitech.acomp.util.TypeUtil;
 import com.dihaitech.acomp.util.json.JSONUtil;
@@ -35,6 +37,8 @@ public class ArticleAction extends BaseAction {
 	private IArticleCategoryService articleCategoryService;
 	
 	private IArticleColumnService articleColumnService;
+	
+	private ITempleteService templeteService;
 	
 	public Article getArticle() {
 		return article;
@@ -59,8 +63,6 @@ public class ArticleAction extends BaseAction {
 		this.channelService = channelService;
 	}
 
-	
-
 	public IArticleCategoryService getArticleCategoryService() {
 		return articleCategoryService;
 	}
@@ -76,6 +78,14 @@ public class ArticleAction extends BaseAction {
 
 	public void setArticleColumnService(IArticleColumnService articleColumnService) {
 		this.articleColumnService = articleColumnService;
+	}
+	
+	public ITempleteService getTempleteService() {
+		return templeteService;
+	}
+
+	public void setTempleteService(ITempleteService templeteService) {
+		this.templeteService = templeteService;
 	}
 
 	/* 
@@ -162,6 +172,11 @@ public class ArticleAction extends BaseAction {
 		List<Channel> channelList = channelService.selectChannelByStatus(channel);
 		this.getRequest().setAttribute("channelList", channelList);
 		
+		Templete templete = new Templete();
+		templete.setType(3);	//文章模板
+		List<Templete> templeteList = templeteService.selectTempleteByType(templete);
+		this.getRequest().setAttribute("templeteList", templeteList);
+		
 		return "add";
 	}
 	
@@ -217,6 +232,12 @@ public class ArticleAction extends BaseAction {
 		articleCategory.setCode(categoryCode);
 		ArticleCategory articleCategoryVO = articleCategoryService.selectArticleCategoryByCode(articleCategory);
 		this.getRequest().setAttribute("articleCategory", articleCategoryVO);
+		
+		
+		Templete templete = new Templete();
+		templete.setType(3);	//文章模板
+		List<Templete> templeteList = templeteService.selectTempleteByType(templete);
+		this.getRequest().setAttribute("templeteList", templeteList);
 		
 		return "edit";
 	}
