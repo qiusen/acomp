@@ -27,7 +27,6 @@ $(document).ready(function(){
         isShowCheckBox: true,
         isMultiSelect: true,
         textField: 'siteName',
-        index:''
         height: 325,
         width:200
     });
@@ -203,7 +202,7 @@ function initDrag(){
 	</tr>
     <tr>
     	<td align="center" colspan="3">
-    	<input type="submit" value="保存" id="Button1" class="l-button l-button-submit" /> 
+    	<input type="submit" value="保存并发布" id="Button1" class="l-button l-button-submit" /> 
 	<input type="button" value="取消" class="l-button l-button-reset" onclick="javascript:cancleClick();"/>
     	</td>
     </tr>
