@@ -436,4 +436,83 @@
     </package> 
     <!-- 文章Action End -->
     
+    <!-- 块Action Begin -->
+    <package name="struts-admin-block" namespace="/admin/block" extends="struts-interceptor">
+		<action name="blockAction" class="blockAction">
+			<result name="success" type="dispatcher">/jsp/admin/block/blockList.jsp</result>
+			<result name="add" type="dispatcher">/jsp/admin/block/blockAdd.jsp</result>
+			<result name="addSave" type="redirectAction">
+				<param name="actionName">blockAction</param>
+				<param name="namespace">/admin/block</param>
+			</result>
+
+			<result name="edit" type="dispatcher">/jsp/admin/block/blockEdit.jsp</result>
+			<result name="editSave" type="redirectAction">
+				<param name="actionName">blockAction</param>
+				<param name="namespace">/admin/block</param>
+			</result>
+			
+			<result name="deleteSuccess" type="redirectAction">
+				<param name="actionName">blockAction</param>
+				<param name="namespace">/admin/block</param>
+			</result>
+			
+			<interceptor-ref name="common-params"/>
+        </action>
+    </package> 
+    <!-- 块Action End -->
+    
+    <!-- 友链网站Action Begin -->
+    <package name="struts-admin-linkSite" namespace="/admin/linkSite" extends="struts-interceptor">
+		<action name="linkSiteAction" class="linkSiteAction">
+			<result name="success" type="dispatcher">/jsp/admin/linkSite/linkSiteList.jsp</result>
+			<result name="add" type="dispatcher">/jsp/admin/linkSite/linkSiteAdd.jsp</result>
+			<result name="addSave" type="redirectAction">
+				<param name="actionName">linkSiteAction</param>
+				<param name="namespace">/admin/linkSite</param>
+			</result>
+
+			<result name="edit" type="dispatcher">/jsp/admin/linkSite/linkSiteEdit.jsp</result>
+			<result name="editSave" type="redirectAction">
+				<param name="actionName">linkSiteAction</param>
+				<param name="namespace">/admin/linkSite</param>
+			</result>
+			
+			<result name="deleteSuccess" type="redirectAction">
+				<param name="actionName">linkSiteAction</param>
+				<param name="namespace">/admin/linkSite</param>
+			</result>
+			
+			<interceptor-ref name="common-params-upload"/>
+        </action>
+    </package> 
+    <!-- 友链网站Action End -->
+    
+    
+    <!-- 友链页面Action Begin -->
+    <package name="struts-admin-linkPage" namespace="/admin/linkPage" extends="struts-interceptor">
+		<action name="linkPageAction" class="linkPageAction">
+			<result name="success" type="dispatcher">/jsp/admin/linkPage/linkPageList.jsp</result>
+			<result name="add" type="dispatcher">/jsp/admin/linkPage/linkPageAdd.jsp</result>
+			<result name="addSave" type="redirectAction">
+				<param name="actionName">linkPageAction</param>
+				<param name="namespace">/admin/linkPage</param>
+			</result>
+
+			<result name="edit" type="dispatcher">/jsp/admin/linkPage/linkPageEdit.jsp</result>
+			<result name="editSave" type="redirectAction">
+				<param name="actionName">linkPageAction</param>
+				<param name="namespace">/admin/linkPage</param>
+			</result>
+			
+			<result name="deleteSuccess" type="redirectAction">
+				<param name="actionName">linkPageAction</param>
+				<param name="namespace">/admin/linkPage</param>
+			</result>
+			
+			<interceptor-ref name="common-params"/>
+        </action>
+    </package> 
+    <!-- 友链页面Action End -->
+    
 </struts>

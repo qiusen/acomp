@@ -8,27 +8,29 @@ import freemarker.template.Template;
 
 /**
  * freeMarker工具类
- * @author jinliang
+ * @author qiusen
  *
  */
 public class FreeMarkerUtil {
 	/**
 	 * 预览功能
+	 * 
 	 * @param rootMap
 	 * @param templateStr
+	 * @param charSet
 	 * @return
 	 */
-	public static String preview(Map<String, Object> rootMap, String templateStr) {
+	public static String preview(Map<String, Object> rootMap, String templateStr, String charSet) {
 		String result = null;
 		Configuration cfg = new Configuration();
 		cfg.setTemplateLoader(new StringTemplateLoader(templateStr));
-		cfg.setDefaultEncoding("utf-8");
-		cfg.setOutputEncoding("utf-8");
+		cfg.setDefaultEncoding(charSet);
+		cfg.setOutputEncoding(charSet);
 		cfg.setObjectWrapper(new DefaultObjectWrapper());
 		StringWriter writer = new StringWriter();
 		try {
 			Template template = cfg.getTemplate("");
-			template.setEncoding("utf-8");
+			template.setEncoding(charSet);
 			template.process(rootMap, writer);
 			result = writer.getBuffer().toString();
 			writer.flush();
@@ -38,4 +40,6 @@ public class FreeMarkerUtil {
 		}
 		return result;
 	}
+	
+	
 }

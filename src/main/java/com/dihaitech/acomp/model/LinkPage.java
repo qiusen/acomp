@@ -3,34 +3,34 @@ package com.dihaitech.acomp.model;
 import java.util.Date;
 
 /**
- * 模板标签
+ * 友链页面
  * 
  * @author cg
  *
- * @date 2014-08-26
+ * @date 2014-09-04
  */
 @SuppressWarnings("serial")
-public class TempleteTag extends BaseModel{
+public class LinkPage extends BaseModel{
 	
 	/**
-	 * 名称
+	 * 页面名称
 	 */
-	private String name;
+	private String pageName;
 	
 	/**
-	 * 编码
+	 * 包含地址
 	 */
-	private String code;
+	private String includePath;
 	
 	/**
-	 * 类型：1、首页；2、列表页；3、文章页
+	 * 网站简介
 	 */
-	private Integer type;
+	private String description;
 	
 	/**
-	 * 数据类型：1、文章
+	 * 模板ID
 	 */
-	private Integer dataType;
+	private Integer templeteId;
 	
 	/**
 	 * 创建人
@@ -51,23 +51,29 @@ public class TempleteTag extends BaseModel{
 	 * 修改时间
 	 */
 	private Date updatetime;
-	public String getName() {
-		return name;
+	public String getPageName() {
+		return pageName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setPageName(String pageName) {
+		this.pageName = pageName;
 	}
-	public String getCode() {
-		return code;
+	public String getIncludePath() {
+		return includePath;
 	}
-	public void setCode(String code) {
-		this.code = code;
+	public void setIncludePath(String includePath) {
+		this.includePath = includePath;
 	}
-	public Integer getType() {
-		return type;
+	public String getDescription() {
+		return description;
 	}
-	public void setType(Integer type) {
-		this.type = type;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public Integer getTempleteId() {
+		return templeteId;
+	}
+	public void setTempleteId(Integer templeteId) {
+		this.templeteId = templeteId;
 	}
 	public String getCreateuser() {
 		return createuser;
@@ -93,11 +99,4 @@ public class TempleteTag extends BaseModel{
 	public void setUpdatetime(Date updatetime) {
 		this.updatetime = updatetime;
 	}
-	public Integer getDataType() {
-		return dataType;
-	}
-	public void setDataType(Integer dataType) {
-		this.dataType = dataType;
-	}
-	
 }

@@ -134,5 +134,26 @@
 				<ref bean="channelService" />
 			</property>
 	  </bean>
+	  
+	  <!-- 块 action -->
+	  <bean id="blockAction" class="com.dihaitech.acomp.controller.action.block.BlockAction" scope="prototype">
+			<property name="blockService">
+				<ref bean="blockService" />
+			</property>
+	  </bean>
+	  
+	  <!-- 友链网站 action -->
+	  <bean id="linkSiteAction" class="com.dihaitech.acomp.controller.action.linkSite.LinkSiteAction" scope="prototype">
+			<property name="linkSiteService">
+				<ref bean="linkSiteService" />
+			</property>
+	  </bean>
+	  
+	  <!-- 友链页面 action -->
+	  <bean id="linkPageAction" class="com.dihaitech.acomp.controller.action.linkPage.LinkPageAction" scope="prototype">
+			<property name="linkPageService">
+				<ref bean="linkPageService" />
+			</property>
+	  </bean>
 
 </beans>

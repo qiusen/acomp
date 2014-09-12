@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%><%@ include file="/jsp/common/taglibs.jsp"%><!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<title>模板 列表</title>
+<title>块 列表</title>
 <%@ include file="/jsp/common/meta.jsp"%>
 <script language="javascript">
 var resultListData = {${requestScope.json}} ;
@@ -18,37 +18,55 @@ var pageNo =${requestScope.pageInfo.page};
 $(f_initGrid);
 function f_initGrid(){
     g = manager = $("#maingrid").ligerGrid({
-    	title:'模板列表',
+    	title:'块列表',
         columns: [
         //{ display: '主键', name: 'id', width: 50, type: 'int', frozen: true },
 		
 		{ display: '名称', name: 'name',type: 'text' , width: '15%'},
+		{ display: '文件名称', name: 'fileName',type: 'text' , width: '15%'},
 		{ display: '类型', name: 'type',type: 'text' , width: '15%',render: function (rowdata, rowindex, value)
         {
         	var h = "-";
             if(rowdata.type==1){
-                h = "首页/频道页";
+                h = "自动块";
             }
             
             if(rowdata.type==2){
-                h = "列表页";
-            }
-            
-            if(rowdata.type==3){
-                h = "文章页";
-            }
-            
-            if(rowdata.type==4){
-                h = "块";
-            }
-            
-            if(rowdata.type==5){
-                h = "友链";
+                h = "手动块";
             }
             
             return h;
         } },
-		//{ display: '内容', name: 'content',type: 'text' , width: '15%'},
+		{ display: '描述', name: 'description',type: 'text' , width: '15%'},
+		{ display: '包含地址', name: 'includePath',type: 'text' , width: '15%'},
+		{ display: '数据来源类型', name: 'sourceType',type: 'text' , width: '15%',render: function (rowdata, rowindex, value)
+        {
+        	var h = "-";
+            if(rowdata.sourceType==1){
+                h = "数据筛选";
+            }
+            
+            if(rowdata.sourceType==2){
+                h = "外部接口";
+            }
+            
+            return h;
+        } },
+		{ display: '数据类型', name: 'dataType',type: 'text' , width: '15%',render: function (rowdata, rowindex, value)
+        {
+        	var h = "-";
+            if(rowdata.dataType==1){
+                h = "文章";
+            }
+            
+            
+            return h;
+        } },
+		{ display: '筛选条件', name: 'condition',type: 'text' , width: '15%'},
+		{ display: '模板ID', name: 'templeteId',type: 'text' , width: '15%'},
+		{ display: '数据条数', name: 'count',type: 'text' , width: '15%'},
+		{ display: '外部接口地址', name: 'interfaceUrl',type: 'text' , width: '15%'},
+		//{ display: '块内容', name: 'content',type: 'text' , width: '15%'},
 		{ display: '创建人', name: 'createuser',type: 'text' , width: '15%'},
 		{ display: '创建时间', name: 'createtime',type: 'text' , width: '15%'},
 		{ display: '修改人', name: 'updateuser',type: 'text' , width: '15%'},
@@ -155,11 +173,11 @@ function search(){
 }
 function deleteData(id){
     if (confirm('确定删除?')){
-    	window.location="${base}/admin/templete/templeteAction!delete.${actionExt}?id=" + id;
+    	window.location="${base}/admin/block/blockAction!delete.${actionExt}?id=" + id;
     }
 }
 function showData(id){
-	var dialog=$.ligerDialog.open({ title:'查看', url: '${base}/admin//templete/templeteAction!show.${actionExt}?id=' + id, height: 300, width: null, buttons: [
+	var dialog=$.ligerDialog.open({ title:'查看', url: '${base}/admin//block/blockAction!show.${actionExt}?id=' + id, height: 300, width: null, buttons: [
               { text: '关闭', onclick: function (item, dialog) { dialog.close(); } }
            ], isResize: true
           });                                                                 	
@@ -167,20 +185,20 @@ function showData(id){
 
 function itemclick(item){
 	if(item.value=='add'){
-		window.location="${base}/admin/templete/templeteAction!add.${actionExt}";
+		window.location="${base}/admin/block/blockAction!add.${actionExt}";
 	}
 	if(item.value=='edit'){
         var row = manager.getSelectedRow();
         if (!row) { $.ligerDialog.warn('请选择行'); return; }
             //alert(row.id);
-		window.location="${base}/admin/templete/templeteAction!edit.${actionExt}?id=" + row.id;
+		window.location="${base}/admin/block/blockAction!edit.${actionExt}?id=" + row.id;
 	}
 	if(item.value=='delete'){
 		var row = manager.getSelectedRow();
         if (!row) {$.ligerDialog.warn('请选择行'); return; }
 		$.ligerDialog.confirm('确认删除模块 ' + row.name + ' 的信息？', function (yes) {
             if(yes==true){
-            	window.location="${base}/admin/templete/templeteAction!delete.${actionExt}?id=" + row.id;
+            	window.location="${base}/admin/block/blockAction!delete.${actionExt}?id=" + row.id;
             }
         });
 	}
@@ -193,11 +211,11 @@ function itemclick(item){
 </style>
 </head>
 <body style="padding:6px; overflow:hidden;">
-<form name="templeteForm" id="templeteForm" method="post" action="templeteAction.${actionExt}" >
+<form name="blockForm" id="blockForm" method="post" action="blockAction.${actionExt}" >
 <input type="hidden" name="pageNo" id="pageNo" value="${requestScope.pageInfo.page}" />
 <input type="hidden" name="pageSize" id="pageSize" value="${requestScope.pageInfo.pageSize}" />
 <div id="searchbar">
-名称：<input id="templete.name" type="text" name="templete.name" value="${templete.name }"/>
+名称：<input id="block.name" type="text" name="block.name" value="${block.name }"/>
     <input id="btnOK" type="submit" value="查询"/>
 </div>
     <div id="maingrid" style="margin:0; padding:0"></div>

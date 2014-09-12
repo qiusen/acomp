@@ -48,7 +48,7 @@ public class FileUploadServlet extends HttpServlet {
 		fileTypes = Property.FILE_IMAG_TYPES;
 		
 		//图片的访问地址
-		fileURL = fileURL + "/" + imgUploadPath;
+		fileURL = fileURL + imgUploadPath;
 		//图片上传的物理路径
 		imgUploadPath = rootPath + File.separator + imgUploadPath;
 		

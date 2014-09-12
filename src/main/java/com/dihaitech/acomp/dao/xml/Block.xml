@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dihaitech.acomp.dao.IBlockDAO">
+	
+	<cache flushInterval="600000" eviction="LRU" type="org.mybatis.caches.oscache.OSCache"/>
+	
+	<sql id="blockLikeWhere">
+		<where>
+            <if test ="id != null and id > -1">
+				and `ID` = #{id}
+			</if>
+	        <if test ="name != null and name != ''">
+			    and `NAME` like '%${name}%'
+		    </if>
+	        <if test ="fileName != null and fileName != ''">
+			    and `FILE_NAME` like '%${fileName}%'
+		    </if>
+            <if test ="type != null and type > -1">
+				and `TYPE` = #{type}
+			</if>
+	        <if test ="description != null and description != ''">
+			    and `DESCRIPTION` like '%${description}%'
+		    </if>
+	        <if test ="includePath != null and includePath != ''">
+			    and `INCLUDE_PATH` like '%${includePath}%'
+		    </if>
+            <if test ="sourceType != null and sourceType > -1">
+				and `SOURCE_TYPE` = #{sourceType}
+			</if>
+            <if test ="dataType != null and dataType > -1">
+				and `DATA_TYPE` = #{dataType}
+			</if>
+	        <if test ="condition != null and condition != ''">
+			    and `CONDITION` like '%${condition}%'
+		    </if>
+            <if test ="templeteId != null and templeteId > -1">
+				and `TEMPLETE_ID` = #{templeteId}
+			</if>
+            <if test ="count != null and count > -1">
+				and `COUNT` = #{count}
+			</if>
+	        <if test ="interfaceUrl != null and interfaceUrl != ''">
+			    and `INTERFACE_URL` like '%${interfaceUrl}%'
+		    </if>
+	        <if test ="content != null and content != ''">
+			    and `CONTENT` like '%${content}%'
+		    </if>
+	        <if test ="createuser != null and createuser != ''">
+			    and `CREATEUSER` like '%${createuser}%'
+		    </if>
+	        <if test ="updateuser != null and updateuser != ''">
+			    and `UPDATEUSER` like '%${updateuser}%'
+		    </if>
+		</where>
+	</sql>
+	
+	<sql id="blockPage">
+		<if test="null != start">
+		  limit #{start},#{pageSize}
+		</if>
+	</sql>
+	
+	<sql id="blockField">
+		`ID`, `NAME`, `FILE_NAME`, `TYPE`, `DESCRIPTION`, `INCLUDE_PATH`, `SOURCE_TYPE`, `DATA_TYPE`, `CONDITION`, `TEMPLETE_ID`, `COUNT`, `INTERFACE_URL`, `CONTENT`, `CREATEUSER`, `CREATETIME`, `UPDATEUSER`, `UPDATETIME`
+	</sql>
+	
+	<resultMap id="blockMap" type="block">
+	    	<result property="id" column="ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+	    	<result property="name" column="NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="fileName" column="FILE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="type" column="TYPE" javaType="java.lang.Integer" jdbcType="INTEGER" />
+	    	<result property="description" column="DESCRIPTION" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="includePath" column="INCLUDE_PATH" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="sourceType" column="SOURCE_TYPE" javaType="java.lang.Integer" jdbcType="INTEGER" />
+	    	<result property="dataType" column="DATA_TYPE" javaType="java.lang.Integer" jdbcType="INTEGER" />
+	    	<result property="condition" column="CONDITION" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="templeteId" column="TEMPLETE_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+	    	<result property="count" column="COUNT" javaType="java.lang.Integer" jdbcType="INTEGER" />
+	    	<result property="interfaceUrl" column="INTERFACE_URL" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="content" column="CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="createuser" column="CREATEUSER" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="createtime" column="CREATETIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+	    	<result property="updateuser" column="UPDATEUSER" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="updatetime" column="UPDATETIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="addSaveBlock" parameterType="block">
+		insert into `block` (
+           `NAME`, 
+           `FILE_NAME`, 
+           `TYPE`, 
+           `DESCRIPTION`, 
+           `INCLUDE_PATH`, 
+           `SOURCE_TYPE`, 
+           `DATA_TYPE`, 
+           `CONDITION`, 
+           `TEMPLETE_ID`, 
+           `COUNT`, 
+           `INTERFACE_URL`, 
+           `CONTENT`, 
+           `CREATEUSER`, 
+           `CREATETIME`, 
+           `UPDATEUSER`, 
+           `UPDATETIME`
+		) values 
+		(
+            #{name}, 
+            #{fileName}, 
+            #{type}, 
+            #{description}, 
+            #{includePath}, 
+            #{sourceType}, 
+            #{dataType}, 
+            #{condition}, 
+            #{templeteId}, 
+            #{count}, 
+            #{interfaceUrl}, 
+            #{content}, 
+            #{createuser}, 
+            #{createtime}, 
+            #{updateuser}, 
+            #{updatetime}
+		)
+		<selectKey keyProperty="id"  resultType="java.lang.Integer">
+			select last_insert_id() as id from `block` limit 1
+		</selectKey>
+	</insert>
+	
+	<delete id="deleteByIds" parameterType="String">
+		delete from `block` ${_parameter}
+	</delete>
+	
+	<update id="editSaveBlock" parameterType="block">
+		update `block` set 
+              `NAME` = #{name}, 
+              `FILE_NAME` = #{fileName}, 
+              `TYPE` = #{type}, 
+              `DESCRIPTION` = #{description}, 
+              `INCLUDE_PATH` = #{includePath}, 
+              `SOURCE_TYPE` = #{sourceType}, 
+              `DATA_TYPE` = #{dataType}, 
+              `CONDITION` = #{condition}, 
+              `TEMPLETE_ID` = #{templeteId}, 
+              `COUNT` = #{count}, 
+              `INTERFACE_URL` = #{interfaceUrl}, 
+              `CONTENT` = #{content}, 
+              `UPDATEUSER` = #{updateuser}, 
+              `UPDATETIME` = #{updatetime}
+        	where ID = #{id}
+	</update>
+	
+	<select id="selectBlockById" parameterType="block" resultMap="blockMap"  >
+		SELECT * FROM `block` where ID = #{id}
+	</select>
+	
+	<select id="getBlockCount" parameterType="block" resultType="Long" >
+		select count(*) from `block`
+		<include refid="blockLikeWhere" />
+	</select>
+	
+	<select id="selectAll" parameterType="block" resultMap="blockMap" >
+		select * from `block`
+	</select>
+	
+	<select id="selectBlockLike" parameterType="block" resultMap="blockMap" >
+		SELECT <include refid="blockField" /> FROM `block`
+	        <include refid="blockLikeWhere" />
+			order by ID desc
+	        <include refid="blockPage" /> 
+	</select>
+</mapper>

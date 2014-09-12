@@ -93,7 +93,7 @@
 
 	<bean id="property" class="com.dihaitech.acomp.common.Property">
 		<property name="BASE" value="${system.base}"></property>
-		<property name="SYS_PAGESIZE" value="${system.pageSize}"></property>
+		<property name="PAGESIZE" value="${system.pageSize}"></property>
 		<property name="ACTION_EXT" value="${system.actionExt}"></property>
 		<property name="CHARSET" value="${system.charset}"></property>
 		<property name="COMP_NAME" value="${company.name}"></property>
@@ -118,6 +118,13 @@
 		<property name="FILE_IMAG_MAXSIZE" value="${file.imag.maxsize}"></property>
 		<property name="FILE_IMAG_TYPES" value="${file.imag.types}"></property>
 		<!-- 图片上传预览相关配置end -->
+		<!-- 块相关内容 begin -->
+		<property name="BLOCK_PUBLISH_PATH" value="${block.publish.path}"></property>
+		<property name="BLOCK_INCLUDE_PATH" value="${block.include.path}"></property>
+		<property name="BLOCK_AUTOMATIC_FOLDER" value="${block.automatic.folder}"></property>
+		<property name="BLOCK_MANUAL_FOLDER" value="${block.manual.folder}"></property>
+		<property name="BLOCK_LINK_FOLDER" value="${block.link.folder}"></property>
+		<!-- 块相关内容 end -->
 	</bean>
 
 	<!-- 存放Service的Bean的配置文件 -->

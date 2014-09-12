@@ -33,12 +33,23 @@ function cancleClick(){
     	<td align="left"></td>
     </tr>
     <tr>
-    	<td align="right" class="l-table-edit-td">类型：</td>
+    	<td align="right" class="l-table-edit-td">页面类型：</td>
     	<td align="left" class="l-table-edit-td">
     	<select name="templeteTag.type" id="templeteTag.type">
     	<option value="1">首页/频道页</option>
     	<option value="2">列表页</option>
     	<option value="3">文章页</option>
+    	<option value="4">块</option>
+    	<option value="5">友链</option>
+    	</select>
+    	</td>
+    	<td align="left"></td>
+    </tr>
+    <tr>
+    	<td align="right" class="l-table-edit-td">数据类型：</td>
+    	<td align="left" class="l-table-edit-td">
+    	<select name="templeteTag.dataType" id="templeteTag.dataType">
+    	<option value="1">文章</option>
     	</select>
     	</td>
     	<td align="left"></td>

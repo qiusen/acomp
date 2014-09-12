@@ -24,7 +24,7 @@ function f_initGrid(){
 		
 		{ display: '名称', name: 'name',type: 'text' , width: '15%'},
 		{ display: '编码', name: 'code',type: 'text' , width: '15%'},
-		{ display: '类型', name: 'type',type: 'text' , width: '15%',render: function (rowdata, rowindex, value)
+		{ display: '页面类型', name: 'type',type: 'text' , width: '15%',render: function (rowdata, rowindex, value)
         {
         	var h = "-";
             if(rowdata.type==1){
@@ -37,6 +37,23 @@ function f_initGrid(){
             
             if(rowdata.type==3){
                 h = "文章页";
+            }
+            
+            if(rowdata.type==4){
+                h = "块";
+            }
+            
+            if(rowdata.type==5){
+                h = "友链";
+            }
+            
+            return h;
+        } },
+        { display: '数据类型', name: 'dataType',type: 'text' , width: '15%',render: function (rowdata, rowindex, value)
+        {
+        	var h = "-";
+            if(rowdata.dataType==1){
+                h = "文章";
             }
             
             return h;

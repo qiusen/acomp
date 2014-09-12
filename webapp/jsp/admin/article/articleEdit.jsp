@@ -154,7 +154,7 @@ function doUpload(element) {
     	<td align="left" class="l-table-edit-td">
     	<select name="article.templeteId" id="article.templeteId" >
     	<c:forEach items="${templeteList}" var="templete">
-    	<option value="${templete.id }" <c:if test="${templete.id ==requestScope.article.templeteId}">selected=true</c:if>>${templete.name }</option>
+    	<option value="${templete.id }" <c:if test="${templete.id ==requestScope.article.templeteId}">selected="true"</c:if>>${templete.name }</option>
     	</c:forEach>
     	</select>
     	</td>

@@ -34,6 +34,8 @@ function cancleClick(){
     	<option value="1">首页/频道页</option>
     	<option value="2">列表页</option>
     	<option value="3">文章页</option>
+    	<option value="4">块</option>
+    	<option value="5">友链</option>
     	</select>
     	</td>
     	<td align="left"></td>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dihaitech.acomp.dao.ILinkPageDAO">
+	
+	<cache flushInterval="600000" eviction="LRU" type="org.mybatis.caches.oscache.OSCache"/>
+	
+	<sql id="linkPageLikeWhere">
+		<where>
+            <if test ="id != null and id > -1">
+				and `ID` = #{id}
+			</if>
+	        <if test ="pageName != null and pageName != ''">
+			    and `PAGE_NAME` like '%${pageName}%'
+		    </if>
+	        <if test ="includePath != null and includePath != ''">
+			    and `INCLUDE_PATH` like '%${includePath}%'
+		    </if>
+	        <if test ="description != null and description != ''">
+			    and `DESCRIPTION` like '%${description}%'
+		    </if>
+            <if test ="templeteId != null and templeteId > -1">
+				and `TEMPLETE_ID` = #{templeteId}
+			</if>
+	        <if test ="createuser != null and createuser != ''">
+			    and `CREATEUSER` like '%${createuser}%'
+		    </if>
+	        <if test ="updateuser != null and updateuser != ''">
+			    and `UPDATEUSER` like '%${updateuser}%'
+		    </if>
+		</where>
+	</sql>
+	
+	<sql id="linkPagePage">
+		<if test="null != start">
+		  limit #{start},#{pageSize}
+		</if>
+	</sql>
+	
+	<sql id="linkPageField">
+		`ID`, `PAGE_NAME`, `INCLUDE_PATH`, `DESCRIPTION`, `TEMPLETE_ID`, `CREATEUSER`, `CREATETIME`, `UPDATEUSER`, `UPDATETIME`
+	</sql>
+	
+	<resultMap id="linkPageMap" type="linkPage">
+	    	<result property="id" column="ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+	    	<result property="pageName" column="PAGE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="includePath" column="INCLUDE_PATH" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="description" column="DESCRIPTION" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="templeteId" column="TEMPLETE_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+	    	<result property="createuser" column="CREATEUSER" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="createtime" column="CREATETIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+	    	<result property="updateuser" column="UPDATEUSER" javaType="java.lang.String" jdbcType="VARCHAR" />
+	    	<result property="updatetime" column="UPDATETIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="addSaveLinkPage" parameterType="linkPage">
+		insert into `link_page` (
+           `PAGE_NAME`, 
+           `INCLUDE_PATH`, 
+           `DESCRIPTION`, 
+           `TEMPLETE_ID`, 
+           `CREATEUSER`, 
+           `CREATETIME`, 
+           `UPDATEUSER`, 
+           `UPDATETIME`
+		) values 
+		(
+            #{pageName}, 
+            #{includePath}, 
+            #{description}, 
+            #{templeteId}, 
+            #{createuser}, 
+            #{createtime}, 
+            #{updateuser}, 
+            #{updatetime}
+		)
+		<selectKey keyProperty="id"  resultType="java.lang.Integer">
+			select last_insert_id() as id from `link_page` limit 1
+		</selectKey>
+	</insert>
+	
+	<delete id="deleteByIds" parameterType="String">
+		delete from `link_page` ${_parameter}
+	</delete>
+	
+	<update id="editSaveLinkPage" parameterType="linkPage">
+		update `link_page` set 
+              `PAGE_NAME` = #{pageName}, 
+              `DESCRIPTION` = #{description}, 
+              `TEMPLETE_ID` = #{templeteId}, 
+              `UPDATEUSER` = #{updateuser}, 
+              `UPDATETIME` = #{updatetime}
+        	where ID = #{id}
+	</update>
+	
+	<select id="selectLinkPageById" parameterType="linkPage" resultMap="linkPageMap"  >
+		SELECT * FROM `link_page` where ID = #{id}
+	</select>
+	
+	<select id="getLinkPageCount" parameterType="linkPage" resultType="Long" >
+		select count(*) from `link_page`
+		<include refid="linkPageLikeWhere" />
+	</select>
+	
+	<select id="selectAll" parameterType="linkPage" resultMap="linkPageMap" >
+		select * from `link_page`
+	</select>
+	
+	<select id="selectLinkPageLike" parameterType="linkPage" resultMap="linkPageMap" >
+		SELECT <include refid="linkPageField" /> FROM `link_page`
+	        <include refid="linkPageLikeWhere" />
+			order by ID desc
+	        <include refid="linkPagePage" /> 
+	</select>
+</mapper>

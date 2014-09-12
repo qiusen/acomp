@@ -35,6 +35,8 @@ function cancleClick(){
     	<option value="1" <c:if test="${requestScope.templete.type==1}">selected="true"</c:if>>首页/频道页</option>
     	<option value="2" <c:if test="${requestScope.templete.type==2}">selected="true"</c:if>>列表页</option>
     	<option value="3" <c:if test="${requestScope.templete.type==3}">selected="true"</c:if>>文章页</option>
+    	<option value="4" <c:if test="${requestScope.templete.type==4}">selected="true"</c:if>>块</option>
+    	<option value="5" <c:if test="${requestScope.templete.type==5}">selected="true"</c:if>>友链</option>
     	</select>
     	</td>
         <td align="left"></td>

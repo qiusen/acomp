@@ -3,34 +3,29 @@ package com.dihaitech.acomp.model;
 import java.util.Date;
 
 /**
- * 模板标签
+ * 友链网页与网站关系
  * 
  * @author cg
  *
- * @date 2014-08-26
+ * @date 2014-09-04
  */
 @SuppressWarnings("serial")
-public class TempleteTag extends BaseModel{
+public class LinkRelation extends BaseModel{
 	
 	/**
-	 * 名称
+	 * 页面ID
 	 */
-	private String name;
+	private Integer pageId;
 	
 	/**
-	 * 编码
+	 * 网站ID
 	 */
-	private String code;
+	private Integer siteId;
 	
 	/**
-	 * 类型：1、首页；2、列表页；3、文章页
+	 * 排序
 	 */
-	private Integer type;
-	
-	/**
-	 * 数据类型：1、文章
-	 */
-	private Integer dataType;
+	private Integer ordernum;
 	
 	/**
 	 * 创建人
@@ -51,23 +46,23 @@ public class TempleteTag extends BaseModel{
 	 * 修改时间
 	 */
 	private Date updatetime;
-	public String getName() {
-		return name;
+	public Integer getPageId() {
+		return pageId;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setPageId(Integer pageId) {
+		this.pageId = pageId;
 	}
-	public String getCode() {
-		return code;
+	public Integer getSiteId() {
+		return siteId;
 	}
-	public void setCode(String code) {
-		this.code = code;
+	public void setSiteId(Integer siteId) {
+		this.siteId = siteId;
 	}
-	public Integer getType() {
-		return type;
+	public Integer getOrdernum() {
+		return ordernum;
 	}
-	public void setType(Integer type) {
-		this.type = type;
+	public void setOrdernum(Integer ordernum) {
+		this.ordernum = ordernum;
 	}
 	public String getCreateuser() {
 		return createuser;
@@ -93,11 +88,4 @@ public class TempleteTag extends BaseModel{
 	public void setUpdatetime(Date updatetime) {
 		this.updatetime = updatetime;
 	}
-	public Integer getDataType() {
-		return dataType;
-	}
-	public void setDataType(Integer dataType) {
-		this.dataType = dataType;
-	}
-	
 }

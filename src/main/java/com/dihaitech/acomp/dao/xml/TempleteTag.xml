@@ -42,6 +42,7 @@
 	    	<result property="name" column="NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
 	    	<result property="code" column="CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
 	    	<result property="type" column="TYPE" javaType="java.lang.Integer" jdbcType="INTEGER" />
+	    	<result property="dataType" column="DATA_TYPE" javaType="java.lang.Integer" jdbcType="INTEGER" />
 	    	<result property="createuser" column="CREATEUSER" javaType="java.lang.String" jdbcType="VARCHAR" />
 	    	<result property="createtime" column="CREATETIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
 	    	<result property="updateuser" column="UPDATEUSER" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -53,6 +54,7 @@
            `NAME`, 
            `CODE`, 
            `TYPE`, 
+           `DATA_TYPE`, 
            `CREATEUSER`, 
            `CREATETIME`, 
            `UPDATEUSER`, 
@@ -62,6 +64,7 @@
             #{name}, 
             #{code}, 
             #{type}, 
+            #{dataType}, 
             #{createuser}, 
             #{createtime}, 
             #{updateuser}, 
@@ -81,6 +84,7 @@
               `NAME` = #{name}, 
               `CODE` = #{code}, 
               `TYPE` = #{type}, 
+              `DATA_TYPE` = #{dataType}, 
               `UPDATEUSER` = #{updateuser}, 
               `UPDATETIME` = #{updatetime}
         	where ID = #{id}

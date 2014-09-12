@@ -108,6 +108,46 @@ public class Property {
 	 * 允许图片上传的文件格式 多种格式之间逗号分隔
 	 */
 	public static String FILE_IMAG_TYPES;
+	
+	
+	/* 块相关内容 
+	 * #块发布绝对地址
+		block.publish.path=/myfile/workspaceutf8/acomp/webapp/block/
+		#块引用地址
+		block.include.path=/block/
+		#自动块文件夹
+		block.automatic.folder=automatic
+		#手动块文件夹
+		block.manual.folder=manual
+		#友链块文件夹
+		block.link.folder=link
+	 * 
+	 * */
+	
+	/**
+	 * 块发布绝对地址
+	 */
+	public static String BLOCK_PUBLISH_PATH;
+	
+	/**
+	 * 块引用地址
+	 */
+	public static String BLOCK_INCLUDE_PATH;
+	
+	/**
+	 * 自动块文件夹
+	 */
+	public static String BLOCK_AUTOMATIC_FOLDER;
+	
+	/**
+	 * 手动块文件夹
+	 */
+	public static String BLOCK_MANUAL_FOLDER;
+	
+	/**
+	 * 友链块文件夹
+	 */
+	public static String BLOCK_LINK_FOLDER;
 
 	public String getBASE() {
 		return BASE;
@@ -129,21 +169,6 @@ public class Property {
 	 */
 	public static void setDEFAULT_SCHEMA(String dEFAULT_SCHEMA) {
 		DEFAULT_SCHEMA = dEFAULT_SCHEMA;
-	}
-
-	/**
-	 * @return the sYS_PAGESIZE
-	 */
-	public static int getSYS_PAGESIZE() {
-		return PAGESIZE;
-	}
-
-	/**
-	 * @param sYS_PAGESIZE
-	 *            the sYS_PAGESIZE to set
-	 */
-	public static void setSYS_PAGESIZE(int sYS_PAGESIZE) {
-		PAGESIZE = sYS_PAGESIZE;
 	}
 
 	public String getACTION_EXT() {
@@ -296,6 +321,54 @@ public class Property {
 
 	public static void setFILE_IMAG_TYPES(String fILE_IMAG_TYPES) {
 		FILE_IMAG_TYPES = fILE_IMAG_TYPES;
+	}
+
+	public static String getBLOCK_PUBLISH_PATH() {
+		return BLOCK_PUBLISH_PATH;
+	}
+
+	public static void setBLOCK_PUBLISH_PATH(String bLOCK_PUBLISH_PATH) {
+		BLOCK_PUBLISH_PATH = bLOCK_PUBLISH_PATH;
+	}
+
+	public static String getBLOCK_INCLUDE_PATH() {
+		return BLOCK_INCLUDE_PATH;
+	}
+
+	public static void setBLOCK_INCLUDE_PATH(String bLOCK_INCLUDE_PATH) {
+		BLOCK_INCLUDE_PATH = bLOCK_INCLUDE_PATH;
+	}
+
+	public static String getBLOCK_AUTOMATIC_FOLDER() {
+		return BLOCK_AUTOMATIC_FOLDER;
+	}
+
+	public static void setBLOCK_AUTOMATIC_FOLDER(String bLOCK_AUTOMATIC_FOLDER) {
+		BLOCK_AUTOMATIC_FOLDER = bLOCK_AUTOMATIC_FOLDER;
+	}
+
+	public static String getBLOCK_MANUAL_FOLDER() {
+		return BLOCK_MANUAL_FOLDER;
+	}
+
+	public static void setBLOCK_MANUAL_FOLDER(String bLOCK_MANUAL_FOLDER) {
+		BLOCK_MANUAL_FOLDER = bLOCK_MANUAL_FOLDER;
+	}
+
+	public static String getBLOCK_LINK_FOLDER() {
+		return BLOCK_LINK_FOLDER;
+	}
+
+	public static void setBLOCK_LINK_FOLDER(String bLOCK_LINK_FOLDER) {
+		BLOCK_LINK_FOLDER = bLOCK_LINK_FOLDER;
+	}
+
+	public static int getPAGESIZE() {
+		return PAGESIZE;
+	}
+
+	public static void setPAGESIZE(int pAGESIZE) {
+		PAGESIZE = pAGESIZE;
 	}
 
 }

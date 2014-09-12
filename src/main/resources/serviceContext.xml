@@ -49,4 +49,16 @@
 	  <!-- 文章 service -->	
 	  <bean id="articleService" class="com.dihaitech.acomp.service.impl.ArticleServiceImpl"/>
 	  
+	  <!-- 块 service -->	
+	  <bean id="blockService" class="com.dihaitech.acomp.service.impl.BlockServiceImpl"/>
+	  
+	  <!-- 友链网站 service -->	
+	  <bean id="linkSiteService" class="com.dihaitech.acomp.service.impl.LinkSiteServiceImpl"/>
+	  
+	  <!-- 友链页面 service -->	
+	  <bean id="linkPageService" class="com.dihaitech.acomp.service.impl.LinkPageServiceImpl"/>
+	  
+	  <!-- 友链网页与网站关系 service -->	
+	  <bean id="linkRelationService" class="com.dihaitech.acomp.service.impl.LinkRelationServiceImpl"/>
+	  
 </beans>

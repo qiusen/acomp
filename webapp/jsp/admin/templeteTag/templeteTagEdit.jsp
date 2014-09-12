@@ -34,15 +34,26 @@ function cancleClick(){
         <td align="left"></td>
     </tr>
     <tr>
-        <td align="right" class="l-table-edit-td">类型：</td>
+        <td align="right" class="l-table-edit-td">页面类型：</td>
         <td align="left" class="l-table-edit-td">
         <select name="templeteTag.type" id="templeteTag.type">
     	<option value="1" <c:if test="${requestScope.templeteTag.type==1}">selected="true"</c:if>>首页/频道页</option>
     	<option value="2" <c:if test="${requestScope.templeteTag.type==2}">selected="true"</c:if>>列表页</option>
     	<option value="3" <c:if test="${requestScope.templeteTag.type==3}">selected="true"</c:if>>文章页</option>
+    	<option value="4" <c:if test="${requestScope.templeteTag.type==4}">selected="true"</c:if>>块</option>
+    	<option value="5" <c:if test="${requestScope.templeteTag.type==5}">selected="true"</c:if>>友链</option>
     	</select>
         </td>
         <td align="left"></td>
+    </tr>
+    <tr>
+    	<td align="right" class="l-table-edit-td">数据类型：</td>
+    	<td align="left" class="l-table-edit-td">
+    	<select name="templeteTag.dataType" id="templeteTag.dataType">
+    	<option value="1" <c:if test="${requestScope.templeteTag.dataType==1}">selected="true"</c:if>>文章</option>
+    	</select>
+    	</td>
+    	<td align="left"></td>
     </tr>
     <tr>
     	<td align="center" colspan="3">
