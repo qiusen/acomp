@@ -157,4 +157,10 @@
 	        where `STATUS` = #{status}
 			order by ID 
 	</select>
+	
+	<select id="selectLinkSiteByIds" parameterType="linkSite" resultMap="linkSiteMap">
+		SELECT <include refid="linkSiteField" /> FROM `link_site`
+	        where ID in (${idStr})
+	        order by field(id,${idStr})
+	</select>
 </mapper>

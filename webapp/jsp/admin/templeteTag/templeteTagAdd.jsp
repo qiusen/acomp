@@ -50,6 +50,8 @@ function cancleClick(){
     	<td align="left" class="l-table-edit-td">
     	<select name="templeteTag.dataType" id="templeteTag.dataType">
     	<option value="1">文章</option>
+    	<option value="2">专题</option>
+    	<option value="3">友链网站</option>
     	</select>
     	</td>
     	<td align="left"></td>

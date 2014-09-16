@@ -76,4 +76,11 @@ public interface ILinkSiteDAO {
 	 * @return
 	 */
 	public List<LinkSite> selectLinkSiteByStatus(LinkSite linkSite);
+	
+	/**
+	 * 根据IDS获取所有友链网站
+	 * @param linkSite
+	 * @return
+	 */
+	public List<LinkSite> selectLinkSiteByIds(LinkSite linkSite);
 }

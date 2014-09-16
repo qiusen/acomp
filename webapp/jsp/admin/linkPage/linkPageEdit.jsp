@@ -145,6 +145,7 @@ function initDrag(){
 <body>
 <form name="linkPageForm" id="linkPageForm" method="post" action="linkPageAction!editSave.${actionExt}" onsubmit="return checkForm();">
 <input type="hidden" id="links" name="links" value="" />
+<input type="hidden" id="linkPage.includePath" name="linkPage.includePath" value="${requestScope.linkPage.includePath}"/>
 <table cellpadding="0" cellspacing="0" class="l-table-edit" style="margin-top:50px;margin-left:50px;">
     <input type="hidden" id="linkPage.id" name="linkPage.id" value="${requestScope.linkPage.id}"/>
     <tr>

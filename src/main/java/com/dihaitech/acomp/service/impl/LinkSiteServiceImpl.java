@@ -80,4 +80,14 @@ public class LinkSiteServiceImpl implements ILinkSiteService {
 		// TODO Auto-generated method stub
 		return linkSiteDAO.selectLinkSiteByStatus(linkSite);
 	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.ILinkSiteService#selectLinkSiteByIds(com.dihaitech.acomp.model.LinkSite)
+	 */
+	@Override
+	public List<LinkSite> selectLinkSiteByIds(LinkSite linkSite) {
+		// TODO Auto-generated method stub
+		return linkSiteDAO.selectLinkSiteByIds(linkSite);
+	}
 }

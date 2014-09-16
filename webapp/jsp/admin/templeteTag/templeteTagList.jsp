@@ -56,6 +56,14 @@ function f_initGrid(){
                 h = "文章";
             }
             
+            if(rowdata.dataType==2){
+                h = "专题";
+            }
+            
+            if(rowdata.dataType==3){
+                h = "友链网站";
+            }
+            
             return h;
         } },
 		{ display: '创建人', name: 'createuser',type: 'text' , width: '15%'},

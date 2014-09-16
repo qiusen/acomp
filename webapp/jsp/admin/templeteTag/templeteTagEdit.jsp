@@ -21,8 +21,8 @@ function cancleClick(){
 </head>
 <body>
 <form name="templeteTagForm" id="templeteTagForm" method="post" action="templeteTagAction!editSave.${actionExt}" onsubmit="return checkForm();">
+<input type="hidden" id="templeteTag.id" name="templeteTag.id" value="${requestScope.templeteTag.id}"/>
 <table cellpadding="0" cellspacing="0" class="l-table-edit" style="margin-top:50px;margin-left:50px;">
-    <input type="hidden" id="templeteTag.id" name="templeteTag.id" value="${requestScope.templeteTag.id}"/>
     <tr>
         <td align="right" class="l-table-edit-td">名称：</td>
         <td align="left" class="l-table-edit-td"><input name="templeteTag.name" type="text" id="templeteTag.name" ltype="text" value="${requestScope.templeteTag.name}"/></td>
@@ -51,6 +51,8 @@ function cancleClick(){
     	<td align="left" class="l-table-edit-td">
     	<select name="templeteTag.dataType" id="templeteTag.dataType">
     	<option value="1" <c:if test="${requestScope.templeteTag.dataType==1}">selected="true"</c:if>>文章</option>
+    	<option value="2" <c:if test="${requestScope.templeteTag.dataType==2}">selected="true"</c:if>>专题</option>
+    	<option value="3" <c:if test="${requestScope.templeteTag.dataType==3}">selected="true"</c:if>>友链网站</option>
     	</select>
     	</td>
     	<td align="left"></td>

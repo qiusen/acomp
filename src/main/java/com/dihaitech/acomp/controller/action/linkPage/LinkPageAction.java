@@ -1,8 +1,15 @@
 package com.dihaitech.acomp.controller.action.linkPage;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.dihaitech.acomp.common.Property;
 import com.dihaitech.acomp.controller.action.BaseAction;
@@ -18,6 +25,9 @@ import com.dihaitech.acomp.service.ITempleteService;
 import com.dihaitech.acomp.util.Page;
 import com.dihaitech.acomp.util.TypeUtil;
 import com.dihaitech.acomp.util.json.JSONUtil;
+
+import freemarker.cache.StringTemplateLoader;
+import freemarker.template.Configuration;
 
 /**
  * 友链页面Action
@@ -204,6 +214,14 @@ public class LinkPageAction extends BaseAction {
 			}
 		}
 		
+		String fileFolder = Property.BLOCK_PUBLISH_PATH + Property.BLOCK_LINK_FOLDER;
+		File folder = new File(fileFolder);
+		if(!folder.exists()){
+			folder.mkdirs();
+		}
+		String filePath = fileFolder + "/" + pageName + ".html";
+		publishFile(linkPage, filePath);
+		
 		
 		return "addSave";
 	}
@@ -259,6 +277,8 @@ public class LinkPageAction extends BaseAction {
 			
 
 			this.getRequest().setAttribute("alreadyLinkRelationSiteData", JSONUtil.objectArrayToJson(alreadyLinkRelationSiteList));
+		}else{
+			this.getRequest().setAttribute("alreadyLinkRelationSiteData", "[]");
 		}
 		
 		this.getRequest().setAttribute("linkSiteData", JSONUtil.objectArrayToJson(linkSiteList));
@@ -307,7 +327,85 @@ public class LinkPageAction extends BaseAction {
 			}
 		}
 		
+		String fileFolder = Property.BLOCK_PUBLISH_PATH + Property.BLOCK_LINK_FOLDER;
+		File folder = new File(fileFolder);
+		if(!folder.exists()){
+			folder.mkdirs();
+		}
+		int i = linkPage.getIncludePath().lastIndexOf("/");
+		String filePath = fileFolder + "/" + linkPage.getIncludePath().substring(i + 1);
+		publishFile(linkPage, filePath);
 		return "editSave";
+	}
+	
+	/**
+	 * 发布文件
+	 * @return
+	 */
+	private boolean publishFile(LinkPage linkPage, String filePath ){
+		boolean success = false;
+		
+		LinkRelation linkRelation = new LinkRelation();
+		linkRelation.setPageId(linkPage.getId());
+		List<LinkRelation> linkRelationList = linkRelationService.selectLinkRelationByPageId(linkRelation);
+		List<LinkSite> linkSiteList = null;
+		if(linkRelationList!=null && linkRelationList.size()>0){
+			LinkRelation linkRelationTemp = null;
+			StringBuffer strbuf = new StringBuffer();
+			for(int i=0;i<linkRelationList.size();i++){
+				linkRelationTemp = linkRelationList.get(i);
+				if(i==0){
+					strbuf.append(linkRelationTemp.getSiteId());
+				}else{
+					strbuf.append("," + linkRelationTemp.getSiteId());
+				}
+			}
+			
+			LinkSite linkSite = new LinkSite();
+			linkSite.setIdStr(strbuf.toString());
+			linkSiteList = linkSiteService.selectLinkSiteByIds(linkSite);
+			
+			//数据
+			Map<String, Object> rootMap=new HashMap<String, Object>();
+			rootMap.put("linkSiteList", linkSiteList);
+			rootMap.put("linkPage", linkPage);
+			
+			//模板
+			Templete templete = new Templete();
+			templete.setId(linkPage.getTempleteId());
+			Templete templeteVO = templeteService.selectTempleteById(templete);
+			String templeteContent = templeteVO.getContent();
+			
+			//写文件
+			PrintWriter printWriter = null;
+			
+			try{
+				printWriter = new PrintWriter(
+					new BufferedWriter(
+							new OutputStreamWriter(
+									new FileOutputStream(filePath),"utf-8")));
+				
+				Configuration cfg = new Configuration();
+				StringTemplateLoader stringLoader = new StringTemplateLoader();
+
+				stringLoader.putTemplate("linkTemplete", templeteContent);
+				cfg.setTemplateLoader(stringLoader);
+				freemarker.template.Template t = cfg.getTemplate("linkTemplete","utf-8");
+				t.process(rootMap, printWriter);
+				printWriter.flush();
+				
+				success = true;
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				if(printWriter!=null){
+					printWriter.close();
+					printWriter = null;
+				}
+			}
+		}
+		
+		return success;
 	}
 	
 	/**
