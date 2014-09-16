@@ -1,8 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" %><%@ include file="/jsp/common/taglibs.jsp"%><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ page contentType="text/html;charset=UTF-8" %><%@ include file="/jsp/common/taglibs.jsp"%><!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 <title><%=Property.SYSTEM_NAME %></title>
 <%@ include file="/jsp/common/meta.jsp"%>
+<link rel="stylesheet" href="${base }/css/custom.css"/>
 <script>
 function changeCheckCode(){
 	var checkCodeImg = document.getElementById("checkCodeImg");
@@ -11,71 +13,63 @@ function changeCheckCode(){
 $(function (){
 	$("#loginname").focus();
 });
+
+function onsubmit(){
+	document.getElementById("loginform").submit();
+}
 </script>
-<style type="text/css">
-.header {
-background: #000000 url(${base }/image/01.png) repeat-x 0 0;
-height: 51px;
-text-align: center;
-overflow: hidden;
-padding-top: 20px;
-line-height: 150px;
-}
-body {
-font: 12px/18px Arial, Simsun, Helvetica, sans-serif;
-color: #616161;
-text-align: left;
-}
-.main {
-width: 300px;
-margin: 70px auto 0;
-height: 250px;
-padding: 60px 0 0 90px;
-}
-input, label, select, option, textarea, button, fieldset, legend {
-font: 12px/18px Arial, Simsun, Helvetica, sans-serif;
-}
-.btn_strong {
-display: inline-block;
-width: 90px;
-height: 24px;
-padding: 0px 20px;
-font: bold 12px/24px Arial;
-overflow: hidden;
-zoom: 1;
-cursor: pointer;
-outline: none;
-border: 0;
-color: #ffffff;
-border-radius: 3px;
-background: -webkit-linear-gradient(top, #2372cf 0%,#3064af 100%);
-margin-top:5px;
-}
-li{
-margin-top:5px;
-}
-.input_mini{
-width:62px;
-}
-</style>
+    <!--[if IE 6]>
+<script src="public/js/DD_belatedPNG_0.0.8a-min.js"></script>
+<script type="text/javascript">
+    DD_belatedPNG.fix('div');
+</script>
+<![endif]-->
 </head>
-<body style="padding:0px;">  
-<div class="header"><h1 id=""><%=Property.SYSTEM_NAME %></h1></div>
-<form action="${base }/login.${actionExt}" method="post">
-<div class="main" id="">
-	<ul class="login">
-    	<li><span class="hd">用户名：</span><input id="loginname" type="text" value="" class="input_normal" name="username" id="username"></li>
-        <li><span class="hd">密&nbsp;&nbsp;&nbsp;&nbsp;码：</span><input type="password" value="" class="input_normal" id="password" name="password"></li>
-        <li><span class="hd">验证码：</span><input type="text" value="1111" class="input_mini" id='checkCode' name='checkCode' value="1111" maxlength="4"><a href="#" onclick="changeCheckCode()"><img alt="点击刷新" src="${base }/getcheckimage" id="checkCodeImg" border="0" style="vertical-align: middle;margin-left:5px;"/></a></li>
-        <li><input type="submit" class="btn_strong" value="&nbsp;登录&nbsp;"></li>
-        <li>${errorStr}</li>
-    </ul>
-</div>
+<body>
+    <div class="Box">
+        <div class="BoxL">
+            <div class="BoxLT">Welcome</div>
+            <div class="BoxLA">
+            </div>
+        </div>
+        
+        <div class="BoxR">
+            <div class="BoxRCon">
+            <form id="loginform" action="${base }/login.${actionExt}" method="post">
+                <div class="fishT"><%=Property.SYSTEM_NAME %>登录</div>
+                <div class="line1 MT30">
+                    <i class=""></i>
+                    <div class="">用户名</div>
+                    <span class=""><input type="text" name="username" id="username" /></span>
+                </div>
+                <div class="line1 MT10 mod">
+                    <i class=""></i>
+                    <div class="">密码</div>
+                    <span class=""><input type="password" id="password" name="password" /></span>
+                </div>
 
+                <div class="line1 MT10 mod">
+                    <i class="myhide"></i>
+                    <div class="">验证码</div>
+                    <b class="lala"><input type="text" value="1111" id='checkCode' name='checkCode' maxlength="4" /></b>
+                    <a href="#" onclick="changeCheckCode()"><img alt="点击刷新" src="${base }/getcheckimage" id="checkCodeImg" border="0" style="vertical-align: middle;margin-left:5px;"/></a>
+                </div>
+                <div class="line1 MT10 mod" style="text-align: center;">
+                <font color="red">${errorStr}</font>
+                </div>
+                <a href="javascript:onsubmit();" style="color:#FFF;"><div class="btn MT30" >登录</div></a>
+                </form>
+            </div>
+        </div>
+    </div>
 
-</form>
-<div style="margin-top:160px;margin-left:550px;"><%@ include file="/jsp/common/bottom.jsp"%></div>
-
+    <!--遮罩-->
+    <div class="mask myHide"></div>
+    <div style="margin-left:550px;"><%@ include file="/jsp/common/bottom.jsp"%></div>
 </body>
-
+<script>
+    $(function(){
+        $(".Box").height($(window).height()-35);
+    });
+</script>
 </html>
