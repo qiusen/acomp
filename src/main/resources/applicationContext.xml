@@ -119,7 +119,9 @@
 		<property name="FILE_IMAG_TYPES" value="${file.imag.types}"></property>
 		<!-- 图片上传预览相关配置end -->
 		<!-- 块相关内容 begin -->
-		<property name="BLOCK_PUBLISH_PATH" value="${block.publish.path}"></property>
+		<!-- 文件发布地址 -->
+		<property name="FILE_PUBLISH_PATH" value="${file.publish.path}"></property>
+		<property name="BLOCK_FOLDER" value="${block.folder}"></property>
 		<property name="BLOCK_INCLUDE_PATH" value="${block.include.path}"></property>
 		<property name="BLOCK_AUTOMATIC_FOLDER" value="${block.automatic.folder}"></property>
 		<property name="BLOCK_MANUAL_FOLDER" value="${block.manual.folder}"></property>

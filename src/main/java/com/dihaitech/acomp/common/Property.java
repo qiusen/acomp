@@ -127,7 +127,12 @@ public class Property {
 	/**
 	 * 块发布绝对地址
 	 */
-	public static String BLOCK_PUBLISH_PATH;
+	public static String FILE_PUBLISH_PATH;
+	
+	/**
+	 * 块文件夹
+	 */
+	public static String BLOCK_FOLDER;
 	
 	/**
 	 * 块引用地址
@@ -323,12 +328,22 @@ public class Property {
 		FILE_IMAG_TYPES = fILE_IMAG_TYPES;
 	}
 
-	public static String getBLOCK_PUBLISH_PATH() {
-		return BLOCK_PUBLISH_PATH;
+	
+
+	public static String getFILE_PUBLISH_PATH() {
+		return FILE_PUBLISH_PATH;
 	}
 
-	public static void setBLOCK_PUBLISH_PATH(String bLOCK_PUBLISH_PATH) {
-		BLOCK_PUBLISH_PATH = bLOCK_PUBLISH_PATH;
+	public static void setFILE_PUBLISH_PATH(String fILE_PUBLISH_PATH) {
+		FILE_PUBLISH_PATH = fILE_PUBLISH_PATH;
+	}
+
+	public static String getBLOCK_FOLDER() {
+		return BLOCK_FOLDER;
+	}
+
+	public static void setBLOCK_FOLDER(String bLOCK_FOLDER) {
+		BLOCK_FOLDER = bLOCK_FOLDER;
 	}
 
 	public static String getBLOCK_INCLUDE_PATH() {

@@ -87,6 +87,7 @@ function doUpload(element) {
 <form name="articleForm" id="articleForm" method="post" action="articleAction!editSave.${actionExt}" onsubmit="return checkForm();">
 	<input type="hidden" id="article.id" name="article.id" value="${requestScope.article.id}"/>
     <input name="article.articleImg" id="article.articleImg" type="hidden" value="${requestScope.article.articleImg}"/>
+    <input name="article.columnCode" id="article.columnCode" type="hidden" value="${requestScope.article.columnCode}"/>
 <table cellpadding="0" cellspacing="0" class="l-table-edit" style="margin-top:50px;margin-left:50px;">
     <tr>
         <td align="right" class="l-table-edit-td">标题：</td>
@@ -162,7 +163,7 @@ function doUpload(element) {
     </tr>
     <tr>
     	<td align="center" colspan="3">
-    	<input type="submit" value="保存" id="Button1" class="l-button l-button-submit" /> 
+    	<input type="submit" value="保存与发布" id="Button1" class="l-button l-button-submit" /> 
 	<input type="button" value="取消" class="l-button l-button-reset" onclick="javascript:cancleClick();"/>
     	</td>
     </tr>

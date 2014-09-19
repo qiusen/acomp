@@ -214,7 +214,7 @@ public class LinkPageAction extends BaseAction {
 			}
 		}
 		
-		String fileFolder = Property.BLOCK_PUBLISH_PATH + Property.BLOCK_LINK_FOLDER;
+		String fileFolder = Property.FILE_PUBLISH_PATH + Property.BLOCK_FOLDER + "/" + Property.BLOCK_LINK_FOLDER;
 		File folder = new File(fileFolder);
 		if(!folder.exists()){
 			folder.mkdirs();
@@ -327,7 +327,7 @@ public class LinkPageAction extends BaseAction {
 			}
 		}
 		
-		String fileFolder = Property.BLOCK_PUBLISH_PATH + Property.BLOCK_LINK_FOLDER;
+		String fileFolder = Property.FILE_PUBLISH_PATH + Property.BLOCK_FOLDER + "/" + Property.BLOCK_LINK_FOLDER;
 		File folder = new File(fileFolder);
 		if(!folder.exists()){
 			folder.mkdirs();
@@ -365,43 +365,45 @@ public class LinkPageAction extends BaseAction {
 			linkSite.setIdStr(strbuf.toString());
 			linkSiteList = linkSiteService.selectLinkSiteByIds(linkSite);
 			
-			//数据
-			Map<String, Object> rootMap=new HashMap<String, Object>();
-			rootMap.put("linkSiteList", linkSiteList);
-			rootMap.put("linkPage", linkPage);
 			
-			//模板
-			Templete templete = new Templete();
-			templete.setId(linkPage.getTempleteId());
-			Templete templeteVO = templeteService.selectTempleteById(templete);
-			String templeteContent = templeteVO.getContent();
+		}
+		
+		//数据
+		Map<String, Object> rootMap=new HashMap<String, Object>();
+		rootMap.put("linkSiteList", linkSiteList);
+		rootMap.put("linkPage", linkPage);
+		
+		//模板
+		Templete templete = new Templete();
+		templete.setId(linkPage.getTempleteId());
+		Templete templeteVO = templeteService.selectTempleteById(templete);
+		String templeteContent = templeteVO.getContent();
+		
+		//写文件
+		PrintWriter printWriter = null;
+		
+		try{
+			printWriter = new PrintWriter(
+				new BufferedWriter(
+						new OutputStreamWriter(
+								new FileOutputStream(filePath),"utf-8")));
 			
-			//写文件
-			PrintWriter printWriter = null;
-			
-			try{
-				printWriter = new PrintWriter(
-					new BufferedWriter(
-							new OutputStreamWriter(
-									new FileOutputStream(filePath),"utf-8")));
-				
-				Configuration cfg = new Configuration();
-				StringTemplateLoader stringLoader = new StringTemplateLoader();
+			Configuration cfg = new Configuration();
+			StringTemplateLoader stringLoader = new StringTemplateLoader();
 
-				stringLoader.putTemplate("linkTemplete", templeteContent);
-				cfg.setTemplateLoader(stringLoader);
-				freemarker.template.Template t = cfg.getTemplate("linkTemplete","utf-8");
-				t.process(rootMap, printWriter);
-				printWriter.flush();
-				
-				success = true;
-			}catch(Exception e){
-				e.printStackTrace();
-			}finally{
-				if(printWriter!=null){
-					printWriter.close();
-					printWriter = null;
-				}
+			stringLoader.putTemplate("linkTemplete", templeteContent);
+			cfg.setTemplateLoader(stringLoader);
+			freemarker.template.Template t = cfg.getTemplate("linkTemplete","utf-8");
+			t.process(rootMap, printWriter);
+			printWriter.flush();
+			
+			success = true;
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			if(printWriter!=null){
+				printWriter.close();
+				printWriter = null;
 			}
 		}
 		

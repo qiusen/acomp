@@ -81,6 +81,17 @@ public class Article extends BaseModel{
 	 * 修改时间
 	 */
 	private Date updatetime;
+	
+	/**
+	 * 上一篇ID
+	 */
+	private Integer prevId;
+	
+	/**
+	 * 下一篇ID
+	 */
+	private Integer nextId;
+	
 	public String getColumnCode() {
 		return columnCode;
 	}
@@ -164,6 +175,18 @@ public class Article extends BaseModel{
 	}
 	public void setTempleteId(Integer templeteId) {
 		this.templeteId = templeteId;
+	}
+	public Integer getPrevId() {
+		return prevId;
+	}
+	public void setPrevId(Integer prevId) {
+		this.prevId = prevId;
+	}
+	public Integer getNextId() {
+		return nextId;
+	}
+	public void setNextId(Integer nextId) {
+		this.nextId = nextId;
 	}
 	
 }

@@ -70,4 +70,34 @@ public class ArticleServiceImpl implements IArticleService {
 	public Article selectArticleById(Article article) {
 		return articleDAO.selectArticleById(article);
 	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IArticleService#selectPreviousArticleList(com.dihaitech.acomp.model.Article)
+	 */
+	@Override
+	public List<Article> selectPreviousArticleList(Article article) {
+		// TODO Auto-generated method stub
+		return articleDAO.selectPreviousArticleList(article);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IArticleService#selectPreviousArticle(com.dihaitech.acomp.model.Article)
+	 */
+	@Override
+	public Article selectPreviousArticle(Article article) {
+		// TODO Auto-generated method stub
+		return articleDAO.selectPreviousArticle(article);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IArticleService#selectNextArticle(com.dihaitech.acomp.model.Article)
+	 */
+	@Override
+	public Article selectNextArticle(Article article) {
+		// TODO Auto-generated method stub
+		return articleDAO.selectNextArticle(article);
+	}
 }

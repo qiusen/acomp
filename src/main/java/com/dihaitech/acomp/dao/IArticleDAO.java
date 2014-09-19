@@ -69,4 +69,25 @@ public interface IArticleDAO {
 	 * @return
 	 */
 	public List<Article> selectAll();
+	
+	/**
+	 * 获取前两篇文章
+	 * @param article
+	 * @return
+	 */
+	public List<Article> selectPreviousArticleList(Article article);
+	
+	/**
+	 * 前一篇
+	 * @param article
+	 * @return
+	 */
+	public Article selectPreviousArticle(Article article);
+	
+	/**
+	 * 后一篇
+	 * @param article
+	 * @return
+	 */
+	public Article selectNextArticle(Article article);
 }

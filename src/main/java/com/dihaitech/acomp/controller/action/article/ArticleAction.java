@@ -1,7 +1,14 @@
 package com.dihaitech.acomp.controller.action.article;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.dihaitech.acomp.common.Property;
 import com.dihaitech.acomp.controller.action.BaseAction;
@@ -19,6 +26,9 @@ import com.dihaitech.acomp.service.ITempleteService;
 import com.dihaitech.acomp.util.Page;
 import com.dihaitech.acomp.util.TypeUtil;
 import com.dihaitech.acomp.util.json.JSONUtil;
+
+import freemarker.cache.StringTemplateLoader;
+import freemarker.template.Configuration;
 
 /**
  * 文章Action
@@ -193,6 +203,22 @@ public class ArticleAction extends BaseAction {
 		article.setStatus(1);	//状态为有效
 		
 		articleService.addSave(article);
+		
+		//上一篇
+		List<Article> articleList = articleService.selectPreviousArticleList(article);
+		if(articleList!=null && articleList.size()>0){
+			Article prevArticle = articleList.get(0);
+			
+			if(articleList.size()==2){
+				prevArticle.setPrevId(articleList.get(1).getId());
+			}
+			prevArticle.setNextId(article.getId());
+			publishArticle(prevArticle);
+			
+			article.setPrevId(prevArticle.getId());
+			
+		}
+		publishArticle(article);
 		return "addSave";
 	}
 	
@@ -253,7 +279,91 @@ public class ArticleAction extends BaseAction {
 		article.setStatus(1);	//状态为有效
 		
 		articleService.editSave(article);
+		
+		Article prevArticle = articleService.selectPreviousArticle(article);
+		if(prevArticle!=null){
+			article.setPrevId(prevArticle.getId());
+		}
+		
+		Article nextArticle = articleService.selectNextArticle(article);
+		if(nextArticle!=null){
+			article.setNextId(nextArticle.getId());
+		}
+		
+		publishArticle(article);
 		return "editSave";
+	}
+	
+	/**
+	 * 发布文章
+	 * @param article
+	 * @return
+	 */
+	private boolean publishArticle(Article article){
+		boolean success = false;
+
+		//重新获取文章所有内容
+		Article articleVO = articleService.selectArticleById(article);
+		articleVO.setPrevId(article.getPrevId());
+		articleVO.setNextId(article.getNextId());
+		
+		ArticleColumn articleColumn = new ArticleColumn();
+		articleColumn.setCode(articleVO.getColumnCode());
+		ArticleColumn articleColumnVO = articleColumnService.selectArticleColumnByCode(articleColumn);
+		if(articleColumnVO!=null && articleColumnVO.getChannelId()!=null){
+			Channel channel = new Channel();
+			channel.setId(articleColumnVO.getChannelId());
+			Channel channelVO = channelService.selectChannelById(channel);
+			String fileFolder = Property.FILE_PUBLISH_PATH + channelVO.getCode();
+			File file = new File(fileFolder);
+			if(!file.exists()){
+				file.mkdirs();
+			}
+			
+			String filePath = fileFolder + "/" + articleVO.getId() + ".html";
+			
+			//模板
+			Templete templete = new Templete();
+			templete.setId(articleVO.getTempleteId());
+			Templete templeteVO = templeteService.selectTempleteById(templete);
+			String templeteContent = templeteVO.getContent();
+			
+			//数据
+			Map<String, Object> rootMap=new HashMap<String, Object>();
+			rootMap.put("article", articleVO);
+			rootMap.put("articleColumn", articleColumnVO);
+			rootMap.put("channel", channelVO);
+			
+			//写文件
+			PrintWriter printWriter = null;
+			
+			try{
+				printWriter = new PrintWriter(
+					new BufferedWriter(
+							new OutputStreamWriter(
+									new FileOutputStream(filePath),"utf-8")));
+				
+				Configuration cfg = new Configuration();
+				StringTemplateLoader stringLoader = new StringTemplateLoader();
+
+				stringLoader.putTemplate("templete", templeteContent);
+				cfg.setTemplateLoader(stringLoader);
+				freemarker.template.Template t = cfg.getTemplate("templete","utf-8");
+				t.process(rootMap, printWriter);
+				printWriter.flush();
+				
+				success = true;
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				if(printWriter!=null){
+					printWriter.close();
+					printWriter = null;
+				}
+			}
+		}
+		
+		return success;
 	}
 	
 	/**
