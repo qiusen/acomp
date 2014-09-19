@@ -1,0 +1,126 @@
+<!--#config errmsg=""--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<title>${article.title!}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<meta name="keywords" content="${article.title!}-${channel.name!}" /> 
+<meta name="description" content="${article.title!}-${channel.name!}" /> 
+<link rel="stylesheet" rev="stylesheet" href="./css/default.css" type="text/css" media="screen" />
+</head> 
+<div class="v"><h1 align="center" class="STYLE1">${channel.name!}</h1></div>
+<!--
+<div class="site clearfix">
+<font size=2><strong>小说1:<a href="http://www.wddsnxn.org/yinyangdailiren/" target="_blank">《阴阳代理人》作者：暗丶修兰</a></strong></font>&nbsp;&nbsp;&nbsp;
+<font size=2><strong><a href="http://www.wddsnxn.org/mindiaojuyiwenlu/" target="_blank">《民调局异闻录》作者：儿东水寿</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.shizongzui.org/mayixiangshi/">《麻衣相士》作者：御风楼主人</a><br /></strong></font>
+<font size=2><strong>小说2:<a href="http://www.513gp.org/mayishenxiang/" target="_blank">《麻衣神相》作者：御风楼主人</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.513gp.org/zhongguoshipianjudaquan/" target="_blank">《中国式骗局大全》作者：我是骗子他祖宗</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.513gp.org/qimenshushi/" target="_blank">《奇门术师》作者：雪冷凝霜</a><br /></strong></font><font size=2><strong>小说3:<a href="http://www.shizongzui.org/">《十宗罪》作者：蜘蛛</a></strong></font>&nbsp;&nbsp;&nbsp;
+<font size=2><strong><a href="http://www.shizongzui.org/luobubozhizhou/" target="_blank">《罗布泊之咒》作者：周德东</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.513gp.org/sangshibaofazhiquanjiaqiushenglu/" target="_blank">《丧尸爆发之全家求生路》作者：神爱朵朵</a><br /></strong></font><font size=2><strong>小说4:<a href="http://www.shizongzui.org/guicangren/" target="_blank">《鬼藏人》作者：李达</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.513gp.org/wozhenshibianyiren/" target="_blank">《异变之镯》作者：小飞鹅</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.shizongzui.org/xiongzhaibiji/" target="_blank">《凶宅笔记》作者：贰十三</a><br /></strong></font><font size=2><strong>小说5:<a href="http://miaojiangdaoshi.513gp.org/">南无袈裟理科佛最新作品《苗疆道事》</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.shanhaimiwenlu.com/" target="_blank">《山海秘闻录》作者：仐三</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.shizongzui.org/huangheguishi/" target="_blank">《黄河鬼事》作者：龙飞有妖气</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.wddsnxn.org/daomenwangshi/" target="_blank">《道门往事》作者：最爱MISIC伯爵</a><br /></strong></font><font size=2><strong><img src="http://www.shizongzui.org/hot.gif" alt="" width="23" height="20" /><a href="http://www.shizongzui.org/535.html">更多精彩小说</a></strong></font>
+</div>
+-->
+<div class="site clearfix"><span style="float:right;">   <a href="/${channel.code!}" >返回首页</a></span><a href="/${channel.code!}">${channel.name!}</a>  > ${article.title!}</div>
+<div class="chaptertitle clearfix"> 
+  <h1>${article.title!}</h1> 
+</div> 
+<!--
+<div id="p_adtop" class="clearfix"> 
+	<div id="p_ad_t1"><script language="javascript" type="text/javascript" src="/a.js"></script></div> 
+ 
+	<div id="p_ad_t2"><script language="javascript" type="text/javascript" src="/b.js"></script></div> 
+ 
+	<div id="p_ad_t3"><script language="javascript" type="text/javascript" src="/c.js"></script></div> 
+  <div id="p_ad_t4"></div> 
+</div> 
+-->
+<div class="bookcontent clearfix" id="BookText">${article.getContent()}</div> 
+<!--content--> 
+ 
+<div id="p_ad_b1" class="clearfix"> 
+</div> 
+<div class="bottomlink clearfix"> 
+  <div class="linkbtn clearfix"> <h2>
+  <#if article.prevId?exists><a href="${article.prevId}.html"><span>←上一页</span></a></#if> 
+  <a href="/${channel.code!}"><span>返回章节目录</span></a> 
+  <#if article.nextId?exists><a href="${article.nextId}.html"><span>下一页→</span></a></#if></h2> </div> 
+</div> 
+<!--
+<div class="bottomlink clearfix"> 
+  <ul class="msg">
+	<li class="msgname"><img src="http://www.wddsnxn.org/image/common/quote.gif" height="9" width="9" alt="quote" title="quote" />&nbsp;1.沙发</li>
+	<li class="msgurl"><a href="http://www.wddsnxn.org/function/c_urlredirect.asp?url=" rel="nofollow" target="_blank"></a></li>
+	<li class="msgarticle">沙发<blockquote><div class="quote quote3"><div class="quote-title">小说不错 于 2013-8-21 23:19:39 回复</div>小说不错啊~~</div></blockquote><blockquote><div class="quote quote3"><div class="quote-title">道士就是狗 于 2014-5-19 11:11:32 回复</div>哈哈哈哈逗死我了竟然还有这么逗B得小说人家肥皂剧你肥皂小说,看了第一章就懒得看了,真是次到极点不能再次的垃圾水货小说了</div></blockquote><blockquote><div class="quote quote3"><div class="quote-title">你爸 于 2014-6-7 14:04:07 回复</div>我觉得非常好看啊，不看不要BB</div></blockquote><blockquote><div class="quote quote3"><div class="quote-title">你爸 于 2014-6-7 14:04:34 回复</div>看第二遍</div></blockquote></li>
+	<li class="msgtime">2013-8-10 20:21:01&nbsp;<a href="#comment" onclick="RevertComment('6253')">回复该留言</a></li>
+</ul><ul class="msg">
+	<li class="msgname"><img src="http://www.wddsnxn.org/image/common/quote.gif" height="9" width="9" alt="quote" title="quote" />&nbsp;2.啊啊</li>
+	<li class="msgurl"><a href="http://www.wddsnxn.org/function/c_urlredirect.asp?url=" rel="nofollow" target="_blank"></a></li>
+	<li class="msgarticle">啊</li>
+	<li class="msgtime">2013-9-15 14:45:00&nbsp;<a href="#comment" onclick="RevertComment('8158')">回复该留言</a></li>
+</ul><ul class="msg">
+	<li class="msgname"><img src="http://www.wddsnxn.org/image/common/quote.gif" height="9" width="9" alt="quote" title="quote" />&nbsp;3.老李</li>
+	<li class="msgurl"><a href="http://www.wddsnxn.org/function/c_urlredirect.asp?url=" rel="nofollow" target="_blank"></a></li>
+	<li class="msgarticle">我来也</li>
+	<li class="msgtime">2013-11-3 9:29:56&nbsp;<a href="#comment" onclick="RevertComment('11472')">回复该留言</a></li>
+</ul><ul class="msg">
+	<li class="msgname"><img src="http://www.wddsnxn.org/image/common/quote.gif" height="9" width="9" alt="quote" title="quote" />&nbsp;4.中彩</li>
+	<li class="msgurl"><a href="http://www.wddsnxn.org/function/c_urlredirect.asp?url=" rel="nofollow" target="_blank"></a></li>
+	<li class="msgarticle">我重新慢慢看，不急啊。</li>
+	<li class="msgtime">2013-11-22 13:54:38&nbsp;<a href="#comment" onclick="RevertComment('14317')">回复该留言</a></li>
+</ul><ul class="msg">
+	<li class="msgname"><img src="http://www.wddsnxn.org/image/common/quote.gif" height="9" width="9" alt="quote" title="quote" />&nbsp;5.周火火</li>
+	<li class="msgurl"><a href="http://www.wddsnxn.org/function/c_urlredirect.asp?url=" rel="nofollow" target="_blank"></a></li>
+	<li class="msgarticle">突然想起来占以前的沙发</li>
+	<li class="msgtime">2013-12-13 20:28:21&nbsp;<a href="#comment" onclick="RevertComment('18440')">回复该留言</a></li>
+</ul><ul class="msg">
+	<li class="msgname"><img src="http://www.wddsnxn.org/image/common/quote.gif" height="9" width="9" alt="quote" title="quote" />&nbsp;6.天涯独狼</li>
+	<li class="msgurl"><a href="http://www.wddsnxn.org/function/c_urlredirect.asp?url=" rel="nofollow" target="_blank"></a></li>
+	<li class="msgarticle">《苗疆蛊事》看完两遍了，于是跑过来这儿看看。<br/>对于三哥所说的“其实踩着这个整点儿出生的人，全中国也没多少，真的。”还真查了一下“根据统计局发布的2011年国民经济和社会发展统计公报，2011年，全年出生人口1604万人，出生率为11.93‰”<br/>嘿嘿，1604万够大吧？可一路除下来，每两秒才有一个人<blockquote><div class="quote quote3"><div class="quote-title">15065633223 于 2014-1-7 22:39:35 回复</div>请问<br/>苗疆蛊事更新完了吗？</div></blockquote><blockquote><div class="quote quote3"><div class="quote-title">天涯独狼 于 2014-2-21 4:42:34 回复</div>不对呀，我当初儿小错误，跟三三相似。<br/>“中午的十二点整，一秒不多，一秒不少”出生的中国人，并不少。<br/>按14亿除以24小时，再除以每小时3600秒，有一万六千人；按11年度出生的确1604万算，也有186人。<br/>以前多除了一个365天，变成限定是某一天的那个时候了</div></blockquote></li>
+	<li class="msgtime">2013-12-25 3:36:34&nbsp;<a href="#comment" onclick="RevertComment('19767')">回复该留言</a></li>
+</ul><ul class="msg">
+	<li class="msgname"><img src="http://www.wddsnxn.org/image/common/quote.gif" height="9" width="9" alt="quote" title="quote" />&nbsp;7.天涯独狼</li>
+	<li class="msgurl"><a href="http://www.wddsnxn.org/function/c_urlredirect.asp?url=" rel="nofollow" target="_blank"></a></li>
+	<li class="msgarticle">川西南？是攀枝花还是凉山州呀</li>
+	<li class="msgtime">2014-1-4 6:24:32&nbsp;<a href="#comment" onclick="RevertComment('21378')">回复该留言</a></li>
+</ul><ul class="msg">
+	<li class="msgname"><img src="http://www.wddsnxn.org/image/common/quote.gif" height="9" width="9" alt="quote" title="quote" />&nbsp;8.天涯独狼</li>
+	<li class="msgurl"><a href="http://www.wddsnxn.org/function/c_urlredirect.asp?url=" rel="nofollow" target="_blank"></a></li>
+	<li class="msgarticle">不对呀！三哥是不是犯了个小错，川西南应该就是攀枝花市和凉山彝族自治州。前者是地级市，但只辖几个区而辖县；后者有县，但州府所在地西昌只是县级市。可后面会提到三娃子的父母搬到了县城，我正看的一章说他回家前先到了故乡所在的地级市。<br/>雅安、乐山，应该不算川西南吧？</li>
+	<li class="msgtime">2014-1-4 6:38:13&nbsp;<a href="#comment" onclick="RevertComment('21379')">回复该留言</a></li>
+</ul><ul class="msg">
+	<li class="msgname"><img src="http://www.wddsnxn.org/image/common/quote.gif" height="9" width="9" alt="quote" title="quote" />&nbsp;30.平凡</li>
+	<li class="msgurl"><a href="http://www.wddsnxn.org/function/c_urlredirect.asp?url=" rel="nofollow" target="_blank"></a></li>
+	<li class="msgarticle">再看一遍</li>
+	<li class="msgtime">2014-8-27 7:15:19&nbsp;<a href="#comment" onclick="RevertComment('41614')">回复该留言</a></li>
+</ul><div style="display:none;" id="divAjaxComment"></div>
+<div class="post" id="divCommentPost">
+	<p class="posttop"><a name="comment">发表评论:</a></p>
+	<form id="frmSumbit" target="_self" method="post" action="http://www.wddsnxn.org/cmd.asp?act=cmt&amp;key=be48b75b" >
+	<input type="hidden" name="inpId" id="inpId" value="245" />
+	<input type="hidden" name="inpArticle" id="inpArticle" value="" />
+	<input type="hidden" name="inpLocation" id="inpLocation" value="" />
+	<p><input type="text" name="inpName" id="inpName" class="text" value="" size="28" tabindex="1" /> <label for="inpName">名称(必填)</label></p>
+	<p><input type="text" name="inpEmail" id="inpEmail" class="text" value="" size="28" tabindex="2" /> <label for="inpEmail">邮箱(可以不填写)</label></p>
+	<!--<p><input type="text" name="inpHomePage" id="inpHomePage" class="text" value="" size="28" tabindex="3" /> <label for="inpHomePage">网站链接</label></p>-->
+	<!--
+	<p><label for="txaArticle">正文(留言最长字数:1000)</label></p>
+	<p>
+	  
+	</p>
+	<p><input name="btnSumbit" type="submit" tabindex="6" value="提交" onclick="JavaScript:return VerifyMessage()" class="button" /> <input type="checkbox" name="chkRemember" value="1" id="chkRemember" /> <label for="chkRemember">记住我,下次回复时不用重新输入个人信息</label></p>
+	<script language="JavaScript" type="text/javascript">objActive="txaArticle";ExportUbbFrame();</script>
+	</form>
+	<p class="postbottom">◎欢迎参与讨论，请在这里发表您的看法、交流您的观点。</p>
+	<script language="JavaScript" type="text/javascript">LoadRememberInfo();</script>
+</div>
+</div>
+--> 
+<div id="p_ad_b2" class="clearfix"> 
+</div> 
+<!--页脚--> 
+<div class="footer clearfix"> <span class="page-comment"> 
+  </span> <span class="fright"> 
+  <div id="pagebottom"> 
+  </div> 
+  </span> <span class="fleft gray-link"></script>Copyright 2014－2015 <a href="/${channel.code!}">${channel.name!}</a> all rights reserved <a href="/${channel.code!}">${channel.name!}</a>
+  </span></div> 
+<div id="allbottom"> 
+</div>
+</body>
+</html>

@@ -100,4 +100,14 @@ public class ArticleServiceImpl implements IArticleService {
 		// TODO Auto-generated method stub
 		return articleDAO.selectNextArticle(article);
 	}
+
+
+	/* (non-Javadoc)
+	 * @see com.dihaitech.acomp.service.IArticleService#selectArticleByColumnCodes(com.dihaitech.acomp.model.Article)
+	 */
+	@Override
+	public List<Article> selectArticleByColumnCodes(Article article) {
+		// TODO Auto-generated method stub
+		return articleDAO.selectArticleByColumnCodes(article);
+	}
 }

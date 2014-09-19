@@ -170,4 +170,10 @@
 			order by ID desc
 	        limit 1
 	</select>
+	
+	<select id="selectArticleByColumnCodes" parameterType="article" resultMap="articleMap" >
+		SELECT <include refid="articleField" /> FROM `article`
+	        where COLUMN_CODE in (${idStr})
+			order by ID
+	</select>
 </mapper>

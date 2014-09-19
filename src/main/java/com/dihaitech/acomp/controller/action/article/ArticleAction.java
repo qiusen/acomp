@@ -219,6 +219,8 @@ public class ArticleAction extends BaseAction {
 			
 		}
 		publishArticle(article);
+		
+		
 		return "addSave";
 	}
 	
@@ -361,6 +363,90 @@ public class ArticleAction extends BaseAction {
 					printWriter = null;
 				}
 			}
+			
+			publishChannel(channelVO);
+		}
+		
+		return success;
+	}
+	
+	/**
+	 * 发布频道首页
+	 * @param channel
+	 * @return
+	 */
+	private boolean publishChannel(Channel channel){
+		boolean success = false;
+//		Channel channelVO = channelService.selectChannelById(channel);
+		Channel channelVO = channel;
+		if(channelVO!=null){
+			//模板
+			Templete templete = new Templete();
+			templete.setId(channelVO.getTempleteId());
+			Templete templeteVO = templeteService.selectTempleteById(templete);
+			String templeteContent = templeteVO.getContent();
+			
+			//数据
+			Map<String, Object> rootMap=new HashMap<String, Object>();
+			rootMap.put("channel", channelVO);
+			
+			ArticleColumn articleColumn = new ArticleColumn();
+			articleColumn.setChannelId(channelVO.getId());
+			List<ArticleColumn> articleColumnList = articleColumnService.selectArticleColumnByChannelId(articleColumn);
+			rootMap.put("articleColumnList", articleColumnList);
+			
+			if(articleColumnList!=null && articleColumnList.size()>0){
+				ArticleColumn articleColumnTemp = null;
+				StringBuffer strbuf = new StringBuffer();
+				for(int i=0;i<articleColumnList.size();i++){
+					articleColumnTemp = articleColumnList.get(i);
+					if(i==0){
+						strbuf.append("'" + articleColumnTemp.getCode() + "'");
+					}else{
+						strbuf.append(",'" + articleColumnTemp.getCode() + "'");
+					}
+				}
+				Article article = new Article();
+				article.setIdStr(strbuf.toString());
+				List<Article> articleList = articleService.selectArticleByColumnCodes(article);
+				rootMap.put("articleList", articleList);
+			}
+			
+			//路径
+			String fileFolder = Property.FILE_PUBLISH_PATH + channelVO.getCode();
+			File file = new File(fileFolder);
+			if(!file.exists()){
+				file.mkdirs();
+			}
+			String filePath = fileFolder + "/index.html";
+
+			//写文件
+			PrintWriter printWriter = null;
+			
+			try{
+				printWriter = new PrintWriter(
+					new BufferedWriter(
+							new OutputStreamWriter(
+									new FileOutputStream(filePath),"utf-8")));
+				
+				Configuration cfg = new Configuration();
+				StringTemplateLoader stringLoader = new StringTemplateLoader();
+
+				stringLoader.putTemplate("templete", templeteContent);
+				cfg.setTemplateLoader(stringLoader);
+				freemarker.template.Template t = cfg.getTemplate("templete","utf-8");
+				t.process(rootMap, printWriter);
+				printWriter.flush();
+				
+				success = true;
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				if(printWriter!=null){
+					printWriter.close();
+					printWriter = null;
+				}
+			}
 		}
 		
 		return success;
@@ -371,10 +457,33 @@ public class ArticleAction extends BaseAction {
 	 * @return
 	 */
 	public String delete(){
-		String id = this.getRequest().getParameter("id");
-		StringBuffer strbuf = new StringBuffer(" where id =");
-		strbuf.append(id);
-		articleService.deleteByIds(strbuf.toString());
+		int id = TypeUtil.stringToInt(this.getRequest().getParameter("id"));
+		
+		if(id>0){
+			article.setId(id);
+			Article articleVO = articleService.selectArticleById(article);
+			
+			ArticleColumn articleColumn = new ArticleColumn();
+			articleColumn.setCode(articleVO.getColumnCode());
+			ArticleColumn articleColumnVO = articleColumnService.selectArticleColumnByCode(articleColumn);
+			if(articleColumnVO!=null && articleColumnVO.getChannelId()!=null){
+				int channelId = articleColumnVO.getChannelId();
+				Channel channel = new Channel();
+				channel.setId(channelId);
+				Channel channelVO = channelService.selectChannelById(channel);
+				
+				StringBuffer strbuf = new StringBuffer(" where id =");
+				strbuf.append(id);
+				articleService.deleteByIds(strbuf.toString());
+				
+				
+				publishChannel(channelVO);
+			}
+			
+			
+		}
+		
+		
 		return "deleteSuccess";
 	}
 

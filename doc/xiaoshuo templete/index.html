@@ -1,0 +1,77 @@
+<!--#config errmsg=""--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>${channel.name!}-${channel.name!}全文阅读</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="${channel.name!} ${channel.name!}全文阅读" />
+<meta name="description" content="《${channel.name!}》是一本非常好看的小说，${channel.name!}最新章节由网友更新，由网友上传更新在此分享${channel.name!}全文阅读。" />
+<link rel="stylesheet" rev="stylesheet" href="./css/default.css" type="text/css" media="screen" />
+<style type="text/css">
+<!--
+.STYLE1 {color: #0033CC}
+.STYLE3 {font-size: 18px}
+-->
+</style>
+</head>
+<body>
+<DIV class=top>
+</DIV>
+<div class="v"><h1 align="center" class="STYLE1">${channel.name!}</h1>
+</div>
+<!--
+<div class="site clearfix">
+<font size=2><strong>小说1:<a href="http://www.wddsnxn.org/yinyangdailiren/" target="_blank">《阴阳代理人》作者：暗丶修兰</a></strong></font>&nbsp;&nbsp;&nbsp;
+<font size=2><strong><a href="http://www.wddsnxn.org/mindiaojuyiwenlu/" target="_blank">《民调局异闻录》作者：儿东水寿</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.shizongzui.org/mayixiangshi/">《麻衣相士》作者：御风楼主人</a><br /></strong></font>
+<font size=2><strong>小说2:<a href="http://www.513gp.org/mayishenxiang/" target="_blank">《麻衣神相》作者：御风楼主人</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.513gp.org/zhongguoshipianjudaquan/" target="_blank">《中国式骗局大全》作者：我是骗子他祖宗</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.513gp.org/qimenshushi/" target="_blank">《奇门术师》作者：雪冷凝霜</a><br /></strong></font><font size=2><strong>小说3:<a href="http://www.shizongzui.org/">《十宗罪》作者：蜘蛛</a></strong></font>&nbsp;&nbsp;&nbsp;
+<font size=2><strong><a href="http://www.shizongzui.org/luobubozhizhou/" target="_blank">《罗布泊之咒》作者：周德东</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.513gp.org/sangshibaofazhiquanjiaqiushenglu/" target="_blank">《丧尸爆发之全家求生路》作者：神爱朵朵</a><br /></strong></font><font size=2><strong>小说4:<a href="http://www.shizongzui.org/guicangren/" target="_blank">《鬼藏人》作者：李达</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.513gp.org/wozhenshibianyiren/" target="_blank">《异变之镯》作者：小飞鹅</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.shizongzui.org/xiongzhaibiji/" target="_blank">《凶宅笔记》作者：贰十三</a><br /></strong></font><font size=2><strong>小说5:<a href="http://miaojiangdaoshi.513gp.org/">南无袈裟理科佛最新作品《苗疆道事》</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.shanhaimiwenlu.com/" target="_blank">《山海秘闻录》作者：仐三</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.shizongzui.org/huangheguishi/" target="_blank">《黄河鬼事》作者：龙飞有妖气</a></strong></font>&nbsp;&nbsp;&nbsp;<font size=2><strong><a href="http://www.wddsnxn.org/daomenwangshi/" target="_blank">《道门往事》作者：最爱MISIC伯爵</a><br /></strong></font><font size=2><strong><img src="http://www.shizongzui.org/hot.gif" alt="" width="23" height="20" /><a href="http://www.shizongzui.org/535.html">更多精彩小说</a><br /><br /></strong></font></strong></font><strong>
+<span class="STYLE3">道士下集<a href="http://www.shanhaimiwenlu.com/" target="_blank">《山海秘闻录》</a></span></strong>
+<div><span class="site clearfix"><span style="float:right;">  </span>作者：仐三</span></div>
+</div>
+-->
+<div class="booklist clearfix">
+<#if articleColumnList?exists>
+<#list articleColumnList as articleColumn>
+<span class="v"> ${articleColumn.name!} </span>
+	<#if articleList?exists>
+	<#list articleList as article>
+		<#if article.columnCode?lower_case==articleColumn.code?lower_case>
+		<span> <a href="${article.id}.html">${article.title!}</a> </span>
+		</#if>
+	</#list>
+	</#if>
+</#list>
+</#if>
+
+</div>
+<!--booklist-->
+<div id="i_adbottom" class="clearfix">
+  <div id="i_ad_b1"> </div>
+  <div id="i_ad_b2"> </div>
+</div>
+<div class="bottomlink clearfix">
+  <div class="ll"> · 本站只提供<a href="/${channel.code!}">${channel.name!}最新章节</a>的自动转载服务,章节来源于互联网网友。
+    <br /> 
+	· 本书取得今天这样的成绩,拥有如此多的追随者,说明作者付出了很大的心血去构思计划这本图书,作者丰富的生活经历和渊博的文学功底都为这本书的成功打下了基础,希望大家继续支持,有能力的同学要购买正版图书哦!<br> 
+</div>
+</div>
+<div class="bg">
+  <div class="links">
+    <div class="links-title">友情链接</div>
+    <div class="links-body">
+      <ul>
+        <li><a href="http://www.wddsnxn.org/" target="_blank">我当道士那些年</a></li>
+<li><a href="http://www.wddsnxn.org/" target="_blank">我当道士那些年txt免费下载</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!--页脚--> 
+<div class="footer clearfix"> <span class="page-comment"> 
+  </span> <span class="fright"> 
+  <div id="pagebottom"> 
+  </div> 
+  </span> <span class="fleft gray-link"></script>Copyright 2014－2015 <a href="/${channel.code!}">${channel.name!}</a> all rights reserved <a href="/${channel.code!}">${channel.name!}</a>
+  </span></div> 
+<div id="allbottom"> </div>
+</body>
+</html>

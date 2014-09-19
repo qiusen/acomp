@@ -90,4 +90,11 @@ public interface IArticleDAO {
 	 * @return
 	 */
 	public Article selectNextArticle(Article article);
+	
+	/**
+	 * 根据文章栏目CODES查询
+	 * @param article
+	 * @return
+	 */
+	public List<Article> selectArticleByColumnCodes(Article article);
 }
