@@ -167,7 +167,7 @@
 	<select id="selectNextArticle" parameterType="article" resultMap="articleMap" >
 		SELECT <include refid="articleField" /> FROM `article`
 	        where COLUMN_CODE = #{columnCode} and <![CDATA[ ID > ${id} ]]>
-			order by ID desc
+			order by ID
 	        limit 1
 	</select>
 	
