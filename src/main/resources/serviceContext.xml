@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
-	<!-- 管理员 service -->	
-	<bean id="managerService" class="com.dihaitech.acomp.service.impl.ManagerServiceImpl"/>
-	
+    
 	<!-- 角色 service -->	
 	<bean id="roleService" class="com.dihaitech.acomp.service.impl.RoleServiceImpl"/>
 	
@@ -15,6 +13,9 @@
 	
 	<!-- 模块 service -->	
 	  <bean id="moduleService" class="com.dihaitech.acomp.service.impl.ModuleServiceImpl"/>
+	
+	<!-- 用户角色 service -->	
+	  <bean id="managerRoleService" class="com.dihaitech.acomp.service.impl.ManagerRoleServiceImpl"/>
 	  
 	<!-- 市 service -->	
 	  <bean id="cityService" class="com.dihaitech.acomp.service.impl.CityServiceImpl"/>

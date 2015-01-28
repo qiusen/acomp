@@ -15,7 +15,6 @@ import com.dihaitech.acomp.controller.action.BaseAction;
 import com.dihaitech.acomp.model.Article;
 import com.dihaitech.acomp.model.ArticleColumn;
 import com.dihaitech.acomp.model.Channel;
-import com.dihaitech.acomp.model.Manager;
 import com.dihaitech.acomp.model.Templete;
 import com.dihaitech.acomp.service.IArticleColumnService;
 import com.dihaitech.acomp.service.IArticleService;
@@ -24,6 +23,7 @@ import com.dihaitech.acomp.service.ITempleteService;
 import com.dihaitech.acomp.util.Page;
 import com.dihaitech.acomp.util.TypeUtil;
 import com.dihaitech.acomp.util.json.JSONUtil;
+import com.dihaitech.tserver.managercenter.Manager;
 
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;

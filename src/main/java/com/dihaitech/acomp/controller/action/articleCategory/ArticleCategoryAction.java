@@ -8,13 +8,13 @@ import com.dihaitech.acomp.controller.action.BaseAction;
 import com.dihaitech.acomp.model.ArticleCategory;
 import com.dihaitech.acomp.model.ArticleColumn;
 import com.dihaitech.acomp.model.Channel;
-import com.dihaitech.acomp.model.Manager;
 import com.dihaitech.acomp.service.IArticleCategoryService;
 import com.dihaitech.acomp.service.IArticleColumnService;
 import com.dihaitech.acomp.service.IChannelService;
 import com.dihaitech.acomp.util.Page;
 import com.dihaitech.acomp.util.TypeUtil;
 import com.dihaitech.acomp.util.json.JSONUtil;
+import com.dihaitech.tserver.managercenter.Manager;
 
 /**
  * 文章类别Action

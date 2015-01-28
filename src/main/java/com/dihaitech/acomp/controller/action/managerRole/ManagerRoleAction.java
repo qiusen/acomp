@@ -1,45 +1,57 @@
-package com.dihaitech.acomp.controller.action.dict;
+package com.dihaitech.acomp.controller.action.managerRole;
 
 import java.util.Date;
 import java.util.List;
 
 import com.dihaitech.acomp.common.Property;
 import com.dihaitech.acomp.controller.action.BaseAction;
-import com.dihaitech.acomp.model.Dict;
-import com.dihaitech.acomp.service.IDictService;
+import com.dihaitech.acomp.model.ManagerRole;
+import com.dihaitech.acomp.model.Role;
+import com.dihaitech.acomp.service.IManagerRoleService;
+import com.dihaitech.acomp.service.IRoleService;
 import com.dihaitech.acomp.util.Page;
 import com.dihaitech.acomp.util.TypeUtil;
 import com.dihaitech.acomp.util.json.JSONUtil;
-import com.dihaitech.tserver.managercenter.Manager;
 
 /**
- * 字典Action
+ * 用户角色Action
  * 
  * @author cg
  *
- * @date 2013-10-09
+ * @date 2014-12-16
  */
  @SuppressWarnings("serial")
-public class DictAction extends BaseAction {
-	private Dict dict = new Dict();
-	private IDictService dictService;
+public class ManagerRoleAction extends BaseAction {
+	private ManagerRole managerRole = new ManagerRole();
+	private IManagerRoleService managerRoleService;
 	
-	public Dict getDict() {
-		return dict;
+	private IRoleService roleService;
+	
+	public ManagerRole getManagerRole() {
+		return managerRole;
 	}
 
-	public void setDict(Dict dict) {
-		this.dict = dict;
+	public void setManagerRole(ManagerRole managerRole) {
+		this.managerRole = managerRole;
 	}
-	public IDictService getDictService() {
-		return dictService;
+	public IManagerRoleService getManagerRoleService() {
+		return managerRoleService;
 	}
 
-	public void setDictService(IDictService dictService) {
-		this.dictService = dictService;
+	public void setManagerRoleService(IManagerRoleService managerRoleService) {
+		this.managerRoleService = managerRoleService;
 	}
+	
+	public IRoleService getRoleService() {
+		return roleService;
+	}
+
+	public void setRoleService(IRoleService roleService) {
+		this.roleService = roleService;
+	}
+
 	/* 
-	 * 字典查询
+	 * 用户角色查询
 	 * @see com.opensymphony.xwork2.ActionSupport#execute()
 	 */
 	public String execute(){
@@ -61,7 +73,7 @@ public class DictAction extends BaseAction {
 				this.setManagerPageSize(Property.PAGESIZE);
 			}
 
-			Page pageInfo = dictService.selectDict(dict,this.getManagerPageSize());
+			Page pageInfo = managerRoleService.selectManagerRole(managerRole,this.getManagerPageSize());
 			
 			if (pageNo > 0) {
 				pageInfo.setPage(pageNo);
@@ -69,15 +81,20 @@ public class DictAction extends BaseAction {
 				pageInfo.setPage(0);
 			}
 			
-			List<Dict> resultList = this.dictService.selectDict(dict,pageInfo);
+			List<ManagerRole> resultList = this.managerRoleService.selectManagerRole(managerRole,pageInfo);
 			
 			this.getRequest().setAttribute("pageInfo", pageInfo);
 			this.getRequest().setAttribute("resultList", resultList);
-			this.getRequest().setAttribute("actionName","dictAction");
+			this.getRequest().setAttribute("actionName","managerRoleAction");
 
 			String json = "\"Rows\":" + JSONUtil.objectArrayToJson(resultList)+", \"Total\":" + pageInfo.getResultCount();
-			System.out.println("Dict json:::::::::::::::::::" + json);
+			System.out.println("ManagerRole json:::::::::::::::::::" + json);
 			this.getRequest().setAttribute("json", json);
+			
+			Role role = new Role();
+			role.setStatus(1);
+			List<Role> roleList = roleService.selectAllByStatus(role);
+			this.getRequest().setAttribute("roleList", roleList);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,30 +103,31 @@ public class DictAction extends BaseAction {
 	}
 	
 	/**
-	 * 添加 字典
+	 * 添加 用户角色
 	 * @return
 	 */
 	public String add(){
+		Role role = new Role();
+		role.setStatus(1);
+		List<Role> roleList = roleService.selectAllByStatus(role);
+		this.getRequest().setAttribute("roleList", roleList);
 		return "add";
 	}
 	
 	/**
-	 * 保存添加 字典
+	 * 保存添加 用户角色
 	 * @return
 	 */
 	public String addSave(){
-		Manager managerVO = (Manager)this.getSession().getAttribute("manager");
-		dict.setCreateuser(managerVO.getNickname());
-		dict.setCreatetime(new Date());
-		dict.setUpdateuser(managerVO.getNickname());
-		dict.setUpdatetime(new Date());
+		managerRole.setCreatetime(new Date());
+		managerRole.setUpdatetime(new Date());
 		
-		dictService.addSave(dict);
+		managerRoleService.addSave(managerRole);
 		return "addSave";
 	}
 	
 	/**
-	 * 修改 字典
+	 * 修改 用户角色
 	 * @return
 	 */
 	public String edit(){
@@ -117,43 +135,46 @@ public class DictAction extends BaseAction {
 		int id = 0;
 		id = TypeUtil.stringToInt(idStr);
 		if(id>0){
-			dict.setId(id);
+			managerRole.setId(id);
 		}else{
 			return null;
 		}
 		
-		Dict dictVO = dictService.selectDictById(dict);
-		this.getRequest().setAttribute("dict", dictVO);
+		ManagerRole managerRoleVO = managerRoleService.selectManagerRoleById(managerRole);
+		this.getRequest().setAttribute("managerRole", managerRoleVO);
+		
+		Role role = new Role();
+		role.setStatus(1);
+		List<Role> roleList = roleService.selectAllByStatus(role);
+		this.getRequest().setAttribute("roleList", roleList);
+		
 		return "edit";
 	}
 	
 	/**
-	 * 保存修改 字典
+	 * 保存修改 用户角色
 	 * @return
 	 */
 	public String editSave(){
-		Manager managerVO = (Manager)this.getSession().getAttribute("manager");
-		dict.setUpdateuser(managerVO.getNickname());
-		dict.setUpdatetime(new Date());
-		
-		dictService.editSave(dict);
+		managerRole.setUpdatetime(new Date());
+		managerRoleService.editSave(managerRole);
 		return "editSave";
 	}
 	
 	/**
-	 * 删除 字典
+	 * 删除 用户角色
 	 * @return
 	 */
 	public String delete(){
 		String id = this.getRequest().getParameter("id");
 		StringBuffer strbuf = new StringBuffer(" where id =");
 		strbuf.append(id);
-		dictService.deleteByIds(strbuf.toString());
+		managerRoleService.deleteByIds(strbuf.toString());
 		return "deleteSuccess";
 	}
 
 	/**
-	 * 删除 字典
+	 * 删除 用户角色
 	 * @return
 	 */
 	public String deleteByIds(){
@@ -168,7 +189,7 @@ public class DictAction extends BaseAction {
 				}
 			}
 			strbuf.append(")");
-			dictService.deleteByIds(strbuf.toString());
+			managerRoleService.deleteByIds(strbuf.toString());
 			return "deleteSuccess";
 		}
 		return "deleteFailure";

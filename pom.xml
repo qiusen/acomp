@@ -3,7 +3,6 @@
   <groupId>com.dihaitech</groupId>
   <artifactId>acomp</artifactId>
   <version>1.0</version>
-  <packaging>war</packaging>
   <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version>1.7</java-version>
@@ -304,6 +303,14 @@
 			<scope>system</scope>
 			<!--本地jar的路径,相对或者绝对都可以 -->
 			<systemPath>${basedir}/webapp/WEB-INF/lib/QRCode.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.dihaitech.tserver.managercenter</groupId>
+			<artifactId>TServer</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<!--本地jar的路径,相对或者绝对都可以 -->
+			<systemPath>${basedir}/webapp/WEB-INF/lib/tserver-1.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>jfree</groupId>

@@ -5,12 +5,12 @@ import java.util.List;
 
 import com.dihaitech.acomp.common.Property;
 import com.dihaitech.acomp.controller.action.BaseAction;
+import com.dihaitech.acomp.model.TempleteTag;
+import com.dihaitech.acomp.service.ITempleteTagService;
 import com.dihaitech.acomp.util.Page;
 import com.dihaitech.acomp.util.TypeUtil;
 import com.dihaitech.acomp.util.json.JSONUtil;
-import com.dihaitech.acomp.model.Manager;
-import com.dihaitech.acomp.model.TempleteTag;
-import com.dihaitech.acomp.service.ITempleteTagService;
+import com.dihaitech.tserver.managercenter.Manager;
 
 /**
  * 模板标签Action

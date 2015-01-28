@@ -10,7 +10,6 @@ import org.apache.log4j.MDC;
 import com.dihaitech.acomp.common.Property;
 import com.dihaitech.acomp.controller.action.BaseAction;
 import com.dihaitech.acomp.model.Catalog;
-import com.dihaitech.acomp.model.Manager;
 import com.dihaitech.acomp.model.Menu;
 import com.dihaitech.acomp.model.Module;
 import com.dihaitech.acomp.service.ICatalogService;
@@ -19,6 +18,7 @@ import com.dihaitech.acomp.service.IModuleService;
 import com.dihaitech.acomp.util.Page;
 import com.dihaitech.acomp.util.TypeUtil;
 import com.dihaitech.acomp.util.json.JSONUtil;
+import com.dihaitech.tserver.managercenter.Manager;
 
 /**
  * 模块Action
@@ -155,7 +155,7 @@ public class ModuleAction extends BaseAction {
 		
 		Manager managerVO = (Manager)this.getSession().getAttribute("manager");
 		//记录日志
-		MDC.put("username", managerVO.getUsername());	//用户名
+		MDC.put("email", managerVO.getEmail());	//Email
 		MDC.put("nickname", managerVO.getNickname());	//昵称
 		MDC.put("ip", this.getRealIP());	//IP
 		MDC.put("act", "addModule");	//添加模块
@@ -238,7 +238,7 @@ public class ModuleAction extends BaseAction {
 		
 		Manager managerVO = (Manager)this.getSession().getAttribute("manager");
 		//记录日志
-		MDC.put("username", managerVO.getUsername());	//用户名
+		MDC.put("email", managerVO.getEmail());	//Email
 		MDC.put("nickname", managerVO.getNickname());	//昵称
 		MDC.put("ip", this.getRealIP());	//IP
 		MDC.put("act", "deleteModule");	//删除模块
@@ -267,7 +267,7 @@ public class ModuleAction extends BaseAction {
 			
 			Manager managerVO = (Manager)this.getSession().getAttribute("manager");
 			//记录日志
-			MDC.put("username", managerVO.getUsername());	//用户名
+			MDC.put("email", managerVO.getEmail());	//Email
 			MDC.put("nickname", managerVO.getNickname());	//昵称
 			MDC.put("ip", this.getRealIP());	//IP
 			MDC.put("act", "deleteModule");	//删除模块

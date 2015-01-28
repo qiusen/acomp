@@ -1,25 +1,19 @@
 DROP DATABASE IF EXISTS `acomp`;
 CREATE DATABASE `acomp` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-DROP TABLE IF EXISTS MANAGER CASCADE;
-CREATE TABLE `MANAGER` (
+DROP TABLE IF EXISTS MANAGER_ROLE CASCADE;
+CREATE TABLE `MANAGER_ROLE` (
   `ID` int(11) NOT NULL auto_increment,
-  `USERNAME` varchar(255) NOT NULL COMMENT '用户名',
-  `PASSWORD` varchar(255) NOT NULL default '' COMMENT '密码',
   `EMAIL` varchar(255) NOT NULL COMMENT '邮箱',
-  `NICKNAME` varchar(255) NOT NULL COMMENT '昵称',
-  `STATUS` int(2) NOT NULL COMMENT '状态',
   `ROLE_ID` int(11) NOT NULL COMMENT '角色ID',
-  `CREATOR` varchar(255) NOT NULL COMMENT '创建人',
   `CREATETIME` datetime default '0000-00-00 00:00:00' COMMENT '创建时间',
-  `LOGINTIME` datetime default '0000-00-00 00:00:00' COMMENT '最后登录时间',
-  `LOGINIP` varchar(100) default '-' COMMENT '最后登录IP地址',
-  PRIMARY KEY  (`id`),
-  index(USERNAME)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='管理员';
+  `UPDATETIME` datetime default '2000-01-01 00:00:00' COMMENT '修改时间',
+  PRIMARY KEY  (`ID`),
+  index(EMAIL)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色';
 
-insert into MANAGER(`USERNAME`,`PASSWORD`,`EMAIL`,`NICKNAME`,`STATUS`,`ROLE_ID`,`CREATOR`,`CREATETIME`,`LOGINTIME`,`LOGINIP`) 
-values('admin','21232f297a57a5a743894a0e4a801fc3','qiu_sen@126.com','超级管理员',1,1,'admin','2012-08-01 08:08:08','2012-08-01 08:08:08','127.0.0.1');
+insert into MANAGER_ROLE(`EMAIL`, `ROLE_ID`, `CREATETIME`, `UPDATETIME`)
+values('qiu_sen@126.com', 1, '2012-08-01 08:08:08', '2012-08-01 08:08:08');
 
 DROP TABLE IF EXISTS ROLE CASCADE;
 CREATE TABLE `ROLE` (
@@ -78,7 +72,7 @@ CREATE TABLE `MODULE` (
   PRIMARY KEY  (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='模块';
 
-insert into MODULE(`MODULENAME`,`MODULEURL`,`MODULEACT`,`CATALOG_ID`,`STATUS`,`CREATETIME`)values('管理员管理','/admin/manager','managerAction',2,1,'2012-08-08 08:08:08');
+insert into MODULE(`MODULENAME`,`MODULEURL`,`MODULEACT`,`CATALOG_ID`,`STATUS`,`CREATETIME`)values('用户角色','/admin/managerRole','managerRoleAction',2,1,'2012-08-08 08:08:08');
 insert into MODULE(`MODULENAME`,`MODULEURL`,`MODULEACT`,`CATALOG_ID`,`STATUS`,`CREATETIME`)values('角色管理','/admin/role','roleAction',2,1,'2012-08-01 08:08:08');
 insert into MODULE(`MODULENAME`,`MODULEURL`,`MODULEACT`,`CATALOG_ID`,`STATUS`,`CREATETIME`)values('菜单管理','/admin/menu','menuAction',3,1,'2012-08-01 08:08:08');
 insert into MODULE(`MODULENAME`,`MODULEURL`,`MODULEACT`,`CATALOG_ID`,`STATUS`,`CREATETIME`)values('目录管理','/admin/catalog','catalogAction',3,1,'2012-08-08 08:08:08');
@@ -98,7 +92,7 @@ insert into MODULE(`MODULENAME`,`MODULEURL`,`MODULEACT`,`CATALOG_ID`,`STATUS`,`C
 DROP TABLE IF EXISTS LOGS CASCADE;
 CREATE TABLE `LOGS` (
   `ID` int(11) NOT NULL auto_increment,
-  `USERNAME` varchar(255) NOT NULL COMMENT '用户名',
+  `EMAIL` varchar(255) NOT NULL COMMENT '邮箱',
   `NICKNAME` varchar(255) default '' COMMENT '昵称',
   `IP` varchar(100) default '' COMMENT 'IP',
   `ACT` varchar(255) default '' COMMENT '操作标识：login、logoff，……',

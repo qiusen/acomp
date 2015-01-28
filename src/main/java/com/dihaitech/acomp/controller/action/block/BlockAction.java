@@ -6,13 +6,13 @@ import java.util.List;
 import com.dihaitech.acomp.common.Property;
 import com.dihaitech.acomp.controller.action.BaseAction;
 import com.dihaitech.acomp.model.Block;
-import com.dihaitech.acomp.model.Manager;
 import com.dihaitech.acomp.model.Templete;
 import com.dihaitech.acomp.service.IBlockService;
 import com.dihaitech.acomp.service.ITempleteService;
 import com.dihaitech.acomp.util.Page;
 import com.dihaitech.acomp.util.TypeUtil;
 import com.dihaitech.acomp.util.json.JSONUtil;
+import com.dihaitech.tserver.managercenter.Manager;
 
 /**
  * 块Action
