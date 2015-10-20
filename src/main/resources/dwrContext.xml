@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
-	<bean id="catalogAjax" class="com.dihaitech.acomp.dwr.CatalogAjax" >
+	<bean id="catalogAjax" class="com.dihaiboyun.cms.dwr.CatalogAjax" >
 		<property name="catalogService" ref="catalogService"></property>
 	</bean>
 
-	<bean id="cityAjax" class="com.dihaitech.acomp.dwr.CityAjax" >
+	<bean id="cityAjax" class="com.dihaiboyun.cms.dwr.CityAjax" >
 		<property name="cityService" ref="cityService"></property>
 	</bean>
 	
-	<bean id="articleColumnAjax" class="com.dihaitech.acomp.dwr.ArticleColumnAjax" >
+	<bean id="articleColumnAjax" class="com.dihaiboyun.cms.dwr.ArticleColumnAjax" >
 		<property name="articleColumnService" ref="articleColumnService"></property>
 	</bean>
 	
-	<bean id="articleCategoryAjax" class="com.dihaitech.acomp.dwr.ArticleCategoryAjax" >
+	<bean id="articleCategoryAjax" class="com.dihaiboyun.cms.dwr.ArticleCategoryAjax" >
 		<property name="articleColumnService" ref="articleColumnService"></property>
 		<property name="articleCategoryService" ref="articleCategoryService"></property>
 	</bean>

@@ -3,63 +3,63 @@
 <beans>
     
 	<!-- 角色 service -->	
-	<bean id="roleService" class="com.dihaitech.acomp.service.impl.RoleServiceImpl"/>
+	<bean id="roleService" class="com.dihaiboyun.cms.service.impl.RoleServiceImpl"/>
 	
 	<!-- 菜单 service -->	
-	  <bean id="menuService" class="com.dihaitech.acomp.service.impl.MenuServiceImpl"/>
+	  <bean id="menuService" class="com.dihaiboyun.cms.service.impl.MenuServiceImpl"/>
 	
 	<!-- 目录 service -->	
-	  <bean id="catalogService" class="com.dihaitech.acomp.service.impl.CatalogServiceImpl"/>
+	  <bean id="catalogService" class="com.dihaiboyun.cms.service.impl.CatalogServiceImpl"/>
 	
 	<!-- 模块 service -->	
-	  <bean id="moduleService" class="com.dihaitech.acomp.service.impl.ModuleServiceImpl"/>
+	  <bean id="moduleService" class="com.dihaiboyun.cms.service.impl.ModuleServiceImpl"/>
 	
 	<!-- 用户角色 service -->	
-	  <bean id="managerRoleService" class="com.dihaitech.acomp.service.impl.ManagerRoleServiceImpl"/>
+	  <bean id="managerRoleService" class="com.dihaiboyun.cms.service.impl.ManagerRoleServiceImpl"/>
 	  
 	<!-- 市 service -->	
-	  <bean id="cityService" class="com.dihaitech.acomp.service.impl.CityServiceImpl"/>
+	  <bean id="cityService" class="com.dihaiboyun.cms.service.impl.CityServiceImpl"/>
 	  
 	<!-- 省 service -->	
-	  <bean id="provinceService" class="com.dihaitech.acomp.service.impl.ProvinceServiceImpl"/>
+	  <bean id="provinceService" class="com.dihaiboyun.cms.service.impl.ProvinceServiceImpl"/>
 	  
 	<!-- 区 service -->	
-	  <bean id="areaService" class="com.dihaitech.acomp.service.impl.AreaServiceImpl"/>
+	  <bean id="areaService" class="com.dihaiboyun.cms.service.impl.AreaServiceImpl"/>
 	  
 	  <!-- 日志 service -->	
-	  <bean id="logsService" class="com.dihaitech.acomp.service.impl.LogsServiceImpl"/>
+	  <bean id="logsService" class="com.dihaiboyun.cms.service.impl.LogsServiceImpl"/>
 	  
 	  <!-- 字典 service -->	
-	  <bean id="dictService" class="com.dihaitech.acomp.service.impl.DictServiceImpl"/>
+	  <bean id="dictService" class="com.dihaiboyun.cms.service.impl.DictServiceImpl"/>
 	  
 	  <!-- 频道 service -->	
-	  <bean id="channelService" class="com.dihaitech.acomp.service.impl.ChannelServiceImpl"/>
+	  <bean id="channelService" class="com.dihaiboyun.cms.service.impl.ChannelServiceImpl"/>
 	  
 	  <!-- 模板 service -->	
-	  <bean id="templeteService" class="com.dihaitech.acomp.service.impl.TempleteServiceImpl"/>
+	  <bean id="templeteService" class="com.dihaiboyun.cms.service.impl.TempleteServiceImpl"/>
 	  
 	  <!-- 模板标签 service -->	
-	  <bean id="templeteTagService" class="com.dihaitech.acomp.service.impl.TempleteTagServiceImpl"/>
+	  <bean id="templeteTagService" class="com.dihaiboyun.cms.service.impl.TempleteTagServiceImpl"/>
 	  
 	  <!-- 文章栏目 service -->	
-	  <bean id="articleColumnService" class="com.dihaitech.acomp.service.impl.ArticleColumnServiceImpl"/>
+	  <bean id="articleColumnService" class="com.dihaiboyun.cms.service.impl.ArticleColumnServiceImpl"/>
 	  
 	  <!-- 文章类别 service -->	
-	  <bean id="articleCategoryService" class="com.dihaitech.acomp.service.impl.ArticleCategoryServiceImpl"/>
+	  <bean id="articleCategoryService" class="com.dihaiboyun.cms.service.impl.ArticleCategoryServiceImpl"/>
 	  
 	  <!-- 文章 service -->	
-	  <bean id="articleService" class="com.dihaitech.acomp.service.impl.ArticleServiceImpl"/>
+	  <bean id="articleService" class="com.dihaiboyun.cms.service.impl.ArticleServiceImpl"/>
 	  
 	  <!-- 块 service -->	
-	  <bean id="blockService" class="com.dihaitech.acomp.service.impl.BlockServiceImpl"/>
+	  <bean id="blockService" class="com.dihaiboyun.cms.service.impl.BlockServiceImpl"/>
 	  
 	  <!-- 友链网站 service -->	
-	  <bean id="linkSiteService" class="com.dihaitech.acomp.service.impl.LinkSiteServiceImpl"/>
+	  <bean id="linkSiteService" class="com.dihaiboyun.cms.service.impl.LinkSiteServiceImpl"/>
 	  
 	  <!-- 友链页面 service -->	
-	  <bean id="linkPageService" class="com.dihaitech.acomp.service.impl.LinkPageServiceImpl"/>
+	  <bean id="linkPageService" class="com.dihaiboyun.cms.service.impl.LinkPageServiceImpl"/>
 	  
 	  <!-- 友链网页与网站关系 service -->	
-	  <bean id="linkRelationService" class="com.dihaitech.acomp.service.impl.LinkRelationServiceImpl"/>
+	  <bean id="linkRelationService" class="com.dihaiboyun.cms.service.impl.LinkRelationServiceImpl"/>
 	  
 </beans>

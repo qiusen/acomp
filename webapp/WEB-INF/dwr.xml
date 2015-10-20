@@ -15,10 +15,10 @@
 	      <param name="beanName" value="articleCategoryAjax"/>
 	    </create>
 	    
-	    <convert converter="bean" match="com.dihaitech.acomp.model.Catalog"/>
-	    <convert converter="bean" match="com.dihaitech.acomp.model.City"/>
-	    <convert converter="bean" match="com.dihaitech.acomp.model.ArticleColumn"/>
-	    <convert converter="bean" match="com.dihaitech.acomp.model.ArticleCategory"/>
+	    <convert converter="bean" match="com.dihaiboyun.cms.model.Catalog"/>
+	    <convert converter="bean" match="com.dihaiboyun.cms.model.City"/>
+	    <convert converter="bean" match="com.dihaiboyun.cms.model.ArticleColumn"/>
+	    <convert converter="bean" match="com.dihaiboyun.cms.model.ArticleCategory"/>
     
 	</allow>
 </dwr>
