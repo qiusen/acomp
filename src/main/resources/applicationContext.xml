@@ -103,14 +103,8 @@
 		<property name="IMG_RELATIVE_PATH" value="${imgpath}"></property>
 		<property name="MISC_FILE_PATH" value="${misc.filepath}"></property>
 		<property name="MISC_APP_PATH" value="${misc.apppath}"></property>
-		<!-- 产品库使用的配置begin -->
-		<property name="BG_IMG_PATH" value="${bg.img.path}"></property>
-		<property name="PRODUCT_IMGSIZE_ARRAY" value="${product.imgsize.array}"></property>
-		<property name="PRODUCT_IMGFILEPATH" value="${product.imgfilepath}"></property>
-		<property name="PRODUCT_IMGAPPPATH" value="${product.imgapppath}"></property>
 		<property name="DEFAULT_SCHEMA" value="${system.default-schema}"></property>
 		<property name="SYSTEM_TOP_DOMAIN" value="${system.top.domain}"></property>
-		<!-- 产品库使用的配置end -->
 		<!-- 图片上传预览相关配置 begin -->
 		<property name="FILE_UPLOAD_ROOTPATH" value="${file.upload.rootpath}"></property>
 		<property name="FILE_UPLOAD_ROOTURL" value="${file.upload.rooturl}"></property>

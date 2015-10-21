@@ -59,25 +59,6 @@ public class Property {
 	 */
 	public static String MISC_APP_PATH;
 
-	/**
-	 * 白色背景图位置,ImageMagick+jmagick图片处理时使用
-	 */
-	public static String BG_IMG_PATH;
-
-	/**
-	 * 产品图片压缩尺寸，格式如：800x800,600x600,300x300,100x100
-	 */
-	public static String PRODUCT_IMGSIZE_ARRAY;
-
-	/**
-	 * 产品图片文件地址
-	 */
-	public static String PRODUCT_IMGFILEPATH;
-
-	/**
-	 * 产品图片访问地址
-	 */
-	public static String PRODUCT_IMGAPPPATH;
 	
 	/**
 	 * 默认数据源数据库名称
@@ -279,38 +260,6 @@ public class Property {
 
 	public static void setIMG_RELATIVE_PATH(String iMGRELATIVEPATH) {
 		IMG_RELATIVE_PATH = iMGRELATIVEPATH;
-	}
-
-	public String getBG_IMG_PATH() {
-		return BG_IMG_PATH;
-	}
-
-	public static void setBG_IMG_PATH(String bGIMGPATH) {
-		BG_IMG_PATH = bGIMGPATH;
-	}
-
-	public String getPRODUCT_IMGSIZE_ARRAY() {
-		return PRODUCT_IMGSIZE_ARRAY;
-	}
-
-	public static void setPRODUCT_IMGSIZE_ARRAY(String pRODUCTIMGSIZEARRAY) {
-		PRODUCT_IMGSIZE_ARRAY = pRODUCTIMGSIZEARRAY;
-	}
-
-	public String getPRODUCT_IMGFILEPATH() {
-		return PRODUCT_IMGFILEPATH;
-	}
-
-	public static void setPRODUCT_IMGFILEPATH(String pRODUCTIMGFILEPATH) {
-		PRODUCT_IMGFILEPATH = pRODUCTIMGFILEPATH;
-	}
-
-	public String getPRODUCT_IMGAPPPATH() {
-		return PRODUCT_IMGAPPPATH;
-	}
-
-	public static void setPRODUCT_IMGAPPPATH(String pRODUCTIMGAPPPATH) {
-		PRODUCT_IMGAPPPATH = pRODUCTIMGAPPPATH;
 	}
 
 	public static String getFILE_UPLOAD_ROOTPATH() {
