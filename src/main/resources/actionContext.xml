@@ -42,38 +42,10 @@
 			</property>
 	  </bean>
 	  
-	  <!-- 市 action -->
-	  <bean id="cityAction" class="com.dihaiboyun.cms.controller.action.city.CityAction" scope="prototype">
-			<property name="cityService">
-				<ref bean="cityService" />
-			</property>
-	  </bean>
-	  
-	  <!-- 省 action -->
-	  <bean id="provinceAction" class="com.dihaiboyun.cms.controller.action.province.ProvinceAction" scope="prototype">
-			<property name="provinceService">
-				<ref bean="provinceService" />
-			</property>
-	  </bean>
-	  
-	  <!-- 区 action -->
-	  <bean id="areaAction" class="com.dihaiboyun.cms.controller.action.area.AreaAction" scope="prototype">
-			<property name="areaService">
-				<ref bean="areaService" />
-			</property>
-	  </bean>
-	  
 	  <!-- 日志 action -->
 	  <bean id="logsAction" class="com.dihaiboyun.cms.controller.action.logs.LogsAction" scope="prototype">
 			<property name="logsService">
 				<ref bean="logsService" />
-			</property>
-	  </bean>
-	  
-	  <!-- 字典 action -->
-	  <bean id="dictAction" class="com.dihaiboyun.cms.controller.action.dict.DictAction" scope="prototype">
-			<property name="dictService">
-				<ref bean="dictService" />
 			</property>
 	  </bean>
 	  

@@ -240,21 +240,28 @@ public class LoginAction extends BaseAction {
 	private Manager tserverLogin(String email, String password){
 		Manager manager = null;
 		try {
-			   TTransport transport = new TFramedTransport(new TSocket(Property.MANAGERCENTER_HOST, Property.MANAGERCENTER_PORT));
+			TTransport transport = new TFramedTransport(new TSocket(Property.MANAGERCENTER_HOST, Property.MANAGERCENTER_PORT));
 			   
 			   TBinaryProtocol protocol = new TBinaryProtocol(transport);
 			   //TCompactProtocol protocol = new TCompactProtocol(transport);
 			   
 			   ManagerCenterService.Client client = new ManagerCenterService.Client(protocol);
 			   transport.open();
+
+//			ManagerCenterService.Client client = TServerUtil.getClient();
 			   
 			   Map<String, String> param = new HashMap<String, String>();
 
-			   param.put("tName", "manager");
-			   param.put("sName", "selectManagerByEmailPassword");
-			   param.put("pValue", email + "," + password);
+//			   param.put("tName", "manager");
+//			   param.put("sName", "selectManagerByEmailPassword");
+//			   param.put("pValue", email + "," + password);
 			   
-			   List<Manager> managerList = client.funCallManager(System.currentTimeMillis(), "login", param);
+			   param.put("email", email);
+			   param.put("password", password);
+			   
+			   System.out.println(email + " ----- " + password);
+			   
+			   List<Manager> managerList = client.funCallManager(System.currentTimeMillis(), "selectManagerByEmailPassword", param);
 			   if(managerList!=null && managerList.size()>0){
 				   manager = managerList.get(0);
 			   }

@@ -5,9 +5,6 @@
 	    <create creator="spring" javascript="catalogDwr">
 	      <param name="beanName" value="catalogAjax"/>
 	    </create>
-	    <create creator="spring" javascript="cityDwr">
-	      <param name="beanName" value="cityAjax"/>
-	    </create>
 	    <create creator="spring" javascript="articleColumnDwr">
 	      <param name="beanName" value="articleColumnAjax"/>
 	    </create>
@@ -16,7 +13,6 @@
 	    </create>
 	    
 	    <convert converter="bean" match="com.dihaiboyun.cms.model.Catalog"/>
-	    <convert converter="bean" match="com.dihaiboyun.cms.model.City"/>
 	    <convert converter="bean" match="com.dihaiboyun.cms.model.ArticleColumn"/>
 	    <convert converter="bean" match="com.dihaiboyun.cms.model.ArticleCategory"/>
     

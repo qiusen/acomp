@@ -81,12 +81,8 @@ insert into MODULE(`MODULENAME`,`MODULEURL`,`MODULEACT`,`CATALOG_ID`,`STATUS`,`C
 insert into MODULE(`MODULENAME`,`MODULEURL`,`MODULEACT`,`CATALOG_ID`,`STATUS`,`CREATETIME`)values('用户管理','/admin/puser','puserAction',4,1,'2012-08-01 08:08:08');
 insert into MODULE(`MODULENAME`,`MODULEURL`,`MODULEACT`,`CATALOG_ID`,`STATUS`,`CREATETIME`)values('会员管理','/admin/member','memberAction',4,1,'2012-08-01 08:08:08');
 
-insert into MODULE(`MODULENAME`,`MODULEURL`,`MODULEACT`,`CATALOG_ID`,`STATUS`,`CREATETIME`)values('字典管理','/admin/dict','dictAction',1,1,'2012-08-01 08:08:08');
 insert into MODULE(`MODULENAME`,`MODULEURL`,`MODULEACT`,`CATALOG_ID`,`STATUS`,`CREATETIME`)values('报表','/admin/report','reportAction',1,1,'2012-08-01 08:08:08');
 
-insert into MODULE(`MODULENAME`,`MODULEURL`,`MODULEACT`,`CATALOG_ID`,`STATUS`,`CREATETIME`)values('省','/admin/province','provinceAction',1,1,'2012-08-01 08:08:08');
-insert into MODULE(`MODULENAME`,`MODULEURL`,`MODULEACT`,`CATALOG_ID`,`STATUS`,`CREATETIME`)values('市','/admin/city','cityAction',1,1,'2012-08-01 08:08:08');
-insert into MODULE(`MODULENAME`,`MODULEURL`,`MODULEACT`,`CATALOG_ID`,`STATUS`,`CREATETIME`)values('区','/admin/area','areaAction',1,1,'2012-08-01 08:08:08');
 
 
 DROP TABLE IF EXISTS LOGS CASCADE;
@@ -100,21 +96,6 @@ CREATE TABLE `LOGS` (
   `CONTENT` varchar(2000) default '' COMMENT '操作内容',
   PRIMARY KEY  (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='日志';
-
-
-DROP TABLE IF EXISTS DICT CASCADE;
-CREATE TABLE `DICT` (
-  `ID` int(11) NOT NULL auto_increment,
-  `CODE` varchar(255) NOT NULL COMMENT '编码',
-  `NAME` varchar(255) NOT NULL COMMENT '名称',
-  `GROUP` varchar(255) NOT NULL COMMENT '数据组',
-  `VALUE` varchar(255) NOT NULL COMMENT '值',
-  `CREATEUSER` varchar(255) NOT NULL COMMENT '创建人',
-  `CREATETIME` datetime default '2000-01-01 00:00:00' COMMENT '创建时间',
-  `UPDATEUSER` varchar(255) default NULL COMMENT '修改人',
-  `UPDATETIME` datetime default '2000-01-01 00:00:00' COMMENT '修改时间',
-  PRIMARY KEY  (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典';
 
 
 -- --------------------- User Center Begin ----------------------- 

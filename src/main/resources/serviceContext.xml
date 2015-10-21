@@ -17,20 +17,8 @@
 	<!-- 用户角色 service -->	
 	  <bean id="managerRoleService" class="com.dihaiboyun.cms.service.impl.ManagerRoleServiceImpl"/>
 	  
-	<!-- 市 service -->	
-	  <bean id="cityService" class="com.dihaiboyun.cms.service.impl.CityServiceImpl"/>
-	  
-	<!-- 省 service -->	
-	  <bean id="provinceService" class="com.dihaiboyun.cms.service.impl.ProvinceServiceImpl"/>
-	  
-	<!-- 区 service -->	
-	  <bean id="areaService" class="com.dihaiboyun.cms.service.impl.AreaServiceImpl"/>
-	  
 	  <!-- 日志 service -->	
 	  <bean id="logsService" class="com.dihaiboyun.cms.service.impl.LogsServiceImpl"/>
-	  
-	  <!-- 字典 service -->	
-	  <bean id="dictService" class="com.dihaiboyun.cms.service.impl.DictServiceImpl"/>
 	  
 	  <!-- 频道 service -->	
 	  <bean id="channelService" class="com.dihaiboyun.cms.service.impl.ChannelServiceImpl"/>

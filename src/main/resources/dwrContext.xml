@@ -4,10 +4,6 @@
 	<bean id="catalogAjax" class="com.dihaiboyun.cms.dwr.CatalogAjax" >
 		<property name="catalogService" ref="catalogService"></property>
 	</bean>
-
-	<bean id="cityAjax" class="com.dihaiboyun.cms.dwr.CityAjax" >
-		<property name="cityService" ref="cityService"></property>
-	</bean>
 	
 	<bean id="articleColumnAjax" class="com.dihaiboyun.cms.dwr.ArticleColumnAjax" >
 		<property name="articleColumnService" ref="articleColumnService"></property>
